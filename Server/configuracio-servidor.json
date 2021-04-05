@@ -1,0 +1,8 @@
+{
+    "port": 3000,
+    "ip": "localhost",
+    "database": "minder",
+    "username": "admin",
+    "password": "admin",
+    "portTCP": 54321
+}
