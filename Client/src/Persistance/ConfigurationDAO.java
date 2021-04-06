@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigurationDAO {
+public class ConfigurationDAO implements ConfDAO {
     private Path path;
     private String ipServer;
     private int port;
@@ -24,11 +24,14 @@ public class ConfigurationDAO {
         this.ipServer = gson.fromJson(json.get("ipServer"), String.class);
     }
 
+
+    @Override
     public String getIpServer() {
-        return ipServer;
+        return this.ipServer;
     }
 
+    @Override
     public int getPort() {
-        return port;
+        return this.port;
     }
 }
