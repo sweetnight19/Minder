@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigurationDAO {
+public class ConfigurationDAO implements ConfDAO {
     private Path path;
     private int port;
     private String ip;
@@ -32,27 +32,34 @@ public class ConfigurationDAO {
         this.portTCP = gson.fromJson(json.get("portTCP"), int.class);
     }
 
+
+    @Override
     public int getPort() {
-        return port;
+        return this.port;
     }
 
+    @Override
     public String getIp() {
-        return ip;
+        return this.ip;
     }
 
+    @Override
     public String getDatabase() {
-        return database;
+        return this.database;
     }
 
+    @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
+    @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
+    @Override
     public int getPortTCP() {
-        return portTCP;
+        return this.portTCP;
     }
 }
