@@ -1,9 +1,9 @@
-import Persistance.ConfDAO;
 import Persistance.ConfigurationDAO;
+import Persistance.JsonConfigurationDAO;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        //ConfDAO confDAO = new ConfigurationDAO("Client/src/Data/configuracio-client.json");
+        //ConfigurationDAO confDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
     }
 }
