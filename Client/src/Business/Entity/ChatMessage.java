@@ -2,13 +2,13 @@ package Business.Entity;
 
 import java.util.Date;
 
-public class chatMessage {
+public class ChatMessage {
     private int idSource;
     private int idDestiny;
     private String message;
     private Date date;
 
-    public chatMessage(int idSource, int idDestiny, String message) {
+    public ChatMessage(int idSource, int idDestiny, String message) {
         this.idSource = idSource;
         this.idDestiny = idDestiny;
         this.message = message;
