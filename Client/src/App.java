@@ -1,9 +1,12 @@
 import Persistance.ConfigurationDAO;
+import Persistance.ConnectionDAO;
 import Persistance.JsonConfigurationDAO;
 
+import java.io.IOException;
+
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello, World!");
-        //ConfigurationDAO confDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
+        ConnectionDAO conn = new ConnectionDAO();
     }
 }
