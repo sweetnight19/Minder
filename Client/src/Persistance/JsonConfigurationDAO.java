@@ -16,14 +16,13 @@ public class JsonConfigurationDAO implements ConfigurationDAO {
 
     public JsonConfigurationDAO(String path) throws IOException {
         Gson gson = new Gson();
-        this.path = Paths.get(path); //Ens guardem la path on es troba el fitxer de configuració
+        this.path = Paths.get(path); // Ens guardem la path on es troba el fitxer de configuració
 
-        //Parsejem el fitxer json
+        // Parsejem el fitxer json
         JsonObject json = JsonParser.parseString(Files.readString(this.path)).getAsJsonObject();
-        this.port = gson.fromJson(json.get("portTCP"), int.class); //obtenció de dades segon la key i les guardem
+        this.port = gson.fromJson(json.get("portTCP"), int.class); // obtenció de dades segon la key i les guardem
         this.ipServer = gson.fromJson(json.get("ipServer"), String.class);
     }
-
 
     @Override
     public String getIpServer() {
