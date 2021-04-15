@@ -1,6 +1,7 @@
 package Business.Model;
 
 import Business.Entity.Trama;
+import Business.Entity.User;
 
 import java.io.*;
 import java.net.Socket;
@@ -37,6 +38,13 @@ public class DedicatedServer extends Thread {
                             break;
                         case ProtocolCommunication.DISCONNECTION:
                             clientDisconnect = true;
+                            break;
+                        case ProtocolCommunication.CREATE_USER:
+                            User user = (User) is.readObject();
+                            System.out.println(user.getEmail() + user.getFirstName() + user.getProgrammingLanguage());
+                            if(user != null){
+                                os.writeObject(new Trama(ProtocolCommunication.OK));
+                            }
                             break;
                         default:
                             os.writeObject(new Trama(ProtocolCommunication.KO));

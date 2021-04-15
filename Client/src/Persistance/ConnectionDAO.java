@@ -1,43 +1,27 @@
 package Persistance;
 
-import Business.Entity.Trama;
-import Business.Model.ProtocolCommunication;
+import Business.Entity.ChatMessage;
+import Business.Entity.Peer;
+import Business.Entity.User;
 
-import java.io.*;
-import java.net.Socket;
+import java.util.ArrayList;
 
-public class ConnectionDAO {
-    private Socket socket;
-    private ObjectOutputStream os;
-    private ObjectInputStream is;
+public interface ConnectionDAO {
 
-    public ConnectionDAO() throws IOException {
-        ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
+    //UserDAO
+    boolean registerUser(User user);
+    boolean validateLogin(User user);
+    boolean updateProfile(User user);
+    User readProfile(User user);
 
-        try {
-            //Inicialitzem tant el socket com els streams per on rebrem o enviarem la informació
-            socket = new Socket(configurationDAO.getIpServer(), configurationDAO.getPort());
-            os = new ObjectOutputStream(socket.getOutputStream());
-            is = new ObjectInputStream(socket.getInputStream());
+    //PeerDAO
+    boolean insertLike(Peer peer);
+    boolean deletePeer(Peer peer);
+    ArrayList<User> getRandomUsers(User user);
 
-            controlConnection();
+    //ChatDAO
+    ArrayList<User> getChatList(User user);
+    ArrayList<ChatMessage> getChatMessages(User source, User destiny);
+    boolean insertNewMessage(ChatMessage message);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void controlConnection() throws IOException {
-        //Funció que s'encarrega d'escoltar constantment si ens arriba informació del servidor
-        os.writeObject(new Trama(ProtocolCommunication.CONNECTION));
-        try {
-            Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
-                System.out.println("Connexion con servidor correcta");
-            }
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }

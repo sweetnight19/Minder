@@ -1,8 +1,9 @@
 package Business.Entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Peer {
+public class Peer implements Serializable {
     private int idSource;
     private int idDestiny;
     private boolean matchDuo;
