@@ -29,16 +29,16 @@ public class ConnectionDAOImpl implements ConnectionDAO {
         }
     }
 
-    public void startConnection() throws IOException {
-        //Funció que s'encarrega d'escoltar constantment si ens arriba informació del servidor
-        os.writeObject(new Trama(ProtocolCommunication.CONNECTION));
+    public void startConnection() {
         try {
+            os.writeObject(new Trama(ProtocolCommunication.CONNECTION));
             Trama trama = (Trama) is.readObject();
             if(trama.getContext().equals(ProtocolCommunication.OK)){
                 System.out.println("Connexion con servidor correcta");
             }
-
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -64,11 +64,11 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     @Override
     public boolean validateLogin(User user) {
         try {
-            os.writeObject(new Trama(ProtocolCommunication.CREATE_USER));
+            os.writeObject(new Trama(ProtocolCommunication.LOGIN_USER));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
             if(trama.getContext().equals(ProtocolCommunication.OK)){
-                System.out.println("User has authenticated");
+                System.out.println("User has been authenticated");
                 return true;
             }
         } catch (IOException e) {
@@ -80,9 +80,9 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
-    public boolean updateProfile(User user) {
+    public boolean updateUser(User user) {
         try {
-            os.writeObject(new Trama(ProtocolCommunication.CREATE_USER));
+            os.writeObject(new Trama(ProtocolCommunication.UPDATE_USER));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
             if(trama.getContext().equals(ProtocolCommunication.OK)){
@@ -98,12 +98,12 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
-    public User readProfile(User user) {
+    public User readUser(User user) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.READ_USER));
             os.writeObject(user);
             User newUser = (User) is.readObject();
-            if(user!=null){
+            if(newUser!=null){
                 System.out.println("User has been recieved");
                 return newUser ;
             }
@@ -117,31 +117,125 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 
     @Override
     public boolean insertLike(Peer peer) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.CREATE_PEER));
+            os.writeObject(peer);
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)){
+                System.out.println("Peer has been created");
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public boolean deletePeer(Peer peer) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.DELETE_PEER));
+            os.writeObject(peer);
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)){
+                System.out.println("Peer has been deleted");
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public ArrayList<User> getRandomUsers(User user) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.READ_PEERS));
+            os.writeObject(user);
+            ArrayList<User> usersCarrussel = (ArrayList<User>) is.readObject();
+            if(usersCarrussel!=null){
+                System.out.println("Possible users have been recieved");
+                return usersCarrussel;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public ArrayList<User> getChatList(User user) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.LIST_CHAT));
+            os.writeObject(user);
+            ArrayList<User> listChatUsers = (ArrayList<User>) is.readObject();
+            if(listChatUsers != null){
+                System.out.println("List chat from user recieved");
+                return listChatUsers;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public ArrayList<ChatMessage> getChatMessages(User source, User destiny) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.READ_CHAT));
+            os.writeObject(source);
+            os.writeObject(destiny);
+            ArrayList<ChatMessage> chatMessages = (ArrayList<ChatMessage>) is.readObject();
+            if(chatMessages != null){
+                System.out.println("Chat messages recieved");
+                return chatMessages;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public boolean insertNewMessage(ChatMessage message) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.CREATE_CHAT_MESSAGE));
+            os.writeObject(message);
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)){
+                System.out.println("Message has been created");
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
+    }
+
+    @Override
+    public void disconnectFromServer() {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.DISCONNECTION));
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)){
+                System.out.println("Disconnection correct");
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

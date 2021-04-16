@@ -33,19 +33,16 @@ public class DedicatedServer extends Thread {
                 if(trama != null) {
                     switch (trama.getContext()) {
                         case ProtocolCommunication.CONNECTION:
-                            os.writeObject(new Trama(ProtocolCommunication.OK));
-                            System.out.println("connected to the client");
+                            connection();
                             break;
                         case ProtocolCommunication.DISCONNECTION:
+                            disconnection();
                             clientDisconnect = true;
                             break;
                         case ProtocolCommunication.CREATE_USER:
-                            User user = (User) is.readObject();
-                            System.out.println(user.getEmail() + user.getFirstName() + user.getProgrammingLanguage());
-                            if(user != null){
-                                os.writeObject(new Trama(ProtocolCommunication.OK));
-                            }
+                            createUser();
                             break;
+
                         default:
                             os.writeObject(new Trama(ProtocolCommunication.KO));
                     }
@@ -62,4 +59,24 @@ public class DedicatedServer extends Thread {
         } finally {
         }
     }
+
+    private void createUser() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        System.out.println(user.getEmail() + user.getFirstName() + user.getProgrammingLanguage());
+        if(user != null){
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }
+    }
+
+    private void disconnection() throws IOException {
+        clientDisconnect = true;
+        System.out.println("Client wants to disconnect");
+        os.writeObject(new Trama(ProtocolCommunication.OK));
+    }
+
+    private void connection() throws IOException {
+        os.writeObject(new Trama(ProtocolCommunication.OK));
+        System.out.println("Connected to the client");
+    }
+
 }

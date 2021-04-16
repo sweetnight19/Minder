@@ -11,8 +11,8 @@ public interface ConnectionDAO {
     //UserDAO
     boolean registerUser(User user);
     boolean validateLogin(User user);
-    boolean updateProfile(User user);
-    User readProfile(User user);
+    boolean updateUser(User user);
+    User readUser(User user);
 
     //PeerDAO
     boolean insertLike(Peer peer);
@@ -24,4 +24,6 @@ public interface ConnectionDAO {
     ArrayList<ChatMessage> getChatMessages(User source, User destiny);
     boolean insertNewMessage(ChatMessage message);
 
+    //Actions
+    void disconnectFromServer();
 }
