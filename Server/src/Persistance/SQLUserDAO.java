@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class UserMinderDAO implements UserDAO {
+public class SQLUserDAO implements UserDAO {
     private final ConfigurationDAO confDAO;
 
-    public UserMinderDAO(ConfigurationDAO configurationDAO) throws IOException {
+    public SQLUserDAO(ConfigurationDAO configurationDAO) throws IOException {
         confDAO = configurationDAO;
     }
 

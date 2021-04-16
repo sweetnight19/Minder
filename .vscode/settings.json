@@ -5,6 +5,7 @@
         "Server/libs/mysql-connector-java-8.0.23.jar"
     ],
     "java.project.sourcePaths": [
-        "Server/src"
+        "Server/src",
+        "Client/src"
     ]
 }
