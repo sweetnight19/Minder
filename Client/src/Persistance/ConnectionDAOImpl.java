@@ -15,9 +15,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     private ObjectOutputStream os;
     private ObjectInputStream is;
 
-    public ConnectionDAOImpl() throws IOException {
-        ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
-
+    public ConnectionDAOImpl(ConfigurationDAO configurationDAO) {
         try {
             //Inicialitzem tant el socket com els streams per on rebrem o enviarem la informació
             socket = new Socket(configurationDAO.getIpServer(), configurationDAO.getPort());
