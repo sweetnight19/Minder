@@ -1,7 +1,9 @@
-package Persistance;
+package Persistance.SQL;
 
 import Business.Entity.User;
+import Persistance.ConfigurationDAO;
 import Persistance.SQL.SQLConnector;
+import Persistance.UserDAO;
 
 import java.io.IOException;
 import java.sql.ResultSet;
