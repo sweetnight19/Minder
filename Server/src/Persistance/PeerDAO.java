@@ -13,12 +13,12 @@ public interface PeerDAO {
     ArrayList<Peer> getAllPeers();
 
     /**
-     * Method that creates a new Peer with a given ids.
+     * Method to add a like on Peer form the model by its id1 to id2.
      *
-     * @param id1 The id of user 1 to create the peer.
-     * @param id2 The id of user 2 to create the peer.
+     * @param id1 The id of user 1 who make the like.
+     * @param id2 The id of user 2 who receive the like.
      */
-    void addPeer(int id1, int id2);
+    void addLike(int id1, int id2);
 
     /**
      * Method to remove a Peer form the model by id1 & id2.
@@ -26,5 +26,14 @@ public interface PeerDAO {
      * @param id1 The id of user 1 to delete the peer.
      * @param id2 The id of user 2 to delete the peer.
      */
-    void deleteUser(int id1, int id2);
+    void deletePeer(int id1, int id2);
+
+    /**
+     * Method to change a Peer form the model by id1 & id2.
+     *
+     * @param id1 The id of user 1 to change the status peer.
+     * @param id2 The id of user 2 to change the status peer.
+     */
+    // void tooglePeer(int id1, int id2);
+
 }
