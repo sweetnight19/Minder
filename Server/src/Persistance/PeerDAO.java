@@ -1,2 +1,5 @@
-package Persistance;public interface PeerDAO {
+package Persistance;
+
+public interface PeerDAO {
+
 }

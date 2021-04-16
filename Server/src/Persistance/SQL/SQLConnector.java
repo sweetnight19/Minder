@@ -1,23 +1,20 @@
-package Business.Model.SQL;
+package Persistance.SQL;
 
 import java.sql.*;
 
 import Persistance.ConfigurationDAO;
-import Persistance.JsonConfigurationDAO;
 
 public class SQLConnector {
     private static SQLConnector instance = null;
-    private static final String USER = "user";
-    private static final String PASSWORD = "password";
-    private static final String DB = "minder";
     private final String username;
     private final String password;
     private final String url;
     private Connection conn;
 
-    public static SQLConnector getInstance( ConfigurationDAO confDAO) {
+    public static SQLConnector getInstance(ConfigurationDAO confDAO) {
         if (instance == null) {
-            instance = new SQLConnector(confDAO.getUsername(), confDAO.getPassword(), confDAO.getIp(),confDAO.getPort(), confDAO.getDatabase()
+            instance = new SQLConnector(confDAO.getUsername(), confDAO.getPassword(), confDAO.getIp(),
+                    confDAO.getPort(), confDAO.getDatabase());
             instance.connect();
         }
         return instance;
