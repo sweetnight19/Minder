@@ -10,28 +10,26 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class JsonConfigurationDAO implements ConfigurationDAO {
-    private Path path;
-    private int port;
-    private String ip;
-    private String database;
-    private String username;
-    private String password;
-    private int portTCP;
+    private final int port;
+    private final String ip;
+    private final String database;
+    private final String username;
+    private final String password;
+    private final int portTCP;
 
     public JsonConfigurationDAO(String path) throws IOException {
         Gson gson = new Gson();
-        this.path = Paths.get(path); //Ens guardem la path on es troba el fitxer de configuració
+        Path path1 = Paths.get(path); // Ens guardem la path on es troba el fitxer de configuració
 
-        //Parsejem el fitxer json
-        JsonObject json = JsonParser.parseString(Files.readString(this.path)).getAsJsonObject();
-        this.port = gson.fromJson(json.get("port"), int.class); //obtenció de dades segon la key i les guardem
+        // Parsejem el fitxer json
+        JsonObject json = JsonParser.parseString(Files.readString(path1)).getAsJsonObject();
+        this.port = gson.fromJson(json.get("port"), int.class); // obtenció de dades segon la key i les guardem
         this.ip = gson.fromJson(json.get("ip"), String.class);
         this.database = gson.fromJson(json.get("database"), String.class);
         this.username = gson.fromJson(json.get("username"), String.class);
         this.password = gson.fromJson(json.get("password"), String.class);
         this.portTCP = gson.fromJson(json.get("portTCP"), int.class);
     }
-
 
     @Override
     public int getPort() {

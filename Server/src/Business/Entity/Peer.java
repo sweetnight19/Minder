@@ -16,6 +16,13 @@ public class Peer implements Serializable {
         this.date = new Date();
     }
 
+    public Peer(int idSource, int idDestiny, boolean matchDuo, Date data) {
+        this.idSource = idSource;
+        this.idDestiny = idDestiny;
+        this.matchDuo = matchDuo;
+        this.date = data;
+    }
+
     public int getIdSource() {
         return idSource;
     }

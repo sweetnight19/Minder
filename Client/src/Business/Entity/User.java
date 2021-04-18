@@ -14,9 +14,8 @@ public class User implements Serializable {
     private String description;
     private String programmingLanguage;
 
-    public User(int id, String firstName, String nickname, int age, String type,
-                String email, String password, String pathImage, String description,
-                String programmingLanguage) {
+    public User(int id, String firstName, String nickname, int age, String type, String email, String password,
+            String pathImage, String description, String programmingLanguage) {
         this.id = id;
         this.firstName = firstName;
         this.nickname = nickname;
