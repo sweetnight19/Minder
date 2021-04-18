@@ -3,7 +3,6 @@ package Persistance;
 import Business.Entity.User;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 public interface UserDAO {
     /**

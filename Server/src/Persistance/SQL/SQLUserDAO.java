@@ -2,19 +2,17 @@ package Persistance.SQL;
 
 import Business.Entity.User;
 import Persistance.ConfigurationDAO;
-import Persistance.SQL.SQLConnector;
 import Persistance.UserDAO;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class SQLUserDAO implements UserDAO {
     private final ConfigurationDAO confDAO;
 
-    public SQLUserDAO(ConfigurationDAO configurationDAO) throws IOException {
+    public SQLUserDAO(ConfigurationDAO configurationDAO) {
         confDAO = configurationDAO;
     }
 
@@ -51,7 +49,7 @@ public class SQLUserDAO implements UserDAO {
         ResultSet result;
         String uuidQuery = "SELECT `uuid` FROM `usuari` WHERE `nickname`= '" + user.getNickname() + "';";
         String query = "INSERT INTO `usuari` (`nomPila`, `nickname`, `edat`, `tipusCompte`, `email`, `password`, `pathImage`, `descripcio`, `llenguatgeDeProgramacio`) VALUES ('"
-                + user.getFirstName() + "', '" + user.getNickname() + "', '" + String.valueOf(user.getAge()) + "', '"
+                + user.getFirstName() + "', '" + user.getNickname() + "', '" + user.getAge() + "', '"
                 + user.getType() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getPathImage()
                 + "', '" + user.getDescription() + "', '" + user.getProgrammingLanguage() + "');";
 

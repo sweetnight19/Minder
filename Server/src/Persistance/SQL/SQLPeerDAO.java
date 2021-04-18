@@ -1,21 +1,19 @@
 package Persistance.SQL;
 
-import java.io.IOException;
+import Business.Entity.Peer;
+import Persistance.ConfigurationDAO;
+import Persistance.PeerDAO;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Business.Entity.Peer;
-import Persistance.ConfigurationDAO;
-import Persistance.PeerDAO;
-
 public class SQLPeerDAO implements PeerDAO {
-
     private final ConfigurationDAO confDAO;
 
-    public SQLPeerDAO(ConfigurationDAO configurationDAO) throws IOException {
+    public SQLPeerDAO(ConfigurationDAO configurationDAO) {
         confDAO = configurationDAO;
     }
 
@@ -67,7 +65,7 @@ public class SQLPeerDAO implements PeerDAO {
      * +id2+";"; String query2 =
      * "UPDATE `pair` SET `matchDuo`= 1 WHERE `idOrigen`="+id2+" AND `idDesti`= "
      * +id1+";";
-     * 
+     *
      * SQLConnector.getInstance(confDAO).updateQuery(query1);
      * SQLConnector.getInstance(confDAO).updateQuery(query2); }
      */
