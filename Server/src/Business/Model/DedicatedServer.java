@@ -1,7 +1,12 @@
 package Business.Model;
 
+import Business.Entity.ChatMessage;
+import Business.Entity.Peer;
 import Business.Entity.Trama;
 import Business.Entity.User;
+import Persistance.ChatDAO;
+import Persistance.PeerDAO;
+import Persistance.UserDAO;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,10 +15,16 @@ public class DedicatedServer extends Thread {
     private Socket client;
     private ObjectOutputStream os;
     private ObjectInputStream is;
+    private UserDAO userDAO;
+    private ChatDAO chatDAO;
+    private PeerDAO peerDAO;
     private boolean clientDisconnect;
 
-    public DedicatedServer(Socket client) {
+    public DedicatedServer(Socket client, UserDAO userDAO, ChatDAO chatDAO, PeerDAO peerDAO) {
         this.client = client;
+        this.userDAO = userDAO;
+        this.peerDAO = peerDAO;
+        this.chatDAO = chatDAO;
         this.clientDisconnect = false;
 
         try {
@@ -37,12 +48,37 @@ public class DedicatedServer extends Thread {
                             break;
                         case ProtocolCommunication.DISCONNECTION:
                             disconnection();
-                            clientDisconnect = true;
                             break;
                         case ProtocolCommunication.CREATE_USER:
                             createUser();
                             break;
-
+                        case ProtocolCommunication.LOGIN_USER:
+                            validateLogin();
+                            break;
+                        case ProtocolCommunication.UPDATE_USER:
+                            updateUser();
+                            break;
+                        case ProtocolCommunication.READ_USER:
+                            readUser();
+                            break;
+                        case ProtocolCommunication.DELETE_USER:
+                            deleteUser();
+                            break;
+                        case ProtocolCommunication.CREATE_PEER:
+                            createPeer();
+                            break;
+                        case ProtocolCommunication.LIST_CHAT:
+                            listchat();
+                            break;
+                        case ProtocolCommunication.DELETE_PEER:
+                            deletePeer();
+                            break;
+                        case ProtocolCommunication.CREATE_CHAT_MESSAGE:
+                            createMessage();
+                            break;
+                        case ProtocolCommunication.READ_CHAT:
+                            readChat();
+                            break;
                         default:
                             os.writeObject(new Trama(ProtocolCommunication.KO));
                     }
@@ -60,16 +96,61 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    private void listchat() {
+    }
+
+    private void readChat() {
+        
+    }
+
+    private void createMessage() throws IOException, ClassNotFoundException {
+        ChatMessage message = (ChatMessage) is.readObject();
+        this.chatDAO.addMessage(message.getIdSource(), message.getIdDestiny(), message.getMessage());
+        os.writeObject(new Trama(ProtocolCommunication.OK));
+    }
+
+    private void deletePeer() throws IOException, ClassNotFoundException {
+        Peer peer = (Peer) is.readObject();
+        this.peerDAO.deletePeer(peer.getIdSource(), peer.getIdDestiny());
+        os.writeObject(new Trama(ProtocolCommunication.OK));
+    }
+
+    private void createPeer() throws IOException, ClassNotFoundException {
+        Peer peer = (Peer) is.readObject();
+        this.peerDAO.addLike(peer.getIdSource(), peer.getIdDestiny());
+        os.writeObject(new Trama(ProtocolCommunication.OK));
+    }
+
+    private void deleteUser() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        this.userDAO.deleteUser(user.getId());
+        os.writeObject(new Trama(ProtocolCommunication.OK));
+    }
+
+    private void readUser() {
+
+    }
+
+    private void updateUser() {
+
+    }
+
+    private void validateLogin() {
+
+    }
+
     private void createUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        System.out.println(user.getEmail() + user.getFirstName() + user.getProgrammingLanguage());
-        if(user != null){
+        //System.out.println(user.getEmail() + user.getFirstName() + user.getProgrammingLanguage());
+        if(this.userDAO.addUser(user) != -1){
             os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 
     private void disconnection() throws IOException {
-        clientDisconnect = true;
+        this.clientDisconnect = true;
         System.out.println("Client wants to disconnect");
         os.writeObject(new Trama(ProtocolCommunication.OK));
     }
