@@ -24,35 +24,34 @@ public class DedicatedServer extends Thread {
         }
     }
 
-
     @Override
     public void run() {
         try {
-            while(!clientDisconnect){
+            while (!clientDisconnect) {
                 Trama trama = (Trama) is.readObject();
-                if(trama != null) {
+                if (trama != null) {
                     switch (trama.getContext()) {
-                        case ProtocolCommunication.CONNECTION:
-                            connection();
-                            break;
-                        case ProtocolCommunication.DISCONNECTION:
-                            disconnection();
-                            clientDisconnect = true;
-                            break;
-                        case ProtocolCommunication.CREATE_USER:
-                            createUser();
-                            break;
+                    case ProtocolCommunication.CONNECTION:
+                        connection();
+                        break;
+                    case ProtocolCommunication.DISCONNECTION:
+                        disconnection();
+                        clientDisconnect = true;
+                        break;
+                    case ProtocolCommunication.CREATE_USER:
+                        createUser();
+                        break;
 
-                        default:
-                            os.writeObject(new Trama(ProtocolCommunication.KO));
+                    default:
+                        os.writeObject(new Trama(ProtocolCommunication.KO));
                     }
-                }else{
+                } else {
                     System.out.println("Server disconnected");
                 }
             }
 
-            client.close();         //Tanquem el socket client
-        }catch(EOFException e){
+            client.close(); // Tanquem el socket client
+        } catch (EOFException e) {
             System.out.println("[SERVER]: disconnected.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,7 +62,7 @@ public class DedicatedServer extends Thread {
     private void createUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         System.out.println(user.getEmail() + user.getFirstName() + user.getProgrammingLanguage());
-        if(user != null){
+        if (user != null) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
         }
     }
