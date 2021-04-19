@@ -4,7 +4,6 @@ import Business.Entity.User;
 import Persistance.ConfigurationDAO;
 import Persistance.UserDAO;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -49,9 +48,9 @@ public class SQLUserDAO implements UserDAO {
         ResultSet result;
         String uuidQuery = "SELECT `uuid` FROM `usuari` WHERE `nickname`= '" + user.getNickname() + "';";
         String query = "INSERT INTO `usuari` (`nomPila`, `nickname`, `edat`, `tipusCompte`, `email`, `password`, `pathImage`, `descripcio`, `llenguatgeDeProgramacio`) VALUES ('"
-                + user.getFirstName() + "', '" + user.getNickname() + "', '" + user.getAge() + "', '"
-                + user.getType() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getPathImage()
-                + "', '" + user.getDescription() + "', '" + user.getProgrammingLanguage() + "');";
+                + user.getFirstName() + "', '" + user.getNickname() + "', '" + user.getAge() + "', '" + user.getType()
+                + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getPathImage() + "', '"
+                + user.getDescription() + "', '" + user.getProgrammingLanguage() + "');";
 
         SQLConnector.getInstance(confDAO).insertQuery(query);
         result = SQLConnector.getInstance(confDAO).selectQuery(uuidQuery);
@@ -69,5 +68,54 @@ public class SQLUserDAO implements UserDAO {
     public void deleteUser(int id) {
         String query = "DELETE FROM `usuari` WHERE `uuid`='" + id + "';";
         SQLConnector.getInstance(confDAO).deleteQuery(query);
+    }
+
+    @Override
+    public void updateTypeUser(int uuid, String type) {
+        String query = "UPDATE `usuari` SET `tipusCompte` = '" + type + "' WHERE `usuari`.`uuid` = '" + uuid + "';";
+        SQLConnector.getInstance(confDAO).updateQuery(query);
+    }
+
+    @Override
+    public void updateDescription(int uuid, String descripcio) {
+        String query = "UPDATE `usuari` SET `descripcio` = '" + descripcio + "' WHERE `usuari`.`uuid` = '" + uuid
+                + "';";
+        SQLConnector.getInstance(confDAO).updateQuery(query);
+
+    }
+
+    @Override
+    public void updateImage(int uuid, String pathImage) {
+        String query = "UPDATE `usuari` SET `pathImage` = '" + pathImage + "' WHERE `usuari`.`uuid` = '" + uuid + "';";
+        SQLConnector.getInstance(confDAO).updateQuery(query);
+
+    }
+
+    @Override
+    public void updateProgammingLanguage(int uuid, String language) {
+        String query = "UPDATE `usuari` SET `llenguatgeDeProgramacio` = '" + language + "' WHERE `usuari`.`uuid` = '"
+                + uuid + "';";
+        SQLConnector.getInstance(confDAO).updateQuery(query);
+
+    }
+
+    @Override
+    public boolean validadionLogin(int uuid, String password) {
+        String query = "SELECT `password` FROM `usuari` WHERE `uuid` = " + uuid + ";";
+        ResultSet result;
+
+        SQLConnector.getInstance(confDAO).selectQuery(query);
+        result = SQLConnector.getInstance(confDAO).selectQuery(query);
+        try {
+            result.next();
+            if (password.equals(result.getString("password"))) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
