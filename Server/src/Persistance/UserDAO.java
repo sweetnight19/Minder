@@ -69,4 +69,12 @@ public interface UserDAO {
      */
     boolean validadionLogin(int uuid, String password);
 
+    /**
+     * Method to get the top 5 of User form the model.
+     *
+     * @return the top5 users with most received matches
+     * 
+     */
+    ArrayList<User> top5();
+
 }

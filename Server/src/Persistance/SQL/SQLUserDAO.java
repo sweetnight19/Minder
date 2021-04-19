@@ -108,14 +108,38 @@ public class SQLUserDAO implements UserDAO {
         result = SQLConnector.getInstance(confDAO).selectQuery(query);
         try {
             result.next();
-            if (password.equals(result.getString("password"))) {
-                return true;
-            } else {
-                return false;
-            }
+            return password.equals(result.getString("password"));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<User> top5() {
+        ArrayList<User> top5 = new ArrayList<>();
+        String top5Query = "SELECT *,COUNT(pair.idDesti) FROM usuari,pair WHERE pair.idDesti=usuari.uuid GROUP BY idOrigen ORDER BY COUNT(pair.idDesti) DESC LIMIT 5";
+
+        ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(top5Query);
+        try {
+            while (result.next()) {
+                int uuid = result.getInt("uuid");
+                String nomPila = result.getString("nomPila");
+                String nickname = result.getString("nickname");
+                int edat = result.getInt("edat");
+                String tipusCompte = result.getString("tipusCompte");
+                String email = result.getString("email");
+                String password = result.getString("password");
+                String pathImage = result.getString("pathImage");
+                String descripcio = result.getString("descripcio");
+                String llenguatgeDeProgramacio = result.getString("llenguatgeDeProgramacio");
+                top5.add(new User(uuid, nomPila, nickname, edat, tipusCompte, email, password, pathImage, descripcio,
+                        llenguatgeDeProgramacio));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return top5;
     }
 }
