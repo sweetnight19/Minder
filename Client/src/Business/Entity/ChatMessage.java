@@ -16,6 +16,13 @@ public class ChatMessage implements Serializable {
         this.date = new Date();
     }
 
+    public ChatMessage(int idSource, int idDestiny, String message, Date date) {
+        this.idSource = idSource;
+        this.idDestiny = idDestiny;
+        this.message = message;
+        this.date = date;
+    }
+
     public int getIdSource() {
         return idSource;
     }
