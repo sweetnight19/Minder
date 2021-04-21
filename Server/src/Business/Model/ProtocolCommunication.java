@@ -21,7 +21,6 @@ public class ProtocolCommunication {
   public static final String READ_USER = "READ_USER";
   public static final String UPDATE_USER = "UPDATE_USER";
   public static final String DELETE_USER = "DELETE_USER";
-  public static final String LOGIN_USER = "LOGIN_USER";
 
   // Protocols for requesting or updating information about the likes between
   // users
@@ -36,7 +35,6 @@ public class ProtocolCommunication {
   public static final String READ_CHAT = "READ_CHAT";
   public static final String UPDATE_CHAT = "UPDATE_CHAT";
   public static final String DELETE_CHAT = "DELETE_CHAT";
-  public static final String LIST_CHAT = "LIST_CHAT";
 
   // Here to add more protocols in the future
 }
