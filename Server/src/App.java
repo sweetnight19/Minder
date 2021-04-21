@@ -1,9 +1,14 @@
 import Business.Model.DedicatedServer;
+<<<<<<< HEAD
 import Persistance.*;
 import Persistance.SQL.SQLChatDAO;
 import Persistance.SQL.SQLPeerDAO;
 import Persistance.SQL.SQLUserDAO;
 
+=======
+import Persistance.ConfigurationDAO;
+import Persistance.JsonConfigurationDAO;
+>>>>>>> bugfix/DAO-correct-fixed
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

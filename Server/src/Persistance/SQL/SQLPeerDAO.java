@@ -1,12 +1,12 @@
 package Persistance.SQL;
 
 import Business.Entity.Peer;
+import Business.Entity.User;
 import Persistance.ConfigurationDAO;
 import Persistance.PeerDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,24 +39,30 @@ public class SQLPeerDAO implements PeerDAO {
     }
 
     @Override
-    public void addLike(int id1, int id2) {
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public void addLike(Peer peer) {
 
-        String query = "INSERT INTO `pair` (`idOrigen`, `idDesti`, `matchDuo`, `data`) VALUES ('" + id1 + "', '" + id2
-                + "', '" + 1 + "', '" + dateFormat.format(date) + "');";
+        String query = "INSERT INTO `pair` (`idOrigen`, `idDesti`, `matchDuo`, `data`) VALUES ('" + peer.getIdSource()
+                + "', '" + peer.getIdDestiny() + "', '" + 1 + "', '" + peer.getDate() + "');";
 
         SQLConnector.getInstance(confDAO).insertQuery(query);
 
     }
 
     @Override
-    public void deletePeer(int id1, int id2) {
-        String query1 = "DELETE FROM `pair` WHERE `idOrigen`= " + id1 + " AND `idDesti` = " + id2 + ";";
-        String query2 = "DELETE FROM `pair` WHERE `idOrigen`= " + id2 + " AND `idDesti` = " + id1 + ";";
+    public void deletePeer(Peer peer) {
+        String query1 = "DELETE FROM `pair` WHERE `idOrigen`= " + peer.getIdSource() + " AND `idDesti` = "
+                + peer.getIdDestiny() + ";";
+        String query2 = "DELETE FROM `pair` WHERE `idOrigen`= " + peer.getIdDestiny() + " AND `idDesti` = "
+                + peer.getIdSource() + ";";
         SQLConnector.getInstance(confDAO).deleteQuery(query1);
         SQLConnector.getInstance(confDAO).deleteQuery(query2);
 
+    }
+
+    @Override
+    public ArrayList<User> getUserPeers(User user) {
+        //TODO
+        return null;
     }
 
     /*

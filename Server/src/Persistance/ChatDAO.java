@@ -1,6 +1,7 @@
 package Persistance;
 
 import Business.Entity.ChatMessage;
+import Business.Entity.User;
 
 import java.util.ArrayList;
 
@@ -8,28 +9,27 @@ public interface ChatDAO {
     /**
      * Method to read all messages from two users.
      *
-     * @param id1 The id of user 1 who wants the chat.
-     * @param id2 The id of user 2 who wants the chat.
+     * @param user1 The user 1 who wants the chat.
+     * @param user2 The user 2 who wants the chat.
      *
      * @return A list of messages.
      */
-    ArrayList<ChatMessage> getAllXats(int id1, int id2);
+    ArrayList<ChatMessage> getAllXats(User user1, User user2);
 
     /**
-     * Method to add a message on Chat form the model by its id1 to id2.
+     * Method to add a message on Chat form the model by ChatMessage Object.
      *
-     * @param id1 The id of user 1 who send the message.
-     * @param id2 The id of user 2 who receive the message.
+     * @param chatMessage Object type chatMessage to add to bbdd.
      */
-    void addMessage(int id1, int id2, String message);
+    void addMessage(ChatMessage chatMessage);
 
     /**
-     * Method to remove a Chat form the model by id1 & id2.
+     * Method to remove a Chat form the model.
      *
-     * @param id1 The id of user 1 to delete the chat.
-     * @param id2 The id of user 2 to delete the chat.
+     * @param user1 The user 1 who wants the chat.
+     * @param user2 The user 2 who wants the chat.
      */
-    void deleteChat(int id1, int id2);
+    void deleteChat(User user1, User user2);
 
     /*
      * Method to change a Peer form the model by id1 & id2.

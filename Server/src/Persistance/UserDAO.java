@@ -13,6 +13,14 @@ public interface UserDAO {
     ArrayList<User> getAllUsers();
 
     /**
+     * Method to read all users.
+     *
+     * @return user.
+     * @param uuid The id of corresponding User to get
+     */
+    User getUser(int uuid);
+
+    /**
      * Method that creates a new User with a given text.
      *
      * @param user The user to create the User with.
@@ -23,51 +31,25 @@ public interface UserDAO {
     /**
      * Method to remove a User form the model by its nickname.
      *
-     * @param uuid The id corresponding to the User item to delete.
+     * @param user The user corresponding to the User item to delete.
      */
-    void deleteUser(int uuid);
+    void deleteUser(User user);
 
     /**
-     * Method to update type of User form the model by its uuid.
+     * Method to update User form the model.
      *
-     * @param uuid The id corresponding to the User item to update.
-     * @param type The type of account to update.
+     * @param user The user corresponding to the User item to update.
      */
-    void updateTypeUser(int uuid, String type);
-
-    /**
-     * Method to update description of User form the model by its uuid.
-     *
-     * @param uuid        The id corresponding to the User item to update.
-     * @param description The description of account to update.
-     */
-    void updateDescription(int uuid, String description);
-
-    /**
-     * Method to update pathImage of User form the model by its uuid.
-     *
-     * @param uuid The id corresponding to the User item to update.
-     * @param path The path of account to update.
-     */
-    void updateImage(int uuid, String path);
-
-    /**
-     * Method to update programming language of User form the model by its uuid.
-     *
-     * @param uuid     The id corresponding to the User item to update.
-     * @param language The language of account to update.
-     */
-    void updateProgammingLanguage(int uuid, String language);
+    void updateUser(User user);
 
     /**
      * Method to check the validation of User form the model by its uuid.
      *
      * @return true or false
      * 
-     * @param uuid     The id corresponding to the User item to update.
-     * @param password The password of account to check.
+     * @param user The user corresponding to the User item to validate login.
      */
-    boolean validadionLogin(int uuid, String password);
+    boolean validadionLogin(User user);
 
     /**
      * Method to get the top 5 of User form the model.
@@ -76,5 +58,8 @@ public interface UserDAO {
      * 
      */
     ArrayList<User> top5();
+
+    ArrayList<User> getPretendentsPremium(User user);
+    ArrayList<User> getPretendents(User user);
 
 }

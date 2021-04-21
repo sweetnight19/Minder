@@ -65,50 +65,31 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUser(int id) {
-        String query = "DELETE FROM `usuari` WHERE `uuid`='" + id + "';";
+    public void deleteUser(User user) {
+        String query = "DELETE FROM `usuari` WHERE `uuid`='" + user.getId() + "';";
         SQLConnector.getInstance(confDAO).deleteQuery(query);
     }
 
     @Override
-    public void updateTypeUser(int uuid, String type) {
-        String query = "UPDATE `usuari` SET `tipusCompte` = '" + type + "' WHERE `usuari`.`uuid` = '" + uuid + "';";
+    public void updateUser(User user) {
+        String query = "UPDATE `usuari` SET `nomPila`= '" + user.getFirstName() + "',`nickname`= '" + user.getNickname()
+                + "',`edat`=" + user.getAge() + ",`uuid`=" + user.getId() + ",`tipusCompte`= '" + user.getType()
+                + "',`email`= '" + user.getEmail() + "' ,`password`= '" + user.getPassword() + "',`pathImage`= '"
+                + user.getPathImage() + "' ,`descripcio`= '" + user.getDescription() + "' ,`llenguatgeDeProgramacio`= '"
+                + user.getProgrammingLanguage() + "' WHERE `uuid`= " + user.getId() + ";";
         SQLConnector.getInstance(confDAO).updateQuery(query);
     }
 
     @Override
-    public void updateDescription(int uuid, String descripcio) {
-        String query = "UPDATE `usuari` SET `descripcio` = '" + descripcio + "' WHERE `usuari`.`uuid` = '" + uuid
-                + "';";
-        SQLConnector.getInstance(confDAO).updateQuery(query);
-
-    }
-
-    @Override
-    public void updateImage(int uuid, String pathImage) {
-        String query = "UPDATE `usuari` SET `pathImage` = '" + pathImage + "' WHERE `usuari`.`uuid` = '" + uuid + "';";
-        SQLConnector.getInstance(confDAO).updateQuery(query);
-
-    }
-
-    @Override
-    public void updateProgammingLanguage(int uuid, String language) {
-        String query = "UPDATE `usuari` SET `llenguatgeDeProgramacio` = '" + language + "' WHERE `usuari`.`uuid` = '"
-                + uuid + "';";
-        SQLConnector.getInstance(confDAO).updateQuery(query);
-
-    }
-
-    @Override
-    public boolean validadionLogin(int uuid, String password) {
-        String query = "SELECT `password` FROM `usuari` WHERE `uuid` = " + uuid + ";";
+    public boolean validadionLogin(User user) {
+        String query = "SELECT `password` FROM `usuari` WHERE `uuid` = " + user.getId() + ";";
         ResultSet result;
 
         SQLConnector.getInstance(confDAO).selectQuery(query);
         result = SQLConnector.getInstance(confDAO).selectQuery(query);
         try {
             result.next();
-            return password.equals(result.getString("password"));
+            return user.getPassword().equals(result.getString("password"));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -118,7 +99,7 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public ArrayList<User> top5() {
         ArrayList<User> top5 = new ArrayList<>();
-        String top5Query = "SELECT *,COUNT(pair.idDesti) FROM usuari,pair WHERE pair.idDesti=usuari.uuid GROUP BY idOrigen ORDER BY COUNT(pair.idDesti) DESC LIMIT 5";
+        String top5Query = "SELECT *,COUNT(DISTINCT(pair.idDesti)) FROM usuari,pair WHERE pair.idDesti=usuari.uuid GROUP BY idOrigen ORDER BY COUNT(pair.idDesti) DESC LIMIT 5";
 
         ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(top5Query);
         try {
@@ -141,5 +122,59 @@ public class SQLUserDAO implements UserDAO {
             return null;
         }
         return top5;
+    }
+
+    @Override
+    public User getUser(int uuid) {
+        String query = "SELECT * FROM usuari WHERE usuari.uuid=" + uuid + ";";
+
+        ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
+        try {
+            result.next();
+            return new User(result.getInt("uuid"), result.getString("nomPila"), result.getString("nickname"),
+                    result.getInt("edat"), result.getString("tipusCompte"), result.getString("email"),
+                    result.getString("password"), result.getString("pathImage"), result.getString("descripcio"),
+                    result.getString("llenguatgeDeProgramacio"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<User> getPretendentsPremium(User user) {
+        // TODO
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM usuari,pair WHERE usuari.llenguatgeDeProgramacio=" + user.getProgrammingLanguage()
+                + " AND usuari.uuid=pair.idDesti AND pair.matchDuo=0 HAVING usuari.uuid=" + user.getId() + ";";
+
+        ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
+        try {
+            while (result.next()) {
+                int uuid = result.getInt("uuid");
+                String nomPila = result.getString("nomPila");
+                String nickname = result.getString("nickname");
+                int edat = result.getInt("edat");
+                String tipusCompte = result.getString("tipusCompte");
+                String email = result.getString("email");
+                String password = result.getString("password");
+                String pathImage = result.getString("pathImage");
+                String descripcio = result.getString("descripcio");
+                String llenguatgeDeProgramacio = result.getString("llenguatgeDeProgramacio");
+                users.add(new User(uuid, nomPila, nickname, edat, tipusCompte, email, password, pathImage, descripcio,
+                        llenguatgeDeProgramacio));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return users;
+    }
+
+    @Override
+    public ArrayList<User> getPretendents(User user) {
+        // TODO
+        return null;
     }
 }

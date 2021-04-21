@@ -2,7 +2,7 @@
     "port": 3306,
     "ip": "localhost",
     "database": "minder",
-    "username": "admin",
-    "password": "admin",
+    "username": "david",
+    "password": "8295",
     "portTCP": 54321
 }

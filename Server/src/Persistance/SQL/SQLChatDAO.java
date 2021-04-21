@@ -1,12 +1,12 @@
 package Persistance.SQL;
 
 import Business.Entity.ChatMessage;
+import Business.Entity.User;
 import Persistance.ChatDAO;
 import Persistance.ConfigurationDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,10 +18,11 @@ public class SQLChatDAO implements ChatDAO {
     }
 
     @Override
-    public ArrayList<ChatMessage> getAllXats(int id1, int id2) {
+    public ArrayList<ChatMessage> getAllXats(User user1, User user2) {
         ArrayList<ChatMessage> chats = new ArrayList<>();
-        String query = "SELECT * FROM `xat` WHERE (`idOrigen` LIKE " + id1 + " AND `idDesti` LIKE " + id2
-                + ") OR (`idOrigen` LIKE " + id2 + " AND `idDesti` LIKE " + id1 + ")";
+        String query = "SELECT * FROM `xat` WHERE (`idOrigen` LIKE " + user1.getId() + " AND `idDesti` LIKE "
+                + user2.getId() + ") OR (`idOrigen` LIKE " + user2.getId() + " AND `idDesti` LIKE " + user1.getId()
+                + ")";
 
         ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
         try {
@@ -40,21 +41,20 @@ public class SQLChatDAO implements ChatDAO {
     }
 
     @Override
-    public void addMessage(int id1, int id2, String message) {
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        String query = "INSERT INTO `xat` (`idOrigen`, `idDesti`, `missatge`, `data`) VALUES ('" + id1 + "', '" + id2
-                + "', '" + message + "', '" + dateFormat.format(date) + "');";
+    public void addMessage(ChatMessage chatMessage) {
+        String query = "INSERT INTO `xat` (`idOrigen`, `idDesti`, `missatge`, `data`) VALUES ('"
+                + chatMessage.getIdSource() + "', '" + chatMessage.getIdDestiny() + "', '" + chatMessage.getMessage()
+                + "', '" + chatMessage.getDate() + "');";
 
         SQLConnector.getInstance(confDAO).insertQuery(query);
 
     }
 
     @Override
-    public void deleteChat(int id1, int id2) {
-        String query = "DELETE FROM `xat` WHERE (`idOrigen` LIKE " + id1 + " AND `idDesti` LIKE " + id2
-                + ") OR (`idOrigen` LIKE " + id2 + " AND `idDesti` LIKE " + id1 + ")";
+    public void deleteChat(User user1, User user2) {
+        String query = "DELETE FROM `xat` WHERE (`idOrigen` LIKE " + user1.getId() + " AND `idDesti` LIKE "
+                + user2.getId() + ") OR (`idOrigen` LIKE " + user2.getId() + " AND `idDesti` LIKE " + user1.getId()
+                + ")";
         SQLConnector.getInstance(confDAO).deleteQuery(query);
     }
 }
