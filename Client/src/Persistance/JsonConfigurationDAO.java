@@ -25,12 +25,32 @@ public class JsonConfigurationDAO implements ConfigurationDAO {
     }
 
     @Override
-    public String getIpServer() {
+    public int getPort() {
+        return this.port;
+    }
+
+    @Override
+    public String getIp() {
         return this.ipServer;
     }
 
     @Override
-    public int getPort() {
+    public String getDatabase() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public int getPortTCP() {
         return this.port;
     }
 }

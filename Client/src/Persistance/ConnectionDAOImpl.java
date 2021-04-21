@@ -18,7 +18,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     public ConnectionDAOImpl(ConfigurationDAO configurationDAO) {
         try {
             //Inicialitzem tant el socket com els streams per on rebrem o enviarem la informació
-            socket = new Socket(configurationDAO.getIpServer(), configurationDAO.getPort());
+            socket = new Socket(configurationDAO.getIp(), configurationDAO.getPort());
             os = new ObjectOutputStream(socket.getOutputStream());
             is = new ObjectInputStream(socket.getInputStream());
 
