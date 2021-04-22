@@ -33,24 +33,4 @@ public class JsonConfigurationDAO implements ConfigurationDAO {
     public String getIp() {
         return this.ipServer;
     }
-
-    @Override
-    public String getDatabase() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public int getPortTCP() {
-        return this.port;
-    }
 }
