@@ -34,33 +34,39 @@ public class SQLConnector {
         }
     }
 
-    public void insertQuery(String query) {
+    public boolean insertQuery(String query) {
         try {
             Statement s = conn.createStatement();
             s.executeUpdate(query);
+            return true;
         } catch (SQLException e) {
             System.err.println(query);
             System.err.println("Problem when inserting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
+            return false;
         }
     }
 
-    public void updateQuery(String query) {
+    public boolean updateQuery(String query) {
         try {
             Statement s = conn.createStatement();
             s.executeUpdate(query);
+            return true;
         } catch (SQLException e) {
             System.err.println(query);
             System.err.println("Problema when updating --> " + e.getSQLState() + " (" + e.getMessage() + ")");
+            return false;
         }
     }
 
-    public void deleteQuery(String query) {
+    public boolean deleteQuery(String query) {
         try {
             Statement s = conn.createStatement();
             s.executeUpdate(query);
+            return true;
         } catch (SQLException e) {
             System.err.println(query);
             System.err.println("Problem when deleting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
+            return false;
         }
 
     }

@@ -33,14 +33,14 @@ public interface UserDAO {
      *
      * @param user The user corresponding to the User item to delete.
      */
-    void deleteUser(User user);
+    boolean deleteUser(User user);
 
     /**
      * Method to update User form the model.
      *
      * @param user The user corresponding to the User item to update.
      */
-    void updateUser(User user);
+    boolean updateUser(User user);
 
     /**
      * Method to check the validation of User form the model by its uuid.
@@ -49,7 +49,7 @@ public interface UserDAO {
      * 
      * @param user The user corresponding to the User item to validate login.
      */
-    boolean validadionLogin(User user);
+    boolean validationLogin(User user);
 
     /**
      * Method to get the top 5 of User form the model.
@@ -59,7 +59,16 @@ public interface UserDAO {
      */
     ArrayList<User> top5();
 
+    /**
+     * Method to get the top 5 of User form the model.
+     *
+     * @return the top5 users with most received matches
+     * 
+     */
+    int checkLoginIntent(User user);
+
     ArrayList<User> getPretendentsPremium(User user);
+
     ArrayList<User> getPretendents(User user);
 
 }

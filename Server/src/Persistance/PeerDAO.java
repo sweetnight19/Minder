@@ -26,14 +26,14 @@ public interface PeerDAO {
      *
      * @param peer The object Peer to add like.
      */
-    void addLike(Peer peer);
+    boolean addLike(Peer peer);
 
     /**
      * Method to remove a Peer form the model by id1 & id2.
      *
      * @param peer The object Peer to delete like.
      */
-    void deletePeer(Peer peer);
+    boolean deletePeer(Peer peer);
 
     /*
      * Method to change a Peer form the model by id1 & id2.

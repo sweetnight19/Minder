@@ -21,7 +21,7 @@ public interface ChatDAO {
      *
      * @param chatMessage Object type chatMessage to add to bbdd.
      */
-    void addMessage(ChatMessage chatMessage);
+    boolean addMessage(ChatMessage chatMessage);
 
     /**
      * Method to remove a Chat form the model.
@@ -29,7 +29,7 @@ public interface ChatDAO {
      * @param user1 The user 1 who wants the chat.
      * @param user2 The user 2 who wants the chat.
      */
-    void deleteChat(User user1, User user2);
+    boolean deleteChat(User user1, User user2);
 
     /*
      * Method to change a Peer form the model by id1 & id2.

@@ -39,29 +39,28 @@ public class SQLPeerDAO implements PeerDAO {
     }
 
     @Override
-    public void addLike(Peer peer) {
+    public boolean addLike(Peer peer) {
 
         String query = "INSERT INTO `pair` (`idOrigen`, `idDesti`, `matchDuo`, `data`) VALUES ('" + peer.getIdSource()
                 + "', '" + peer.getIdDestiny() + "', '" + 1 + "', '" + peer.getDate() + "');";
 
-        SQLConnector.getInstance(confDAO).insertQuery(query);
+        return SQLConnector.getInstance(confDAO).insertQuery(query);
 
     }
 
     @Override
-    public void deletePeer(Peer peer) {
+    public boolean deletePeer(Peer peer) {
         String query1 = "DELETE FROM `pair` WHERE `idOrigen`= " + peer.getIdSource() + " AND `idDesti` = "
                 + peer.getIdDestiny() + ";";
         String query2 = "DELETE FROM `pair` WHERE `idOrigen`= " + peer.getIdDestiny() + " AND `idDesti` = "
                 + peer.getIdSource() + ";";
-        SQLConnector.getInstance(confDAO).deleteQuery(query1);
-        SQLConnector.getInstance(confDAO).deleteQuery(query2);
+        return (SQLConnector.getInstance(confDAO).deleteQuery(query1)
+                && SQLConnector.getInstance(confDAO).deleteQuery(query2));
 
     }
 
     @Override
     public ArrayList<User> getUserPeers(User user) {
-        // TODO
         ArrayList<User> users = new ArrayList<>();
         String query = "SELECT * FROM usuari JOIN pair a JOIN pair b ON a.idDesti=b.idOrigen AND a.idOrigen=b.idDesti AND a.idOrigen=usuari.uuid HAVING a.idDesti="
                 + user.getId() + ";";

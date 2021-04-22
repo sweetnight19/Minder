@@ -41,20 +41,20 @@ public class SQLChatDAO implements ChatDAO {
     }
 
     @Override
-    public void addMessage(ChatMessage chatMessage) {
+    public boolean addMessage(ChatMessage chatMessage) {
         String query = "INSERT INTO `xat` (`idOrigen`, `idDesti`, `missatge`, `data`) VALUES ('"
                 + chatMessage.getIdSource() + "', '" + chatMessage.getIdDestiny() + "', '" + chatMessage.getMessage()
                 + "', '" + chatMessage.getDate() + "');";
 
-        SQLConnector.getInstance(confDAO).insertQuery(query);
+        return SQLConnector.getInstance(confDAO).insertQuery(query);
 
     }
 
     @Override
-    public void deleteChat(User user1, User user2) {
+    public boolean deleteChat(User user1, User user2) {
         String query = "DELETE FROM `xat` WHERE (`idOrigen` LIKE " + user1.getId() + " AND `idDesti` LIKE "
                 + user2.getId() + ") OR (`idOrigen` LIKE " + user2.getId() + " AND `idDesti` LIKE " + user1.getId()
                 + ")";
-        SQLConnector.getInstance(confDAO).deleteQuery(query);
+        return SQLConnector.getInstance(confDAO).deleteQuery(query);
     }
 }

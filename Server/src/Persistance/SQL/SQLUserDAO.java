@@ -44,7 +44,9 @@ public class SQLUserDAO implements UserDAO {
                 + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getPathImage() + "', '"
                 + user.getDescription() + "', '" + user.getProgrammingLanguage() + "');";
 
-        SQLConnector.getInstance(confDAO).insertQuery(query);
+        if (!SQLConnector.getInstance(confDAO).insertQuery(query)) {
+            return -1;
+        }
         result = SQLConnector.getInstance(confDAO).selectQuery(uuidQuery);
         try {
             result.next();
@@ -57,27 +59,28 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUser(User user) {
+    public boolean deleteUser(User user) {
         String query = "DELETE FROM `usuari` WHERE `uuid`='" + user.getId() + "';";
-        SQLConnector.getInstance(confDAO).deleteQuery(query);
+
+        return SQLConnector.getInstance(confDAO).deleteQuery(query);
     }
 
     @Override
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
         String query = "UPDATE `usuari` SET `nomPila`= '" + user.getFirstName() + "',`nickname`= '" + user.getNickname()
                 + "',`edat`=" + user.getAge() + ",`uuid`=" + user.getId() + ",`tipusCompte`= '" + user.getType()
                 + "',`email`= '" + user.getEmail() + "' ,`password`= '" + user.getPassword() + "',`pathImage`= '"
                 + user.getPathImage() + "' ,`descripcio`= '" + user.getDescription() + "' ,`llenguatgeDeProgramacio`= '"
-                + user.getProgrammingLanguage() + "' WHERE `uuid`= " + user.getId() + ";";
-        SQLConnector.getInstance(confDAO).updateQuery(query);
+                + user.getProgrammingLanguage() + "' ,`status`= '" + user.getStatus() + "' WHERE `uuid`= "
+                + user.getId() + ";";
+        return SQLConnector.getInstance(confDAO).updateQuery(query);
     }
 
     @Override
-    public boolean validadionLogin(User user) {
-        String query = "SELECT `password` FROM `usuari` WHERE `uuid` = " + user.getId() + ";";
+    public boolean validationLogin(User user) {
+        String query = "SELECT `password` FROM `usuari` WHERE `email` = " + user.getEmail() + ";";
         ResultSet result;
 
-        SQLConnector.getInstance(confDAO).selectQuery(query);
         result = SQLConnector.getInstance(confDAO).selectQuery(query);
         try {
             result.next();
@@ -152,5 +155,20 @@ public class SQLUserDAO implements UserDAO {
     public ArrayList<User> getPretendents(User user) {
         // TODO
         return null;
+    }
+
+    @Override
+    public int checkLoginIntent(User user) {
+        String query = "SELECT `status` FROM `usuari` WHERE `uuid` = " + user.getId() + ";";
+        ResultSet result;
+
+        result = SQLConnector.getInstance(confDAO).selectQuery(query);
+        try {
+            result.next();
+            return result.getInt("status");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }
