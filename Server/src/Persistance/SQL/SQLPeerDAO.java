@@ -61,8 +61,24 @@ public class SQLPeerDAO implements PeerDAO {
 
     @Override
     public ArrayList<User> getUserPeers(User user) {
-        //TODO
-        return null;
+        // TODO
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM usuari JOIN pair a JOIN pair b ON a.idDesti=b.idOrigen AND a.idOrigen=b.idDesti AND a.idOrigen=usuari.uuid HAVING a.idDesti="
+                + user.getId() + ";";
+
+        ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
+        try {
+            while (result.next()) {
+                users.add(new User(result.getInt("uuid"), result.getString("nomPila"), result.getString("nickname"),
+                        result.getInt("edat"), result.getString("tipusCompte"), result.getString("email"),
+                        result.getString("password"), result.getString("pathImage"), result.getString("descripcio"),
+                        result.getString("llenguatgeDeProgramacio")));
+            }
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /*
