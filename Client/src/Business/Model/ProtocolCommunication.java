@@ -12,9 +12,6 @@ public class ProtocolCommunication {
   public static final String OK = "OK";
   public static final String KO = "KO";
 
-  // Server protocol to warn the client all the object in array have been sent
-  public static final String LIST_FINISHED = "FINISH";
-
     //Protocols for requesting or updating information about the users
     public static final String LOGIN_USER = "LOGIN_USER";
     public static final String CREATE_USER = "CREATE_USER";
@@ -30,7 +27,6 @@ public class ProtocolCommunication {
     public static final String LIST_CHAT = "LIST_CHAT";
     public static final String CREATE_CHAT_MESSAGE = "CREATE_MESSAGE";
     public static final String READ_CHAT = "READ_CHAT";
-    public static final String UPDATE_CHAT = "UPDATE_CHAT";
     public static final String DELETE_CHAT = "DELETE_CHAT";
 
   // Here to add more protocols in the future

@@ -1,7 +1,6 @@
 package Persistance;
 
 public interface ConfigurationDAO {
-    String getIpServer();
-
+    String getIp();
     int getPort();
 }

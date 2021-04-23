@@ -10,6 +10,7 @@ import Persistance.UserDAO;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class DedicatedServer extends Thread {
     private Socket client;
@@ -69,6 +70,8 @@ public class DedicatedServer extends Thread {
                         case ProtocolCommunication.LIST_CHAT:
                             listchat();
                             break;
+                        case ProtocolCommunication.READ_PEERS:
+                            feedUsers();
                         case ProtocolCommunication.DELETE_PEER:
                             deletePeer();
                             break;
@@ -95,52 +98,82 @@ public class DedicatedServer extends Thread {
         }
     }
 
-    private void listchat() {
+    private void feedUsers() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        ArrayList<User> pretendientes;
+        if (user.getType().equals("Premium")){
+            pretendientes = this.userDAO.getPretendentsPremium(user);
+            os.writeObject(pretendientes);
+        }else{
+            pretendientes = this.userDAO.getPretendents(user);
+            os.writeObject(pretendientes);
+        }
     }
 
-    private void readChat() {
-        
+    private void listchat() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        ArrayList<User> usersArray = this.peerDAO.getUserPeers(user);
+        os.writeObject(usersArray);
+    }
+
+    private void readChat() throws IOException, ClassNotFoundException {
+        User source = (User) is.readObject();
+        User destiny = (User) is.readObject();
+        ArrayList<ChatMessage> messages = this.chatDAO.getAllXats(source, destiny);
+        os.writeObject(messages);
     }
 
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
-        this.chatDAO.addMessage(message.getIdSource(), message.getIdDestiny(), message.getMessage());
+        this.chatDAO.addMessage(message);
         os.writeObject(new Trama(ProtocolCommunication.OK));
     }
 
     private void deletePeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
-        this.peerDAO.deletePeer(peer.getIdSource(), peer.getIdDestiny());
+        this.peerDAO.deletePeer(peer);
         os.writeObject(new Trama(ProtocolCommunication.OK));
     }
 
     private void createPeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
-        this.peerDAO.addLike(peer.getIdSource(), peer.getIdDestiny());
+        this.peerDAO.addLike(peer);
         os.writeObject(new Trama(ProtocolCommunication.OK));
     }
 
     private void deleteUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        this.userDAO.deleteUser(user.getId());
+        this.userDAO.deleteUser(user);
         os.writeObject(new Trama(ProtocolCommunication.OK));
     }
 
-    private void readUser() {
-
+    private void readUser() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        User response = this.userDAO.getUser(user.getId());
+        if(response != null){
+            os.writeObject(response);
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
-    private void updateUser() {
-
+    private void updateUser() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        this.userDAO.updateUser(user);
+        os.writeObject(new Trama(ProtocolCommunication.OK));
     }
 
-    private void validateLogin() {
-
+    private void validateLogin() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        if(this.userDAO.validadionLogin(user)){
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void createUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        //System.out.println(user.getEmail() + user.getFirstName() + user.getProgrammingLanguage());
         if(this.userDAO.addUser(user) != -1){
             os.writeObject(new Trama(ProtocolCommunication.OK));
         }else{
