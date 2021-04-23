@@ -1,4 +1,7 @@
-package Presentation.views;
+package Presentation.controller;
+
+import Presentation.view.LoginView;
+import Presentation.view.RegisterView;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;

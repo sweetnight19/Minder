@@ -1,6 +1,9 @@
 import Persistance.ConfigurationDAO;
 import Persistance.JsonConfigurationDAO;
-import Presentation.views.*;
+import Presentation.controller.ButtonController;
+import Presentation.controller.FieldController;
+import Presentation.view.LoginView;
+import Presentation.view.RegisterView;
 
 public class App {
     public static void main(String[] args) throws Exception {

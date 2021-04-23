@@ -1,4 +1,4 @@
-package Presentation.views;
+package Presentation.view;
 
 public class MinderColor {
     public static final String PINK = "#FE3C72";

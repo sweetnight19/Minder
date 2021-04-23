@@ -1,4 +1,7 @@
-package Presentation.views;
+package Presentation.controller;
+
+import Presentation.view.LoginView;
+import Presentation.view.RegisterView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package Presentation.views;
+package Presentation.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class RegisterView extends JFrame{
     private static final String WINDOW_TITLE = "MINDER REGISTER";
     private static final String LOGO_TITLE = "MINDER";
-    private static final String LOGO_SRC = "./Media/Brain.png";
+    private static final String LOGO_SRC = "Client/Media/Brain.png";
     private static final String LOGO_IMG_ERR = "Error al carregar la imatge!!";
     protected static final String NICK = "NICK";
     protected static final String PASSWD = "PASSWD";
@@ -206,13 +206,13 @@ public class RegisterView extends JFrame{
         bLogin.setActionCommand("LOGIN");
         bLogin.addActionListener(actionListener);
     }
-    public void nicknameSelected() {
+    public void firstNameSelected() {
         nicknameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
         nicknameField.setBorder(nicknameTitledBorderSelected);
         jPanel.revalidate();
         jPanel.repaint();
     }
-    public void nicknameUnselected() {
+    public void firstNameUnselected() {
         nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
         nicknameField.setBorder(nicknameTitledBorderUnselected);
         jPanel.revalidate();

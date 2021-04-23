@@ -1,4 +1,4 @@
-package Presentation.views;
+package Presentation.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,13 +14,13 @@ import java.io.IOException;
 public class LoginView extends JFrame {
     private static final String WINDOW_TITLE = "MINDER LOGIN";
     private static final String LOGO_TITLE = "MINDER";
-    private static final String LOGO_SRC = "./Media/Brain.png";
+    private static final String LOGO_SRC = "Client/Media/Brain.png";
     private static final String LOGO_IMG_ERR = "Error al carregar la imatge!!";
-    protected static final String NICK = "NICK";
-    protected static final String PASSWD = "PASSWD";
     private static final int LOGO_WIDTH = 100;
     private static final int LOGO_HIGHT = 80;
     private static final int TEXTFIELD_COLUMNS = 20;
+    public static final String NICK = "NICK";
+    public static final String PASSWD = "PASSWD";
 
     // Components
     private JPanel jPanel;
@@ -66,6 +66,8 @@ public class LoginView extends JFrame {
         }
         configureFields();
         configureButtons();
+        JLabel label = new JLabel("Underlined Label");
+        Font font = label.getFont();
     }
     private void configureLogo() {
         // Image
@@ -166,7 +168,7 @@ public class LoginView extends JFrame {
         jPanel.repaint();
     }
     public void delete() {
-        remove(this);
+        setVisible(false);
     }
     public void display() {
         setVisible(true);
