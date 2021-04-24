@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String pathImage;
     private String description;
     private String programmingLanguage;
+    private int status;
 
     public User(int id, String firstName, String nickname, int age, String type, String email, String password,
             String pathImage, String description, String programmingLanguage) {
@@ -78,5 +79,9 @@ public class User implements Serializable {
 
     public void setProgrammingLanguage(String programmingLanguage) {
         this.programmingLanguage = programmingLanguage;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

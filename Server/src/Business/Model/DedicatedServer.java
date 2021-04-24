@@ -55,6 +55,9 @@ public class DedicatedServer extends Thread {
                         case ProtocolCommunication.LOGIN_USER:
                             validateLogin();
                             break;
+                        case ProtocolCommunication.CHECK_LOGIN:
+                            checkLogin();
+                            break;
                         case ProtocolCommunication.UPDATE_USER:
                             updateUser();
                             break;
@@ -72,6 +75,7 @@ public class DedicatedServer extends Thread {
                             break;
                         case ProtocolCommunication.READ_PEERS:
                             feedUsers();
+                            break;
                         case ProtocolCommunication.DELETE_PEER:
                             deletePeer();
                             break;
@@ -95,6 +99,16 @@ public class DedicatedServer extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+        }
+    }
+
+    private void checkLogin() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        int status = this.userDAO.checkLoginIntent(user);
+        if (status == 0 || status == -1){
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.OK));
         }
     }
 
@@ -125,26 +139,38 @@ public class DedicatedServer extends Thread {
 
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
-        this.chatDAO.addMessage(message);
-        os.writeObject(new Trama(ProtocolCommunication.OK));
+        if(this.chatDAO.addMessage(message)) {
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void deletePeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
-        this.peerDAO.deletePeer(peer);
-        os.writeObject(new Trama(ProtocolCommunication.OK));
+        if(this.peerDAO.deletePeer(peer)) {
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void createPeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
-        this.peerDAO.addLike(peer);
-        os.writeObject(new Trama(ProtocolCommunication.OK));
+        if(this.peerDAO.addLike(peer)) {
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void deleteUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        this.userDAO.deleteUser(user);
-        os.writeObject(new Trama(ProtocolCommunication.OK));
+        if(this.userDAO.deleteUser(user)) {
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void readUser() throws IOException, ClassNotFoundException {
@@ -159,13 +185,16 @@ public class DedicatedServer extends Thread {
 
     private void updateUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        this.userDAO.updateUser(user);
-        os.writeObject(new Trama(ProtocolCommunication.OK));
+        if(this.userDAO.updateUser(user)){
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void validateLogin() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        if(this.userDAO.validadionLogin(user)){
+        if(this.userDAO.validationLogin(user)){
             os.writeObject(new Trama(ProtocolCommunication.OK));
         }else{
             os.writeObject(new Trama(ProtocolCommunication.KO));

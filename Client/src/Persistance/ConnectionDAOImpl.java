@@ -80,6 +80,26 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
+    public boolean checklogin(User user) {
+        try{
+            os.writeObject(new Trama(ProtocolCommunication.CHECK_LOGIN));
+            os.writeObject(user);
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)){
+                System.out.println("It is not the first time that he does login");
+                return true;
+            }else if (trama.getContext().equals(ProtocolCommunication.KO)){
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public boolean updateUser(User user) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.UPDATE_USER));

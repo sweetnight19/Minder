@@ -11,6 +11,7 @@ public interface ConnectionDAO {
     //UserDAO
     boolean registerUser(User user);
     boolean validateLogin(User user);
+    boolean checklogin(User user);
     boolean updateUser(User user);
     User readUser(User user);
 

@@ -14,6 +14,7 @@ public class ProtocolCommunication {
 
     //Protocols for requesting or updating information about the users
     public static final String LOGIN_USER = "LOGIN_USER";
+    public static final String CHECK_LOGIN = "CHECK_LOGIN";
     public static final String CREATE_USER = "CREATE_USER";
     public static final String READ_USER = "READ_USER";
     public static final String UPDATE_USER = "UPDATE_USER";
@@ -30,4 +31,5 @@ public class ProtocolCommunication {
     public static final String DELETE_CHAT = "DELETE_CHAT";
 
   // Here to add more protocols in the future
+  public static final String READ_IMAGE = "READ_IMAGE";
 }
