@@ -7,10 +7,13 @@ import Persistance.*;
 import Persistance.SQL.SQLChatDAO;
 import Persistance.SQL.SQLPeerDAO;
 import Persistance.SQL.SQLUserDAO;
+import Presentation.ServerView;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
+        ServerView view = new ServerView();
+        view.start();
 
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
