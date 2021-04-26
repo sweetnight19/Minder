@@ -15,6 +15,11 @@ public class App {
         ServerView view = new ServerView();
         view.start();
 
+        String[] headers = {"Position", "Name", "Matches"};
+        String[][] data = {{"1", "Edmon", "34"}, {"2", "David", "23"}, {"3", "Joan", "10"},
+                {"4", "Artur", "5"},{"5", "Pol", "3"}};
+        view.updateTable(data, headers);
+
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);

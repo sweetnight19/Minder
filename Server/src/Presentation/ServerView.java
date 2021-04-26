@@ -4,6 +4,7 @@ import Business.Entity.User;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 
 public class ServerView extends JFrame {
     private static final String LOGO_SRC = "Server/Media/TrophyCup.png";
-    private static final int LOGO_WIDTH = 40;
-    private static final int LOGO_HIGHT = 30;
+    private static final int LOGO_WIDTH = 24;
+    private static final int LOGO_HIGHT = 24;
 
     private Image logoImage;
     private JPanel top5;
@@ -31,7 +32,6 @@ public class ServerView extends JFrame {
 
     private JSplitPane configureCenter(){
         JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, configureGraphic(), configureTop5());
-        sp.setBackground(Color.WHITE);
         sp.setResizeWeight(0.75);
         return sp;
     }
@@ -44,7 +44,7 @@ public class ServerView extends JFrame {
     }
 
     private JPanel configureTop5() {
-        top5 = new JPanel();
+        top5 = new JPanel(new BorderLayout());
         try {
             logoImage = ImageIO.read(new File(LOGO_SRC));
             // Image
@@ -58,7 +58,8 @@ public class ServerView extends JFrame {
             JPanel jpLogo = new JPanel();
             jpLogo.add(logoTitle);
             jpLogo.add(logoLabel);
-            top5.add(jpLogo);
+
+            top5.add(jpLogo, BorderLayout.NORTH);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,9 +67,43 @@ public class ServerView extends JFrame {
     }
 
     public void updateTable(String[][] data, String[] headers){
-        JTable j = new JTable(data, headers);
-        j.setBounds(30, 400, 200, 300);
-        top5.add(j);
+        JTable j = new JTable(data, headers){
+            @Override
+            public Class<?> getColumnClass(int column) {
+                return getValueAt(0, column).getClass();
+            }
+        };
+        j.setBounds(50, 400, 200, 500);
+        j.setShowGrid(false);
+        j.getTableHeader().setBackground(Color.white);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        j.setDefaultRenderer(String.class, centerRenderer);
+        for (int i = 0; i < j.getColumnCount(); i++) {
+            j.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        j.setRowHeight(40);
+        for (int i = 1; i <= 3; i++) {
+            for (int k = 1; k <= 3; k++) {
+                switch (k){
+                    case 1:
+
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+            }
+        }
+
+        j.setForeground(Color.RED);
+        JScrollPane scrollPane= new  JScrollPane(j);
+        top5.add(scrollPane, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     public void start(){
