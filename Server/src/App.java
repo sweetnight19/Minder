@@ -3,27 +3,29 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import Business.Model.DedicatedServer;
+import Business.Model.StatisticsManagement;
 import Persistance.*;
 import Persistance.SQL.SQLChatDAO;
 import Persistance.SQL.SQLPeerDAO;
 import Persistance.SQL.SQLUserDAO;
+import Presentation.ServerController;
 import Presentation.ServerView;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        ServerView view = new ServerView();
-        view.start();
-
-        String[] headers = {"Position", "Name", "Matches"};
-        String[][] data = {{"1", "Edmon", "34"}, {"2", "David", "23"}, {"3", "Joan", "10"},
-                {"4", "Artur", "5"},{"5", "Pol", "3"}};
-        view.updateTable(data, headers);
-
+        //System.out.println(Class.forName("com.mysql.cj.jdbc.Driver").getClass().getClassLoader().getName());
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);
         ChatDAO chatDAO = new SQLChatDAO(configurationDAO);
+
+        StatisticsManagement statisticsManagement = new StatisticsManagement(userDAO, peerDAO);
+        ServerView view = new ServerView();
+        ServerController serverController = new ServerController(view, statisticsManagement);
+        view.start();
+        serverController.start();
+
         try {
             ServerSocket sSocket = new ServerSocket(configurationDAO.getPortTCP()); // Inicialitzem el socket
 

@@ -77,29 +77,34 @@ public class ServerView extends JFrame {
         j.setShowGrid(false);
         j.getTableHeader().setBackground(Color.white);
 
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                switch (row){
+                    case 0:
+                        setForeground(Color.decode("#efb810"));
+                        break;
+                    case 1:
+                        setForeground(Color.decode("#BEBEBE"));
+                        break;
+                    case 2:
+                        setForeground(Color.decode("#cd7f32"));
+                        break;
+                    default:
+                        setForeground(Color.BLACK);
+                }
+                return this;
+            }
+        };
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-        j.setDefaultRenderer(String.class, centerRenderer);
+        centerRenderer.setForeground(Color.red);
         for (int i = 0; i < j.getColumnCount(); i++) {
             j.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
         j.setRowHeight(40);
-        for (int i = 1; i <= 3; i++) {
-            for (int k = 1; k <= 3; k++) {
-                switch (k){
-                    case 1:
 
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                }
-            }
-        }
-
-        j.setForeground(Color.RED);
         JScrollPane scrollPane= new  JScrollPane(j);
         top5.add(scrollPane, BorderLayout.CENTER);
         revalidate();
