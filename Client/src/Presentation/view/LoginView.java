@@ -20,6 +20,8 @@ public class LoginView extends JFrame {
     private static final int LOGO_WIDTH = 100;
     private static final int LOGO_HIGHT = 80;
     private static final int TEXTFIELD_COLUMNS = 20;
+    private static final String NICK = "NICK";
+    private static final String PASSWD = "PASSWORD";
 
     // Components
     private JPanel jPanel;
@@ -139,7 +141,6 @@ public class LoginView extends JFrame {
         // Panel
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
-<<<<<<< HEAD
 
     public void registerController(FocusListener focusListener, ActionListener actionListener) {
         nicknameField.setName(NICK);
@@ -178,7 +179,6 @@ public class LoginView extends JFrame {
         jPanel.repaint();
     }
 
-=======
     public void registerController(ActionListener actionListener) {
         nicknameField.addFocusListener(new FocusListener() {
             @Override
@@ -216,7 +216,6 @@ public class LoginView extends JFrame {
         bRegister.setActionCommand("REGISTER");
         bRegister.addActionListener(actionListener);
     }
->>>>>>> 8e191751dc58743a184ca8b23efd70269309c4ba
     public void delete() {
         setVisible(false);
     }
