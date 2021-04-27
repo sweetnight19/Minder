@@ -17,10 +17,18 @@ public class ButtonController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("REGISTER")) {
-            System.out.println("button Register");
-            loginView.delete();
-            registerView.display();
+        switch (e.getActionCommand()) {
+            case "REGISTER":
+                System.out.println("button Register");
+                loginView.delete();
+                registerView.display();
+                break;
+
+            case "LOGIN":
+                System.out.println("button Login");
+                registerView.delete();
+                loginView.display();
+                break;
         }
 
     }

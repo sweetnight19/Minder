@@ -7,6 +7,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +20,6 @@ public class LoginView extends JFrame {
     private static final int LOGO_WIDTH = 100;
     private static final int LOGO_HIGHT = 80;
     private static final int TEXTFIELD_COLUMNS = 20;
-    public static final String NICK = "NICK";
-    public static final String PASSWD = "PASSWD";
 
     // Components
     private JPanel jPanel;
@@ -66,8 +65,6 @@ public class LoginView extends JFrame {
         }
         configureFields();
         configureButtons();
-        JLabel label = new JLabel("Underlined Label");
-        Font font = label.getFont();
     }
     private void configureLogo() {
         // Image
@@ -135,37 +132,42 @@ public class LoginView extends JFrame {
         // Panel
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
-    public void registerController(FocusListener focusListener, ActionListener actionListener) {
-        nicknameField.setName(NICK);
-        passwdField.setName(PASSWD);
-        nicknameField.addFocusListener(focusListener);
-        passwdField.addFocusListener(focusListener);
+    public void registerController(ActionListener actionListener) {
+        nicknameField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                nicknameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                nicknameField.setBorder(nicknameTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                nicknameField.setBorder(nicknameTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
+        passwdField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                passwdTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                passwdField.setBorder(passwdTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                passwdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                passwdField.setBorder(passwdTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
         bRegister.setActionCommand("REGISTER");
         bRegister.addActionListener(actionListener);
-    }
-    public void nicknameSelected() {
-        nicknameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
-        nicknameField.setBorder(nicknameTitledBorderSelected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-    public void nicknameUnselected() {
-        nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
-        nicknameField.setBorder(nicknameTitledBorderUnselected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-    public void passwdSelected() {
-        passwdTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
-        passwdField.setBorder(passwdTitledBorderSelected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-    public void passwdUnselected() {
-        passwdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
-        passwdField.setBorder(passwdTitledBorderUnselected);
-        jPanel.revalidate();
-        jPanel.repaint();
     }
     public void delete() {
         setVisible(false);
