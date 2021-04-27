@@ -4,7 +4,6 @@ import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
 import Persistance.JsonConfigurationDAO;
 import Presentation.controller.ButtonController;
-import Presentation.controller.FieldController;
 import Presentation.view.LoginView;
 import Presentation.view.RegisterView;
 
@@ -19,11 +18,10 @@ public class App {
         LoginView loginView = new LoginView();
         RegisterView registerView = new RegisterView();
 
-        FieldController fieldController = new FieldController(loginView, registerView);
         ButtonController buttonController = new ButtonController(loginView, registerView);
 
-        loginView.registerController(fieldController, buttonController);
-        registerView.registerController(fieldController, buttonController);
+        loginView.registerController(buttonController);
+        registerView.registerController(buttonController);
 
         loginView.display();
         // ConfigurationDAO confDAO = new
