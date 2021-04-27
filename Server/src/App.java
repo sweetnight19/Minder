@@ -14,7 +14,6 @@ import Presentation.ServerView;
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        //System.out.println(Class.forName("com.mysql.cj.jdbc.Driver").getClass().getClassLoader().getName());
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);
@@ -23,8 +22,8 @@ public class App {
         StatisticsManagement statisticsManagement = new StatisticsManagement(userDAO, peerDAO);
         ServerView view = new ServerView();
         ServerController serverController = new ServerController(view, statisticsManagement);
-        view.start();
         serverController.start();
+        view.start();
 
         try {
             ServerSocket sSocket = new ServerSocket(configurationDAO.getPortTCP()); // Inicialitzem el socket

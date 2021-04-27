@@ -4,6 +4,7 @@ import Business.Entity.User;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.io.File;
@@ -26,7 +27,7 @@ public class ServerView extends JFrame {
     private void configureWindow() {
         setTitle("Minder Server");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(900, 500);
+        setSize(900, 400);
         setLocationRelativeTo(null);
     }
 
@@ -38,7 +39,7 @@ public class ServerView extends JFrame {
 
     private JPanel configureGraphic() {
         JPanel hola = new JPanel();
-        JLabel hola2 = new JLabel("hola");
+        JLabel hola2 = new JLabel("TODO Statistics Graphic");
         hola.add(hola2);
         return hola;
     }
@@ -58,6 +59,7 @@ public class ServerView extends JFrame {
             JPanel jpLogo = new JPanel();
             jpLogo.add(logoTitle);
             jpLogo.add(logoLabel);
+            jpLogo.setBorder(new EmptyBorder(25,10,25,10));
 
             top5.add(jpLogo, BorderLayout.NORTH);
         } catch (IOException e) {
@@ -75,7 +77,8 @@ public class ServerView extends JFrame {
         };
         j.setBounds(50, 400, 200, 500);
         j.setShowGrid(false);
-        j.getTableHeader().setBackground(Color.white);
+        j.getTableHeader().setBackground(Color.WHITE);
+        j.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){
             @Override
@@ -106,6 +109,7 @@ public class ServerView extends JFrame {
         j.setRowHeight(40);
 
         JScrollPane scrollPane= new  JScrollPane(j);
+        scrollPane.setBorder(new EmptyBorder(0, 15, 0, 15));
         top5.add(scrollPane, BorderLayout.CENTER);
         revalidate();
         repaint();
