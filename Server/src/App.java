@@ -19,9 +19,9 @@ public class App {
         try {
             ServerSocket sSocket = new ServerSocket(configurationDAO.getPortTCP()); // Inicialitzem el socket
 
-            while(true) {
-                Socket client = sSocket.accept();   //Acceptem peticions dels cients
-                //Creem un servidor dedicat per cada client en particular
+            while (true) {
+                Socket client = sSocket.accept(); // Acceptem peticions dels cients
+                // Creem un servidor dedicat per cada client en particular
                 DedicatedServer dedicated = new DedicatedServer(client, userDAO, chatDAO, peerDAO);
                 dedicated.start();
             }

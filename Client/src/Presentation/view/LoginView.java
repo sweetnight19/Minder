@@ -42,6 +42,7 @@ public class LoginView extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }
+
     private void configureWindow() {
         setTitle(WINDOW_TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,12 +52,13 @@ public class LoginView extends JFrame {
         jScrollPane = new JScrollPane(jPanel);
         add(jScrollPane);
     }
+
     private void configureNorth() {
         jpBox = new JPanel();
         jpBox.setLayout(new BoxLayout(jpBox, BoxLayout.Y_AXIS));
         jpBox.setBackground(Color.decode(MinderColor.WHITE));
         jPanel.add(jpBox, BorderLayout.NORTH);
-        Border generalBorder = BorderFactory.createEmptyBorder(50,60,50,60);
+        Border generalBorder = BorderFactory.createEmptyBorder(50, 60, 50, 60);
         jPanel.setBorder(generalBorder);
         try {
             logoImage = ImageIO.read(new File(LOGO_SRC));
@@ -69,6 +71,7 @@ public class LoginView extends JFrame {
         JLabel label = new JLabel("Underlined Label");
         Font font = label.getFont();
     }
+
     private void configureLogo() {
         // Image
         logoImage = logoImage.getScaledInstance(LOGO_WIDTH, LOGO_HIGHT, Image.SCALE_DEFAULT);
@@ -85,6 +88,7 @@ public class LoginView extends JFrame {
         jpBox.add(jpLogo, BorderLayout.NORTH);
         jpBox.add(Box.createVerticalStrut(100));
     }
+
     private void configureFields() {
         // Border
         blackBorder = new LineBorder(Color.decode(MinderColor.BLACK));
@@ -92,6 +96,7 @@ public class LoginView extends JFrame {
         configureNickname();
         configurePasswd();
     }
+
     private void configureNickname() {
         // TitledBorder
         nicknameTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Nickname");
@@ -103,6 +108,7 @@ public class LoginView extends JFrame {
         jpBox.add(nicknameField);
         jpBox.add(Box.createVerticalStrut(30));
     }
+
     private void configurePasswd() {
         // TitledBorder
         passwdTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Password");
@@ -114,6 +120,7 @@ public class LoginView extends JFrame {
         jpBox.add(passwdField);
         jpBox.add(Box.createVerticalStrut(50));
     }
+
     private void configureButtons() {
         // Login
         jpButtons = new JPanel();
@@ -135,6 +142,7 @@ public class LoginView extends JFrame {
         // Panel
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
+
     public void registerController(FocusListener focusListener, ActionListener actionListener) {
         nicknameField.setName(NICK);
         passwdField.setName(PASSWD);
@@ -143,33 +151,39 @@ public class LoginView extends JFrame {
         bRegister.setActionCommand("REGISTER");
         bRegister.addActionListener(actionListener);
     }
+
     public void nicknameSelected() {
         nicknameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
         nicknameField.setBorder(nicknameTitledBorderSelected);
         jPanel.revalidate();
         jPanel.repaint();
     }
+
     public void nicknameUnselected() {
         nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
         nicknameField.setBorder(nicknameTitledBorderUnselected);
         jPanel.revalidate();
         jPanel.repaint();
     }
+
     public void passwdSelected() {
         passwdTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
         passwdField.setBorder(passwdTitledBorderSelected);
         jPanel.revalidate();
         jPanel.repaint();
     }
+
     public void passwdUnselected() {
         passwdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
         passwdField.setBorder(passwdTitledBorderUnselected);
         jPanel.revalidate();
         jPanel.repaint();
     }
+
     public void delete() {
         setVisible(false);
     }
+
     public void display() {
         setVisible(true);
     }

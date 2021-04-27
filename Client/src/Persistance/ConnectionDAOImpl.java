@@ -17,7 +17,8 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 
     public ConnectionDAOImpl(ConfigurationDAO configurationDAO) {
         try {
-            //Inicialitzem tant el socket com els streams per on rebrem o enviarem la informació
+            // Inicialitzem tant el socket com els streams per on rebrem o enviarem la
+            // informació
             socket = new Socket(configurationDAO.getIp(), configurationDAO.getPort());
             os = new ObjectOutputStream(socket.getOutputStream());
             is = new ObjectInputStream(socket.getInputStream());
@@ -33,7 +34,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
         try {
             os.writeObject(new Trama(ProtocolCommunication.CONNECTION));
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Connexion con servidor correcta");
             }
         } catch (ClassNotFoundException e) {
@@ -44,12 +45,12 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
-    public boolean registerUser(User user){
+    public boolean registerUser(User user) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.CREATE_USER));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("User has been registered");
                 return true;
             }
@@ -67,7 +68,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.LOGIN_USER));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("User has been authenticated");
                 return true;
             }
@@ -81,14 +82,14 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 
     @Override
     public boolean checklogin(User user) {
-        try{
+        try {
             os.writeObject(new Trama(ProtocolCommunication.CHECK_LOGIN));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("It is not the first time that he does login");
                 return true;
-            }else if (trama.getContext().equals(ProtocolCommunication.KO)){
+            } else if (trama.getContext().equals(ProtocolCommunication.KO)) {
                 return false;
             }
         } catch (IOException e) {
@@ -105,7 +106,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.UPDATE_USER));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("User has been updated");
                 return true;
             }
@@ -123,9 +124,9 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.READ_USER));
             os.writeObject(user);
             User newUser = (User) is.readObject();
-            if(newUser!=null){
+            if (newUser != null) {
                 System.out.println("User has been recieved");
-                return newUser ;
+                return newUser;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,7 +142,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.CREATE_PEER));
             os.writeObject(peer);
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Peer has been created");
                 return true;
             }
@@ -159,7 +160,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.DELETE_PEER));
             os.writeObject(peer);
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Peer has been deleted");
                 return true;
             }
@@ -177,7 +178,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.READ_PEERS));
             os.writeObject(user);
             ArrayList<User> usersCarrussel = (ArrayList<User>) is.readObject();
-            if(usersCarrussel!=null){
+            if (usersCarrussel != null) {
                 System.out.println("Possible users have been recieved");
                 return usersCarrussel;
             }
@@ -195,7 +196,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.LIST_CHAT));
             os.writeObject(user);
             ArrayList<User> listChatUsers = (ArrayList<User>) is.readObject();
-            if(listChatUsers != null){
+            if (listChatUsers != null) {
                 System.out.println("List chat from user recieved");
                 return listChatUsers;
             }
@@ -214,7 +215,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(source);
             os.writeObject(destiny);
             ArrayList<ChatMessage> chatMessages = (ArrayList<ChatMessage>) is.readObject();
-            if(chatMessages != null){
+            if (chatMessages != null) {
                 System.out.println("Chat messages recieved");
                 return chatMessages;
             }
@@ -232,7 +233,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.CREATE_CHAT_MESSAGE));
             os.writeObject(message);
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Message has been created");
                 return true;
             }
@@ -249,7 +250,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
         try {
             os.writeObject(new Trama(ProtocolCommunication.DISCONNECTION));
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Disconnection correct");
             }
         } catch (ClassNotFoundException e) {
