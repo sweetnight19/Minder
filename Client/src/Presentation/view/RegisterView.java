@@ -7,6 +7,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +30,19 @@ public class RegisterView extends JFrame{
     private JPanel jpButtons;
     private Image logoImage;
     private JLabel logoTitle;
+    private JTextField firstNameField;
     private JTextField nicknameField;
+    private JTextField ageField;
+    private JTextField emailField;
     private JPasswordField passwdField;
+    private JPasswordField confirmPasswdField;
     private Border pinkBorder, blackBorder;
+    private TitledBorder firstNameTitledBorderSelected, firstNameTitledBorderUnselected;
     private TitledBorder nicknameTitledBorderSelected, nicknameTitledBorderUnselected;
+    private TitledBorder ageTitledBorderSelected, ageTitledBorderUnselected;
+    private TitledBorder emailTitledBorderSelected, emailTitledBorderUnselected;
     private TitledBorder passwdTitledBorderSelected, passwdTitledBorderUnselected;
+    private TitledBorder confirmPasswdTitledBorderSelected, confirmPasswdTitledBorderUnselected;
     private JButton bLogin;
 
     public RegisterView() {
@@ -97,13 +106,13 @@ public class RegisterView extends JFrame{
     }
     private void configureFirstName() {
         // TitledBorder
-        nicknameTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "First Name");
-        nicknameTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "First Name");
+        firstNameTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "First Name");
+        firstNameTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "First Name");
         // TextField
-        nicknameField = new JTextField(TEXTFIELD_COLUMNS);
-        nicknameField.setBorder(nicknameTitledBorderUnselected);
+        firstNameField = new JTextField(TEXTFIELD_COLUMNS);
+        firstNameField.setBorder(firstNameTitledBorderUnselected);
         // Panel
-        jpBox.add(nicknameField);
+        jpBox.add(firstNameField);
         jpBox.add(Box.createVerticalStrut(10));
     }
     private void configureNickname() {
@@ -119,13 +128,13 @@ public class RegisterView extends JFrame{
     }
     private void configureAge() {
         // TitledBorder
-        nicknameTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Age");
-        nicknameTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "Age");
+        ageTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Age");
+        ageTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "Age");
         // TextField
-        nicknameField = new JTextField(TEXTFIELD_COLUMNS);
-        nicknameField.setBorder(nicknameTitledBorderUnselected);
+        ageField = new JTextField(TEXTFIELD_COLUMNS);
+        ageField.setBorder(ageTitledBorderUnselected);
         // Panel
-        jpBox.add(nicknameField);
+        jpBox.add(ageField);
         jpBox.add(Box.createVerticalStrut(10));
     }
     void configureRadioButtons() {
@@ -146,13 +155,13 @@ public class RegisterView extends JFrame{
     }
     private void configureEmail() {
         // TitledBorder
-        nicknameTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Email");
-        nicknameTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "Email");
+        emailTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Email");
+        emailTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "Email");
         // TextField
-        nicknameField = new JTextField(TEXTFIELD_COLUMNS);
-        nicknameField.setBorder(nicknameTitledBorderUnselected);
+        emailField = new JTextField(TEXTFIELD_COLUMNS);
+        emailField.setBorder(emailTitledBorderUnselected);
         // Panel
-        jpBox.add(nicknameField);
+        jpBox.add(emailField);
         jpBox.add(Box.createVerticalStrut(10));
     }
     private void configurePasswd() {
@@ -168,13 +177,13 @@ public class RegisterView extends JFrame{
     }
     private void configureConfirmPasswd() {
         // TitledBorder
-        passwdTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Confirm Password");
-        passwdTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "Confirm Password");
+        confirmPasswdTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Confirm Password");
+        confirmPasswdTitledBorderSelected = BorderFactory.createTitledBorder(pinkBorder, "Confirm Password");
         // TextField
-        passwdField = new JPasswordField(TEXTFIELD_COLUMNS);
-        passwdField.setBorder(passwdTitledBorderUnselected);
+        confirmPasswdField = new JPasswordField(TEXTFIELD_COLUMNS);
+        confirmPasswdField.setBorder(confirmPasswdTitledBorderUnselected);
         // Panel
-        jpBox.add(passwdField);
+        jpBox.add(confirmPasswdField);
         jpBox.add(Box.createVerticalStrut(50));
     }
     private void configureButtons() {
@@ -198,37 +207,108 @@ public class RegisterView extends JFrame{
         // Panel
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
-    public void registerController(FocusListener focusListener, ActionListener actionListener) {
-        nicknameField.setName(NICK);
-        passwdField.setName(PASSWD);
-        nicknameField.addFocusListener(focusListener);
-        passwdField.addFocusListener(focusListener);
+    public void registerController(ActionListener actionListener) {
+        firstNameField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                firstNameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                firstNameField.setBorder(firstNameTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                firstNameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                firstNameField.setBorder(firstNameTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
+        nicknameField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                nicknameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                nicknameField.setBorder(nicknameTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                nicknameField.setBorder(nicknameTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
+        ageField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                ageTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                ageField.setBorder(ageTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                ageTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                ageField.setBorder(ageTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
+        emailField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                emailTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                emailField.setBorder(emailTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                emailTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                emailField.setBorder(emailTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
+        passwdField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                passwdTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                passwdField.setBorder(passwdTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                passwdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                passwdField.setBorder(passwdTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
+        confirmPasswdField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                confirmPasswdTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
+                confirmPasswdField.setBorder(confirmPasswdTitledBorderSelected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                confirmPasswdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
+                confirmPasswdField.setBorder(confirmPasswdTitledBorderUnselected);
+                jPanel.revalidate();
+                jPanel.repaint();
+            }
+        });
         bLogin.setActionCommand("LOGIN");
         bLogin.addActionListener(actionListener);
     }
-    public void firstNameSelected() {
-        nicknameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
-        nicknameField.setBorder(nicknameTitledBorderSelected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-    public void firstNameUnselected() {
-        nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
-        nicknameField.setBorder(nicknameTitledBorderUnselected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-    public void passwdSelected() {
-        passwdTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
-        passwdField.setBorder(passwdTitledBorderSelected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-    public void passwdUnselected() {
-        passwdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
-        passwdField.setBorder(passwdTitledBorderUnselected);
-        jPanel.revalidate();
-        jPanel.repaint();
+    public void delete() {
+        setVisible(false);
     }
     public void display() {
         setVisible(true);
