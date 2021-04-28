@@ -111,28 +111,40 @@ public class DedicatedServer extends Thread {
         }
     }
 
-    private void readImage() {
+    private void readImage() throws IOException, InterruptedException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        //cridar la funcio que et retorna el nom de la imatge
 
+        BufferedImage image = null;
+        image = ImageIO.read(new File("Server/images/bosched.jpg"));
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", byteArrayOutputStream);
+
+        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+        os.write(size);
+        os.write(byteArrayOutputStream.toByteArray());
+        os.flush();
+        Thread.sleep(120000);
     }
 
     private void saveImage() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
 
-        //byte[] sizeAr = new byte[4];
-        //is.read(sizeAr);
+        byte[] sizeAr = new byte[4];
+        is.read(sizeAr);
 
-        //int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-        System.out.println("hola2");
-        //byte[] imageAr = new byte[size];
-        //is.read(imageAr);
-        System.out.println("hola3");
+        int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+        //System.out.println("hola2");
+        byte[] imageAr = new byte[size];
+        is.readFully(imageAr);
+        //System.out.println("hola3");
 
-        //BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-        BufferedImage image = ImageIO.read(is);
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
 
-        System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+        //System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
         ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg" ));
-
+        //crida per guardar el nom de la imatge a la base de dades
     }
 
     private void checkLogin() throws IOException, ClassNotFoundException {
