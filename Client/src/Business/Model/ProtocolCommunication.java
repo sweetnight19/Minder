@@ -1,16 +1,16 @@
 package Business.Model;
 
 public class ProtocolCommunication {
-  // Protocols for requesting connection or disconnection with the server
-  public static final String CONNECTION = "CONNECTION";
-  public static final String DISCONNECTION = "DISCONNECTION";
+    // Protocols for requesting connection or disconnection with the server
+    public static final String CONNECTION = "CONNECTION";
+    public static final String DISCONNECTION = "DISCONNECTION";
 
-  /*
-   * Protocols for the server to communicate to the client if the process has been
-   * approved or there has been some error
-   */
-  public static final String OK = "OK";
-  public static final String KO = "KO";
+    /*
+     * Protocols for the server to communicate to the client if the process has been
+     * approved or there has been some error
+     */
+    public static final String OK = "OK";
+    public static final String KO = "KO";
 
     //Protocols for requesting or updating information about the users
     public static final String LOGIN_USER = "LOGIN_USER";
@@ -30,6 +30,7 @@ public class ProtocolCommunication {
     public static final String READ_CHAT = "READ_CHAT";
     public static final String DELETE_CHAT = "DELETE_CHAT";
 
-  // Here to add more protocols in the future
-  public static final String READ_IMAGE = "READ_IMAGE";
+    // Here to add more protocols in the future
+    public static final String READ_IMAGE = "READ_IMAGE";
+    public static final String SEND_IMAGE = "SEND_IMAGE";
 }

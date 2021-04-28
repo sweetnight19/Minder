@@ -6,8 +6,11 @@ import Business.Entity.Trama;
 import Business.Entity.User;
 import Business.Model.ProtocolCommunication;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class ConnectionDAOImpl implements ConnectionDAO {
@@ -243,6 +246,34 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void readImage(User user) {
+
+    }
+
+    @Override
+    public void sendImage(User user) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\profileTest.jpg"));
+
+            //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            //ImageIO.write(image, "jpg", byteArrayOutputStream);
+
+            //byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+            os.writeObject(new Trama(ProtocolCommunication.SEND_IMAGE));
+            os.writeObject(user);
+            ImageIO.write(image, "jpg", ImageIO.createImageOutputStream(os));
+            //os.write(size);
+            //os.write(byteArrayOutputStream.toByteArray());
+            //os.flush();
+            Thread.sleep(120000);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -8,8 +8,11 @@ import Persistance.ChatDAO;
 import Persistance.PeerDAO;
 import Persistance.UserDAO;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class DedicatedServer extends Thread {
@@ -85,6 +88,12 @@ public class DedicatedServer extends Thread {
                         case ProtocolCommunication.READ_CHAT:
                             readChat();
                             break;
+                        case ProtocolCommunication.READ_IMAGE:
+                            readImage();
+                            break;
+                        case ProtocolCommunication.SEND_IMAGE:
+                            saveImage();
+                            break;
                         default:
                             os.writeObject(new Trama(ProtocolCommunication.KO));
                     }
@@ -100,6 +109,30 @@ public class DedicatedServer extends Thread {
             e.printStackTrace();
         } finally {
         }
+    }
+
+    private void readImage() {
+
+    }
+
+    private void saveImage() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+
+        //byte[] sizeAr = new byte[4];
+        //is.read(sizeAr);
+
+        //int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+        System.out.println("hola2");
+        //byte[] imageAr = new byte[size];
+        //is.read(imageAr);
+        System.out.println("hola3");
+
+        //BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
+        BufferedImage image = ImageIO.read(is);
+
+        System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+        ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg" ));
+
     }
 
     private void checkLogin() throws IOException, ClassNotFoundException {

@@ -25,6 +25,10 @@ public interface ConnectionDAO {
     ArrayList<ChatMessage> getChatMessages(User source, User destiny);
     boolean insertNewMessage(ChatMessage message);
 
+    //Images
+    void readImage(User user);
+    void sendImage(User user);
+
     //Actions
     void disconnectFromServer();
 }
