@@ -20,8 +20,8 @@ public class LoginView extends JFrame {
     private static final int LOGO_WIDTH = 100;
     private static final int LOGO_HIGHT = 80;
     private static final int TEXTFIELD_COLUMNS = 20;
-    private static final String NICK = "NICK";
-    private static final String PASSWD = "PASSWORD";
+    public static final String MOVE_TO_REGISTER = "MOVE_TO_REGISTER";
+    public static final String LOGIN = "LOGIN";
 
     // Components
     private JPanel jPanel;
@@ -35,6 +35,7 @@ public class LoginView extends JFrame {
     private Border pinkBorder, blackBorder;
     private TitledBorder nicknameTitledBorderSelected, nicknameTitledBorderUnselected;
     private TitledBorder passwdTitledBorderSelected, passwdTitledBorderUnselected;
+    private JButton bLogin;
     private JButton bRegister;
 
     public LoginView() {
@@ -124,7 +125,8 @@ public class LoginView extends JFrame {
         // Login
         jpButtons = new JPanel();
         jpButtons.setLayout(new BorderLayout());
-        jpButtons.add(new WideButton("Log in"), BorderLayout.NORTH);
+        bLogin = new JButton("Log in");
+        jpButtons.add(new WideButton(bLogin), BorderLayout.NORTH);
         // Register Text
         JPanel jpRegister = new JPanel();
         jpRegister.setLayout(new BorderLayout());
@@ -143,11 +145,9 @@ public class LoginView extends JFrame {
     }
 
     public void registerController(FocusListener focusListener, ActionListener actionListener) {
-        nicknameField.setName(NICK);
-        passwdField.setName(PASSWD);
         nicknameField.addFocusListener(focusListener);
         passwdField.addFocusListener(focusListener);
-        bRegister.setActionCommand("REGISTER");
+        bRegister.setActionCommand(MOVE_TO_REGISTER);
         bRegister.addActionListener(actionListener);
     }
 
@@ -213,13 +213,20 @@ public class LoginView extends JFrame {
                 jPanel.repaint();
             }
         });
-        bRegister.setActionCommand("REGISTER");
+        bLogin.setActionCommand(LOGIN);
+        bLogin.addActionListener(actionListener);
+        bRegister.setActionCommand(MOVE_TO_REGISTER);
         bRegister.addActionListener(actionListener);
+    }
+    public String getNickname() {
+       return nicknameField.getText();
+    }
+    public String getPasswd() {
+        return new String(passwdField.getPassword());
     }
     public void delete() {
         setVisible(false);
     }
-
     public void display() {
         setVisible(true);
     }
