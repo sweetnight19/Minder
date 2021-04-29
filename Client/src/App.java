@@ -15,7 +15,7 @@ public class App {
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
         ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
         //connectionDAO.registerUser(new User(0, "Edmon", "bosched", 20, "Normal", "edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
-        connectionDAO.sendImage(new User(0, "Edmon", "bosched", 20, "Normal", "edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
+        //connectionDAO.sendImage(new User(0, "Edmon", "bosched", 20, "Normal", "edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
 
         LoginView loginView = new LoginView();
         RegisterView registerView = new RegisterView();

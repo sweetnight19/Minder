@@ -113,10 +113,10 @@ public class DedicatedServer extends Thread {
 
     private void readImage() throws IOException, InterruptedException, ClassNotFoundException {
         User user = (User) is.readObject();
-        //cridar la funcio que et retorna el nom de la imatge
+        user = this.userDAO.getUser(user.getId());
 
         BufferedImage image = null;
-        image = ImageIO.read(new File("Server/images/bosched.jpg"));
+        image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", byteArrayOutputStream);
@@ -135,16 +135,21 @@ public class DedicatedServer extends Thread {
         is.read(sizeAr);
 
         int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-        //System.out.println("hola2");
         byte[] imageAr = new byte[size];
         is.readFully(imageAr);
-        //System.out.println("hola3");
 
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
 
         //System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
-        ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg" ));
-        //crida per guardar el nom de la imatge a la base de dades
+        String pathBd = user.getNickname() + ".jpg";
+        ImageIO.write(image, "jpg", new File("Server/images/" + pathBd));
+
+        user.setPathImage(pathBd);
+        if(this.userDAO.updateUser(user)){
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void checkLogin() throws IOException, ClassNotFoundException {

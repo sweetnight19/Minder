@@ -249,7 +249,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
-    public void readImage(User user) {
+    public BufferedImage readImage(User user) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.READ_IMAGE));
             os.writeObject(user);
@@ -258,22 +258,24 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             is.read(sizeAr);
 
             int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-            //System.out.println("hola2");
             byte[] imageAr = new byte[size];
             is.readFully(imageAr);
-            //System.out.println("hola3");
 
             BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
 
             System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
             //ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg"));
+
+            return image;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
-    public void sendImage(User user) {
+    public boolean sendImage(User user) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\softwareTest.jpg"));
@@ -290,9 +292,15 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.flush();
             Thread.sleep(120000);
 
-        } catch (IOException | InterruptedException e) {
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)){
+                System.out.println("Image has been sent correctly and saved");
+                return true;
+            }
+        } catch (IOException | InterruptedException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
