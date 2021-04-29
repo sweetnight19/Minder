@@ -11,17 +11,18 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.PortUnreachableException;
 
 public class RegisterView extends JFrame{
     private static final String WINDOW_TITLE = "MINDER REGISTER";
     private static final String LOGO_TITLE = "MINDER";
     private static final String LOGO_SRC = "Client/Media/Brain.png";
     private static final String LOGO_IMG_ERR = "Error al carregar la imatge!!";
-    protected static final String NICK = "NICK";
-    protected static final String PASSWD = "PASSWD";
     private static final int LOGO_WIDTH = 100;
     private static final int LOGO_HIGHT = 80;
     private static final int TEXTFIELD_COLUMNS = 20;
+    public static final String MOVE_TO_LOGIN = "MOVE_TO_LOGIN";
+    public static final String REGISTER = "REGISTER";
 
     // Components
     private JPanel jPanel;
@@ -43,6 +44,8 @@ public class RegisterView extends JFrame{
     private TitledBorder emailTitledBorderSelected, emailTitledBorderUnselected;
     private TitledBorder passwdTitledBorderSelected, passwdTitledBorderUnselected;
     private TitledBorder confirmPasswdTitledBorderSelected, confirmPasswdTitledBorderUnselected;
+    JRadioButton jrbPremium;
+    private JButton bRegister;
     private JButton bLogin;
 
     public RegisterView() {
@@ -141,7 +144,7 @@ public class RegisterView extends JFrame{
         JRadioButton jrbNormal = new JRadioButton("Normal");
         jrbNormal.setBackground(Color.decode(MinderColor.WHITE));
         jrbNormal.setSelected(true);
-        JRadioButton jrbPremium = new JRadioButton("Premium");
+        jrbPremium = new JRadioButton("Premium");
         jrbPremium.setBackground(Color.decode(MinderColor.WHITE));
         ButtonGroup group = new ButtonGroup();
         group.add(jrbNormal);
@@ -190,7 +193,8 @@ public class RegisterView extends JFrame{
         // Login
         jpButtons = new JPanel();
         jpButtons.setLayout(new BorderLayout());
-        jpButtons.add(new WideButton("Register"), BorderLayout.NORTH);
+        bRegister = new JButton("Register");
+        jpButtons.add(new WideButton(bRegister), BorderLayout.NORTH);
         // Register Text
         JPanel jpRegister = new JPanel();
         jpRegister.setLayout(new BorderLayout());
@@ -304,9 +308,27 @@ public class RegisterView extends JFrame{
                 jPanel.repaint();
             }
         });
-        bLogin.setActionCommand("LOGIN");
+        bRegister.setActionCommand(REGISTER);
+        bRegister.addActionListener(actionListener);
+        bLogin.setActionCommand(MOVE_TO_LOGIN);
         bLogin.addActionListener(actionListener);
     }
+    public String getFirstName() {
+        return firstNameField.getText();
+    }
+    public String getNickname() {
+        return nicknameField.getText();
+    }
+    public String getAge() {
+        return ageField.getText();
+    }
+    public boolean getIsPremium() { return jrbPremium.isSelected(); }
+    public String getEmail() {
+        return emailField.getText();
+    }
+    public String getPasswd() { return new String(passwdField.getPassword());}
+    public String getConfirmPasswd() { return new String(confirmPasswdField.getPassword());}
+
     public void delete() {
         setVisible(false);
     }
