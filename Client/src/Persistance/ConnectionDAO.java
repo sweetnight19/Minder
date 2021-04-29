@@ -4,6 +4,7 @@ import Business.Entity.ChatMessage;
 import Business.Entity.Peer;
 import Business.Entity.User;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public interface ConnectionDAO {
@@ -24,6 +25,10 @@ public interface ConnectionDAO {
     ArrayList<User> getChatList(User user);
     ArrayList<ChatMessage> getChatMessages(User source, User destiny);
     boolean insertNewMessage(ChatMessage message);
+
+    //Images
+    BufferedImage readImage(User user);
+    boolean sendImage(User user);
 
     //Actions
     void disconnectFromServer();

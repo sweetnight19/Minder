@@ -6,8 +6,11 @@ import Business.Entity.Trama;
 import Business.Entity.User;
 import Business.Model.ProtocolCommunication;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class ConnectionDAOImpl implements ConnectionDAO {
@@ -240,6 +243,61 @@ public class ConnectionDAOImpl implements ConnectionDAO {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public BufferedImage readImage(User user) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.READ_IMAGE));
+            os.writeObject(user);
+
+            byte[] sizeAr = new byte[4];
+            is.read(sizeAr);
+
+            int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+            byte[] imageAr = new byte[size];
+            is.readFully(imageAr);
+
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
+
+            System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+            //ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg"));
+
+            return image;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean sendImage(User user) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\softwareTest.jpg"));
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", byteArrayOutputStream);
+
+            byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+
+            os.writeObject(new Trama(ProtocolCommunication.SEND_IMAGE));
+            os.writeObject(user);
+            os.write(size);
+            os.write(byteArrayOutputStream.toByteArray());
+            os.flush();
+            Thread.sleep(120000);
+
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)){
+                System.out.println("Image has been sent correctly and saved");
+                return true;
+            }
+        } catch (IOException | InterruptedException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;

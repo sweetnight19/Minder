@@ -8,8 +8,11 @@ import Persistance.ChatDAO;
 import Persistance.PeerDAO;
 import Persistance.UserDAO;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class DedicatedServer extends Thread {
@@ -85,6 +88,12 @@ public class DedicatedServer extends Thread {
                         case ProtocolCommunication.READ_CHAT:
                             readChat();
                             break;
+                        case ProtocolCommunication.READ_IMAGE:
+                            readImage();
+                            break;
+                        case ProtocolCommunication.SEND_IMAGE:
+                            saveImage();
+                            break;
                         default:
                             os.writeObject(new Trama(ProtocolCommunication.KO));
                     }
@@ -99,6 +108,47 @@ public class DedicatedServer extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+        }
+    }
+
+    private void readImage() throws IOException, InterruptedException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        user = this.userDAO.getUser(user.getId());
+
+        BufferedImage image = null;
+        image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", byteArrayOutputStream);
+
+        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+        os.write(size);
+        os.write(byteArrayOutputStream.toByteArray());
+        os.flush();
+        Thread.sleep(120000);
+    }
+
+    private void saveImage() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+
+        byte[] sizeAr = new byte[4];
+        is.read(sizeAr);
+
+        int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+        byte[] imageAr = new byte[size];
+        is.readFully(imageAr);
+
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
+
+        //System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+        String pathBd = user.getNickname() + ".jpg";
+        ImageIO.write(image, "jpg", new File("Server/images/" + pathBd));
+
+        user.setPathImage(pathBd);
+        if(this.userDAO.updateUser(user)){
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 

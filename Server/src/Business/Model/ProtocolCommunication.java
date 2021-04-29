@@ -34,4 +34,5 @@ public class ProtocolCommunication {
 
   // Here to add more protocols in the future
   public static final String READ_IMAGE = "READ_IMAGE";
+  public static final String SEND_IMAGE = "SEND_IMAGE";
 }
