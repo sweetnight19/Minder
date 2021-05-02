@@ -139,14 +139,15 @@ public class DedicatedServer extends Thread {
 
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
 
-        //System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+        // System.out.println("Received " + image.getHeight() + "x" + image.getWidth() +
+        // ": " + System.currentTimeMillis());
         String pathBd = user.getNickname() + ".jpg";
         ImageIO.write(image, "jpg", new File("Server/images/" + pathBd));
 
         user.setPathImage(pathBd);
-        if(this.userDAO.updateUser(user)){
+        if (this.userDAO.updateUser(user)) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
@@ -154,9 +155,10 @@ public class DedicatedServer extends Thread {
     private void checkLogin() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         int status = this.userDAO.checkLoginIntent(user);
-        if (status == 0 || status == -1){
+        System.out.println("status: " + status + "," + user.getNickname() + "," + user.getPassword());
+        if (status == -1) {
             os.writeObject(new Trama(ProtocolCommunication.KO));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.OK));
         }
     }
@@ -164,9 +166,9 @@ public class DedicatedServer extends Thread {
     private void feedUsers() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         ArrayList<User> pretendientes;
-        if (user.getType().equals("Premium")){
+        if (user.getType().equals("Premium")) {
             pretendientes = this.userDAO.getPretendentsPremium(user);
-        }else{
+        } else {
             pretendientes = this.userDAO.getPretendents(user);
         }
         os.writeObject(pretendientes);
@@ -187,36 +189,36 @@ public class DedicatedServer extends Thread {
 
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
-        if(this.chatDAO.addMessage(message)) {
+        if (this.chatDAO.addMessage(message)) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 
     private void deletePeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
-        if(this.peerDAO.deletePeer(peer)) {
+        if (this.peerDAO.deletePeer(peer)) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 
     private void createPeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
-        if(this.peerDAO.addLike(peer)) {
+        if (this.peerDAO.addLike(peer)) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 
     private void deleteUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        if(this.userDAO.deleteUser(user)) {
+        if (this.userDAO.deleteUser(user)) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
@@ -224,36 +226,36 @@ public class DedicatedServer extends Thread {
     private void readUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         User response = this.userDAO.getUser(user.getId());
-        if(response != null){
+        if (response != null) {
             os.writeObject(response);
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 
     private void updateUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        if(this.userDAO.updateUser(user)){
+        if (this.userDAO.updateUser(user)) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 
     private void validateLogin() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        if(this.userDAO.validationLogin(user)){
+        if (this.userDAO.validationLogin(user)) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }
 
     private void createUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        if(this.userDAO.addUser(user) != -1){
+        if (this.userDAO.addUser(user) != -1) {
             os.writeObject(new Trama(ProtocolCommunication.OK));
-        }else{
+        } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         }
     }

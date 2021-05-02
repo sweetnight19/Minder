@@ -78,7 +78,7 @@ public class SQLUserDAO implements UserDAO {
 
     @Override
     public boolean validationLogin(User user) {
-        String query = "SELECT `password` FROM `usuari` WHERE `email` = " + user.getEmail() + ";";
+        String query = "SELECT `password` FROM `usuari` WHERE `nickname`= '" + user.getNickname() + "';";
         ResultSet result;
 
         result = SQLConnector.getInstance(confDAO).selectQuery(query);
@@ -159,7 +159,7 @@ public class SQLUserDAO implements UserDAO {
 
     @Override
     public int checkLoginIntent(User user) {
-        String query = "SELECT `status` FROM `usuari` WHERE `uuid` = " + user.getId() + ";";
+        String query = "SELECT `status` FROM `usuari` WHERE `nickname` = '" + user.getNickname() + "';";
         ResultSet result;
 
         result = SQLConnector.getInstance(confDAO).selectQuery(query);
