@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ChatMessage implements Serializable {
-    private int idSource;
-    private int idDestiny;
-    private String message;
-    private Date date;
+    private final int idSource;
+    private final int idDestiny;
+    private final String message;
+    private final Date date;
 
     public ChatMessage(int idSource, int idDestiny, String message) {
         this.idSource = idSource;

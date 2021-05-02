@@ -1,4 +1,3 @@
-import Business.Entity.User;
 import Persistance.ConfigurationDAO;
 import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
@@ -6,7 +5,6 @@ import Persistance.JsonConfigurationDAO;
 import Presentation.controller.ButtonController;
 import Presentation.view.LoginView;
 import Presentation.view.RegisterView;
-
 import java.io.IOException;
 
 public class App {

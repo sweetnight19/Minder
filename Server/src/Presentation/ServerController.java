@@ -3,8 +3,8 @@ package Presentation;
 import Business.Model.StatisticsManagement;
 
 public class ServerController extends Thread{
-    private ServerView serverView;
-    private StatisticsManagement statisticsManagement;
+    private final ServerView serverView;
+    private final StatisticsManagement statisticsManagement;
 
 
     public ServerController(ServerView serverView, StatisticsManagement statisticsManagement) {

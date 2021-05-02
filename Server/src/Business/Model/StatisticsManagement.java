@@ -7,8 +7,8 @@ import Persistance.UserDAO;
 import java.util.ArrayList;
 
 public class StatisticsManagement {
-    private UserDAO userDAO;
-    private PeerDAO peerDAO;
+    private final UserDAO userDAO;
+    private final PeerDAO peerDAO;
 
     public StatisticsManagement(UserDAO userDAO, PeerDAO peerDAO){
         this.userDAO = userDAO;
@@ -16,8 +16,7 @@ public class StatisticsManagement {
     }
 
     public String[] getHeaders(){
-        String[] headers = {"Position", "Name", "Matches"};
-        return headers;
+        return new String[]{"Position", "Name", "Matches"};
     }
 
     public String[][] getData(){

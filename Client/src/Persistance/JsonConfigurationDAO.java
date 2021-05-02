@@ -10,16 +10,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class JsonConfigurationDAO implements ConfigurationDAO {
-    private Path path;
-    private String ipServer;
-    private int port;
+    private final String ipServer;
+    private final int port;
 
     public JsonConfigurationDAO(String path) throws IOException {
         Gson gson = new Gson();
-        this.path = Paths.get(path); // Ens guardem la path on es troba el fitxer de configuració
+        Path path1 = Paths.get(path); // Ens guardem la path on es troba el fitxer de configuració
 
         // Parsejem el fitxer json
-        JsonObject json = JsonParser.parseString(Files.readString(this.path)).getAsJsonObject();
+        JsonObject json = JsonParser.parseString(Files.readString(path1)).getAsJsonObject();
         this.port = gson.fromJson(json.get("portTCP"), int.class); // obtenció de dades segon la key i les guardem
         this.ipServer = gson.fromJson(json.get("ipServer"), String.class);
     }

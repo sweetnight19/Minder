@@ -11,7 +11,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.PortUnreachableException;
 
 public class RegisterView extends JFrame{
     private static final String WINDOW_TITLE = "MINDER REGISTER";
@@ -26,11 +25,8 @@ public class RegisterView extends JFrame{
 
     // Components
     private JPanel jPanel;
-    private JScrollPane jScrollPane;
     private JPanel jpBox;
-    private JPanel jpButtons;
     private Image logoImage;
-    private JLabel logoTitle;
     private JTextField firstNameField;
     private JTextField nicknameField;
     private JTextField ageField;
@@ -60,7 +56,7 @@ public class RegisterView extends JFrame{
         jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
         jPanel.setBackground(Color.decode(MinderColor.WHITE));
-        jScrollPane = new JScrollPane(jPanel);
+        JScrollPane jScrollPane = new JScrollPane(jPanel);
         add(jScrollPane);
     }
     private void configureNorth() {
@@ -84,7 +80,7 @@ public class RegisterView extends JFrame{
         logoImage = logoImage.getScaledInstance(LOGO_WIDTH, LOGO_HIGHT, Image.SCALE_DEFAULT);
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
         // Title
-        logoTitle = new JLabel(LOGO_TITLE);
+        JLabel logoTitle = new JLabel(LOGO_TITLE);
         Font logoFont = logoTitle.getFont().deriveFont(Font.BOLD, 30);
         logoTitle.setFont(logoFont);
         // Panel
@@ -191,7 +187,7 @@ public class RegisterView extends JFrame{
     }
     private void configureButtons() {
         // Login
-        jpButtons = new JPanel();
+        JPanel jpButtons = new JPanel();
         jpButtons.setLayout(new BorderLayout());
         bRegister = new JButton("Register");
         jpButtons.add(new WideButton(bRegister), BorderLayout.NORTH);

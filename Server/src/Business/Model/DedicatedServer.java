@@ -16,12 +16,12 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class DedicatedServer extends Thread {
-    private Socket client;
+    private final Socket client;
     private ObjectOutputStream os;
     private ObjectInputStream is;
-    private UserDAO userDAO;
-    private ChatDAO chatDAO;
-    private PeerDAO peerDAO;
+    private final UserDAO userDAO;
+    private final ChatDAO chatDAO;
+    private final PeerDAO peerDAO;
     private boolean clientDisconnect;
 
     public DedicatedServer(Socket client, UserDAO userDAO, ChatDAO chatDAO, PeerDAO peerDAO) {
@@ -107,7 +107,6 @@ public class DedicatedServer extends Thread {
             System.out.println("[SERVER]: disconnected.");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
         }
     }
 
@@ -115,7 +114,7 @@ public class DedicatedServer extends Thread {
         User user = (User) is.readObject();
         user = this.userDAO.getUser(user.getId());
 
-        BufferedImage image = null;
+        BufferedImage image;
         image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -167,11 +166,10 @@ public class DedicatedServer extends Thread {
         ArrayList<User> pretendientes;
         if (user.getType().equals("Premium")){
             pretendientes = this.userDAO.getPretendentsPremium(user);
-            os.writeObject(pretendientes);
         }else{
             pretendientes = this.userDAO.getPretendents(user);
-            os.writeObject(pretendientes);
         }
+        os.writeObject(pretendientes);
     }
 
     private void listchat() throws IOException, ClassNotFoundException {

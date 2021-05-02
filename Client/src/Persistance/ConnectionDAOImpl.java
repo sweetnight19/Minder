@@ -14,7 +14,6 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class ConnectionDAOImpl implements ConnectionDAO {
-    private Socket socket;
     private ObjectOutputStream os;
     private ObjectInputStream is;
 
@@ -22,7 +21,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
         try {
             // Inicialitzem tant el socket com els streams per on rebrem o enviarem la
             // informació
-            socket = new Socket(configurationDAO.getIp(), configurationDAO.getPort());
+            Socket socket = new Socket(configurationDAO.getIp(), configurationDAO.getPort());
             os = new ObjectOutputStream(socket.getOutputStream());
             is = new ObjectInputStream(socket.getInputStream());
 
@@ -40,9 +39,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Connexion con servidor correcta");
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -57,9 +54,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("User has been registered");
                 return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -75,9 +70,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("User has been authenticated");
                 return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -95,9 +88,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             } else if (trama.getContext().equals(ProtocolCommunication.KO)) {
                 return false;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -113,9 +104,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("User has been updated");
                 return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -131,9 +120,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("User has been recieved");
                 return newUser;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -149,9 +136,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("Peer has been created");
                 return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -167,9 +152,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("Peer has been deleted");
                 return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -185,9 +168,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("Possible users have been recieved");
                 return usersCarrussel;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -203,9 +184,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("List chat from user recieved");
                 return listChatUsers;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -222,9 +201,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("Chat messages recieved");
                 return chatMessages;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -240,9 +217,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 System.out.println("Message has been created");
                 return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -276,7 +251,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 
     @Override
     public boolean sendImage(User user) {
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\softwareTest.jpg"));
 
@@ -311,9 +286,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Disconnection correct");
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
     }

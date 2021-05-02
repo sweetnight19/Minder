@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonController implements ActionListener {
-    private LoginView loginView;
-    private RegisterView registerView;
+    private final LoginView loginView;
+    private final RegisterView registerView;
 
     public ButtonController(LoginView loginView, RegisterView registerView) {
         this.loginView = loginView;
