@@ -1,10 +1,10 @@
-package Presentation.Controller;
+package PresentationCcontroller;
+
+import Presentation.View.LoginView;
+import Presentation.View.RegisterView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import Presentation.view.LoginView;
-import Presentation.view.RegisterView;
 
 public class ButtonController implements ActionListener {
     private final LoginView loginView;
