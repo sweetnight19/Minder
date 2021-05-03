@@ -38,6 +38,7 @@ public class ButtonController implements ActionListener {
                 System.out.println(loginView.getPasswd());
                 cliente = new User(0, null, registerView.getNickname(), 0, null, null, registerView.getPasswd(), null,
                         null, null);
+                // TODO
                 if (connectionDAO.checklogin(cliente)) {
                     System.out.println("Login correcte");
                 } else {
