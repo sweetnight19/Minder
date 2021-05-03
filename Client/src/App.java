@@ -3,8 +3,9 @@ import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
 import Persistance.JsonConfigurationDAO;
 import Presentation.Controller.ButtonController;
-import Presentation.View.LoginView;
+import  Presentation.View.LoginView;
 import Presentation.View.RegisterView;
+
 import java.io.IOException;
 
 public class App {
