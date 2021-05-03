@@ -2,9 +2,9 @@ import Persistance.ConfigurationDAO;
 import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
 import Persistance.JsonConfigurationDAO;
-import Presentation.controller.ButtonController;
-import Presentation.view.LoginView;
-import Presentation.view.RegisterView;
+import Presentation.Controller.ButtonController;
+import Presentation.View.LoginView;
+import Presentation.View.RegisterView;
 import java.io.IOException;
 
 public class App {
@@ -17,8 +17,7 @@ public class App {
 
         LoginView loginView = new LoginView();
         RegisterView registerView = new RegisterView();
-
-        ButtonController buttonController = new ButtonController(loginView, registerView);
+        ButtonController buttonController = new ButtonController(loginView, registerView,connectionDAO);
 
         loginView.registerController(buttonController);
         registerView.registerController(buttonController);

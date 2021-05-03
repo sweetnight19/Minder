@@ -1,4 +1,4 @@
-package Presentation.view;
+package Presentation.View;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

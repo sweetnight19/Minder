@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import Business.Entity.User;
 import Business.Model.DedicatedServer;
 import Business.Model.StatisticsManagement;
 import Persistance.ChatDAO;
@@ -20,6 +21,8 @@ public class App {
         System.out.println("Hello, World!");
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
+        // int test = userDAO.checkLoginIntent(new User(0, null, "sweetnight", 0, null,
+        // null, null, null, null, null));
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);
         ChatDAO chatDAO = new SQLChatDAO(configurationDAO);
 
