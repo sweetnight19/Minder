@@ -12,7 +12,6 @@ public class ButtonController implements ActionListener {
     private final LoginView loginView;
     private final RegisterView registerView;
     private final ConnectionDAO connectionDAO;
-    private User cliente;
 
     public ButtonController(LoginView loginView, RegisterView registerView, ConnectionDAO connectionDAO) {
         this.loginView = loginView;
@@ -22,6 +21,7 @@ public class ButtonController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        User cliente;
         switch (e.getActionCommand()) {
             case LoginView.MOVE_TO_REGISTER:
                 loginView.delete();
@@ -39,11 +39,22 @@ public class ButtonController implements ActionListener {
                 cliente = new User(0, null, registerView.getNickname(), 0, null, null, registerView.getPasswd(), null,
                         null, null);
                 // TODO
-                if (connectionDAO.checklogin(cliente)) {
-                    System.out.println("Login correcte");
-                } else {
-                    System.out.println("Login incorrecte");
+                if (connectionDAO.validateLogin(cliente)) {
+                    switch (connectionDAO.checklogin(cliente)){
+                        case 0:
+                            System.out.println("Login correcte, primer cop");
+                            break;
+                        case 1:
+                            System.out.println("login correcte, usuari reincident");
+                            break;
+                        case -1:
+                            System.out.println("error en el servidor");
+                            break;
+                    }
+                }else {
+                    System.out.println("login incorrecte");
                 }
+
                 break;
 
             case RegisterView.REGISTER:

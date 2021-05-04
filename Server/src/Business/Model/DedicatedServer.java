@@ -155,7 +155,6 @@ public class DedicatedServer extends Thread {
     private void checkLogin() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         int status = this.userDAO.checkLoginIntent(user);
-        System.out.println("status: " + status + "," + user.getNickname() + "," + user.getPassword());
         if (status == -1) {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         } else {

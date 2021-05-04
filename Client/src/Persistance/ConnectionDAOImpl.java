@@ -82,13 +82,14 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.CHECK_LOGIN));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
-            if (trama.getContext().equals(ProtocolCommunication.STATUS_1)) {
-                System.out.println("It is not the first time that he does login");
-                return 1;
-            } else if (trama.getContext().equals(ProtocolCommunication.STATUS_0)) {
-                return 0;
-            } else if (trama.getContext().equals(ProtocolCommunication.KO)){
-                return -1;
+            switch (trama.getContext()) {
+                case ProtocolCommunication.STATUS_1:
+                    System.out.println("It is not the first time that he does login");
+                    return 1;
+                case ProtocolCommunication.STATUS_0:
+                    return 0;
+                case ProtocolCommunication.KO:
+                    return -1;
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
