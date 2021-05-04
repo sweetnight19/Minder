@@ -159,7 +159,11 @@ public class DedicatedServer extends Thread {
         if (status == -1) {
             os.writeObject(new Trama(ProtocolCommunication.KO));
         } else {
-            os.writeObject(new Trama(ProtocolCommunication.OK));
+            if(status == 0){
+                os.writeObject(new Trama(ProtocolCommunication.STATUS_0));
+            }else if(status == 1){
+                os.writeObject(new Trama(ProtocolCommunication.STATUS_1));
+            }
         }
     }
 
