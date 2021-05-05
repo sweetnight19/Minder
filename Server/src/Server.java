@@ -15,9 +15,9 @@ import Persistance.SQL.SQLUserDAO;
 import Presentation.ServerController;
 import Presentation.ServerView;
 
-public class App {
+public class Server {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        System.out.println("Hello, Server!");
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
         // int test = userDAO.checkLoginIntent(new User(0, null, "sweetnight", 0, null, null, null, null, null, null));

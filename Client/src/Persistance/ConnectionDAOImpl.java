@@ -37,7 +37,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.CONNECTION));
             Trama trama = (Trama) is.readObject();
             if (trama.getContext().equals(ProtocolCommunication.OK)) {
-                System.out.println("Connexion con servidor correcta");
+                System.out.println("Connected to the server");
             }
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();

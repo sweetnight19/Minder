@@ -8,9 +8,9 @@ import Presentation.View.RegisterView;
 
 import java.io.IOException;
 
-public class App {
+public class Client {
     public static void main(String[] args) throws IOException {
-        System.out.println("Hello, World!");
+        System.out.println("Hello, Client!");
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
         ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
         // connectionDAO.registerUser(new User(0, "Edmon", "bosched", 20,

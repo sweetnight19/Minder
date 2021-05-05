@@ -34,13 +34,11 @@ public class ButtonController implements ActionListener {
                 break;
 
             case LoginView.LOGIN:
-                System.out.println(loginView.getNickname());
-                System.out.println(loginView.getPasswd());
                 cliente = new User(0, null, registerView.getNickname(), 0, null, null, registerView.getPasswd(), null,
                         null, null);
                 // TODO
                 if (connectionDAO.validateLogin(cliente)) {
-                    switch (connectionDAO.checklogin(cliente)){
+                    switch (connectionDAO.checklogin(cliente)) {
                         case 0:
                             System.out.println("Login correcte, primer cop");
                             break;
@@ -51,24 +49,22 @@ public class ButtonController implements ActionListener {
                             System.out.println("error en el servidor");
                             break;
                     }
-                }else {
+                } else {
                     System.out.println("login incorrecte");
                 }
 
                 break;
 
             case RegisterView.REGISTER:
-                System.out.println(registerView.getFirstName());
-                System.out.println(registerView.getNickname());
-                System.out.println(registerView.getAge());
-                System.out.println(registerView.getIsPremium());
-                System.out.println(registerView.getEmail());
-                System.out.println(registerView.getPasswd());
-                System.out.println(registerView.getConfirmPasswd());
                 cliente = new User(0, registerView.getFirstName(), registerView.getNickname(),
                         Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(),
                         registerView.getPasswd(), null, null, null);
-                connectionDAO.registerUser(cliente);
+                if (connectionDAO.registerUser(cliente)) {
+                    registerView.delete();
+                    loginView.display();
+                } else {
+                    System.out.println("error en el servidor");
+                }
                 break;
         }
 
