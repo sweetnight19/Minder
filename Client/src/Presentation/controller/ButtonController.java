@@ -1,5 +1,7 @@
-package Presentation.controller;
+package Presentation.Controller;
 
+import Business.Entity.User;
+import Business.Model.SessionManager;
 import Presentation.View.GlobalView;
 import Presentation.View.HomeView;
 import Presentation.View.LoginView;
@@ -9,18 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonController implements ActionListener {
-    private LoginView loginView;
-    private RegisterView registerView;
-    private GlobalView globalView;
+    private final LoginView loginView;
+    private final RegisterView registerView;
+    private final SessionManager sessionManager;
+    private final GlobalView globalView;
 
-    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView) {
+    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager) {
         this.loginView = loginView;
         this.registerView = registerView;
         this.globalView = globalView;
+        this.sessionManager = sessionManager;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        User cliente;
         switch (e.getActionCommand()) {
             case LoginView.MOVE_TO_REGISTER:
                 loginView.delete();
@@ -33,18 +38,16 @@ public class ButtonController implements ActionListener {
                 break;
 
             case LoginView.LOGIN:
-                System.out.println(loginView.getNickname());
-                System.out.println(loginView.getPasswd());
+                cliente = new User(0, null, registerView.getNickname(), 0, null, null, registerView.getPasswd(), null, null, null);
+                sessionManager.login(cliente);
                 break;
 
             case RegisterView.REGISTER:
-                System.out.println(registerView.getFirstName());
-                System.out.println(registerView.getNickname());
-                System.out.println(registerView.getAge());
-                System.out.println(registerView.getIsPremium());
-                System.out.println(registerView.getEmail());
-                System.out.println(registerView.getPasswd());
-                System.out.println(registerView.getConfirmPasswd());
+                cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
+                if (sessionManager.register(cliente)) {
+                    registerView.delete();
+                    loginView.display();
+                }
                 break;
 
             case GlobalView.HOME:

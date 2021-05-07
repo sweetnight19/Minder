@@ -1,4 +1,4 @@
-package Presentation.controller;
+package Presentation.Controller;
 
 public class NavigationController {
 }
