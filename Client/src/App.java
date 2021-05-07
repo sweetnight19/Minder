@@ -4,6 +4,8 @@ import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
 import Persistance.JsonConfigurationDAO;
 import Presentation.controller.ButtonController;
+import Presentation.view.GlobalView;
+import Presentation.view.HomeView;
 import Presentation.view.LoginView;
 import Presentation.view.RegisterView;
 
@@ -15,16 +17,22 @@ public class App {
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
         ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
         //connectionDAO.registerUser(new User(0, "Edmon", "bosched", 20, "Normal", "edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
-        //connectionDAO.sendImage(new User(0, "Edmon", "bosched", 20, "Normal", "edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
-
         LoginView loginView = new LoginView();
         RegisterView registerView = new RegisterView();
+        HomeView homeView = new HomeView();
+        GlobalView globalView = new GlobalView(homeView);
 
-        ButtonController buttonController = new ButtonController(loginView, registerView);
+        ButtonController buttonController = new ButtonController(loginView, registerView, globalView);
 
         loginView.registerController(buttonController);
         registerView.registerController(buttonController);
+        globalView.registerController(buttonController);
+        homeView.registerController(buttonController);
 
         loginView.display();
+        //globalView.display();
+
+        // ConfigurationDAO confDAO = new
+        // JsonConfigurationDAO("Client/Data/configuracio-client.json");
     }
 }
