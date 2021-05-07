@@ -36,4 +36,7 @@ public class SessionManager {
             return false;
         }
     }
+    public void disconnect(){
+        connectionDAO.disconnectFromServer();
+    }
 }

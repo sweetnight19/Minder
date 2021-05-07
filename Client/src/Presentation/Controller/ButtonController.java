@@ -23,6 +23,7 @@ public class ButtonController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         User cliente;
+
         switch (e.getActionCommand()) {
             case LoginView.MOVE_TO_REGISTER:
                 loginView.delete();
@@ -47,6 +48,5 @@ public class ButtonController implements ActionListener {
                 }
                 break;
         }
-
     }
 }
