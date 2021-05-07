@@ -1,16 +1,13 @@
-import Business.Entity.User;
 import Persistance.ConfigurationDAO;
 import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
 import Persistance.JsonConfigurationDAO;
 import Presentation.controller.ButtonController;
-import Presentation.view.GlobalView;
-import Presentation.view.HomeView;
-import Presentation.view.LoginView;
-import Presentation.view.RegisterView;
-import Presentation.Controller.ButtonController;
+import Presentation.View.GlobalView;
+import Presentation.View.HomeView;
 import Presentation.View.LoginView;
 import Presentation.View.RegisterView;
+import Presentation.Controller.ButtonController;
 
 import java.io.IOException;
 

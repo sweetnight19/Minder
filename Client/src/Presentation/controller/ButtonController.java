@@ -1,9 +1,9 @@
 package Presentation.controller;
 
-import Presentation.view.GlobalView;
-import Presentation.view.HomeView;
-import Presentation.view.LoginView;
-import Presentation.view.RegisterView;
+import Presentation.View.GlobalView;
+import Presentation.View.HomeView;
+import Presentation.View.LoginView;
+import Presentation.View.RegisterView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
