@@ -28,7 +28,7 @@ public class Client {
         globalView.registerController(buttonController);
         homeView.registerController(buttonController);
 
-        //loginView.display();
-        globalView.display();
+        loginView.display();
+        //globalView.display();
     }
 }

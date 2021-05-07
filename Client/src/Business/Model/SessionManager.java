@@ -10,22 +10,24 @@ public class SessionManager {
         this.connectionDAO = connectionDAO;
     }
 
-    public void login(User cliente) {
+    public int login(User cliente) {
         if (connectionDAO.validateLogin(cliente)) {
             switch (connectionDAO.checklogin(cliente)) {
                 case 0:
-                    System.out.println("Login correcte, primer cop");
-                    break;
+                    //Login correcte, primer cop
+                    return 0;
                 case 1:
-                    System.out.println("login correcte, usuari reincident");
-                    break;
+                    //login correcte, usuari reincident
+                    return 1;
                 case -1:
-                    System.out.println("error en el servidor");
-                    break;
+                    //error en el servidor
+                    return -1;
             }
         } else {
             System.out.println("login incorrecte");
         }
+        return -2;
+
     }
 
     public boolean register(User cliente) {
@@ -36,7 +38,8 @@ public class SessionManager {
             return false;
         }
     }
-    public void disconnect(){
+
+    public void disconnect() {
         connectionDAO.disconnectFromServer();
     }
 }

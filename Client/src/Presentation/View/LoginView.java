@@ -117,6 +117,7 @@ public class LoginView extends JFrame {
         jpBox.add(passwdField);
         jpBox.add(Box.createVerticalStrut(50));
     }
+
     private void configureButtons() {
         // Login
         JPanel jpButtons = new JPanel();
@@ -139,6 +140,7 @@ public class LoginView extends JFrame {
         // Panel
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
+
     public void registerController(ActionListener actionListener) {
         nicknameField.addFocusListener(new FocusListener() {
             @Override
@@ -148,6 +150,7 @@ public class LoginView extends JFrame {
                 jPanel.revalidate();
                 jPanel.repaint();
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
@@ -178,24 +181,29 @@ public class LoginView extends JFrame {
         bRegister.setActionCommand(MOVE_TO_REGISTER);
         bRegister.addActionListener(actionListener);
     }
+
     public String getNickname() {
-       return nicknameField.getText();
+        return nicknameField.getText();
     }
+
     public String getPasswd() {
         return new String(passwdField.getPassword());
     }
+
     public void dislplayLoginError() {
-        JOptionPane.showConfirmDialog(null,
-                "An error occurred while Login", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null,
+                "An error occurred on the server", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
     }
+
     // Error si es el primer cop que fa el login
-    public void displayFirstLoginError() {
-        JOptionPane.showConfirmDialog(null,
-                "Error, this user is the first time he logs in", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
+    public void displayCredentialsLoginError() {
+        JOptionPane.showMessageDialog(null, "incorrect nickname/password", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
     }
+
     public void delete() {
         setVisible(false);
     }
+
     public void display() {
         setVisible(true);
     }
