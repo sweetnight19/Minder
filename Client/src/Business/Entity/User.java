@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 6529685098267757690L;
-    private int id;
-    private String firstName;
-    private String nickname;
-    private int age;
-    private String type;
-    private String email;
-    private String password;
+    private final int id;
+    private final String firstName;
+    private final String nickname;
+    private final int age;
+    private final String type;
+    private final String email;
+    private final String password;
     private String pathImage;
     private String description;
     private String programmingLanguage;

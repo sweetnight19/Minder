@@ -4,16 +4,20 @@ import java.net.Socket;
 
 import Business.Model.DedicatedServer;
 import Business.Model.StatisticsManagement;
-import Persistance.*;
+import Persistance.ChatDAO;
+import Persistance.ConfigurationDAO;
+import Persistance.JsonConfigurationDAO;
+import Persistance.PeerDAO;
+import Persistance.UserDAO;
 import Persistance.SQL.SQLChatDAO;
 import Persistance.SQL.SQLPeerDAO;
 import Persistance.SQL.SQLUserDAO;
 import Presentation.ServerController;
 import Presentation.ServerView;
 
-public class App {
+public class Server {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        System.out.println("Hello, Server!");
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);

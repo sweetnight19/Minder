@@ -1,4 +1,4 @@
-package Presentation.view;
+package Presentation.View;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,9 +11,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.PortUnreachableException;
 
-public class RegisterView extends JFrame{
+public class RegisterView extends JFrame {
     private static final String WINDOW_TITLE = "MINDER REGISTER";
     private static final String LOGO_TITLE = "MINDER";
     private static final String LOGO_SRC = "Client/Media/Brain.png";
@@ -26,11 +25,8 @@ public class RegisterView extends JFrame{
 
     // Components
     private JPanel jPanel;
-    private JScrollPane jScrollPane;
     private JPanel jpBox;
-    private JPanel jpButtons;
     private Image logoImage;
-    private JLabel logoTitle;
     private JTextField firstNameField;
     private JTextField nicknameField;
     private JTextField ageField;
@@ -54,21 +50,23 @@ public class RegisterView extends JFrame{
         pack();
         setLocationRelativeTo(null);
     }
+
     private void configureWindow() {
         setTitle(WINDOW_TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
         jPanel.setBackground(Color.decode(MinderColor.WHITE));
-        jScrollPane = new JScrollPane(jPanel);
+        JScrollPane jScrollPane = new JScrollPane(jPanel);
         add(jScrollPane);
     }
+
     private void configureNorth() {
         jpBox = new JPanel();
         jpBox.setLayout(new BoxLayout(jpBox, BoxLayout.Y_AXIS));
         jpBox.setBackground(Color.decode(MinderColor.WHITE));
         jPanel.add(jpBox, BorderLayout.NORTH);
-        Border generalBorder = BorderFactory.createEmptyBorder(50,60,50,60);
+        Border generalBorder = BorderFactory.createEmptyBorder(50, 60, 50, 60);
         jPanel.setBorder(generalBorder);
         try {
             logoImage = ImageIO.read(new File(LOGO_SRC));
@@ -79,12 +77,13 @@ public class RegisterView extends JFrame{
         configureFields();
         configureButtons();
     }
+
     private void configureLogo() {
         // Image
         logoImage = logoImage.getScaledInstance(LOGO_WIDTH, LOGO_HIGHT, Image.SCALE_DEFAULT);
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
         // Title
-        logoTitle = new JLabel(LOGO_TITLE);
+        JLabel logoTitle = new JLabel(LOGO_TITLE);
         Font logoFont = logoTitle.getFont().deriveFont(Font.BOLD, 30);
         logoTitle.setFont(logoFont);
         // Panel
@@ -95,6 +94,7 @@ public class RegisterView extends JFrame{
         jpBox.add(jpLogo, BorderLayout.NORTH);
         jpBox.add(Box.createVerticalStrut(50));
     }
+
     private void configureFields() {
         // Border
         blackBorder = new LineBorder(Color.decode(MinderColor.BLACK));
@@ -107,6 +107,7 @@ public class RegisterView extends JFrame{
         configurePasswd();
         configureConfirmPasswd();
     }
+
     private void configureFirstName() {
         // TitledBorder
         firstNameTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "First Name");
@@ -118,6 +119,7 @@ public class RegisterView extends JFrame{
         jpBox.add(firstNameField);
         jpBox.add(Box.createVerticalStrut(10));
     }
+
     private void configureNickname() {
         // TitledBorder
         nicknameTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Nickname");
@@ -129,6 +131,7 @@ public class RegisterView extends JFrame{
         jpBox.add(nicknameField);
         jpBox.add(Box.createVerticalStrut(10));
     }
+
     private void configureAge() {
         // TitledBorder
         ageTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Age");
@@ -140,6 +143,7 @@ public class RegisterView extends JFrame{
         jpBox.add(ageField);
         jpBox.add(Box.createVerticalStrut(10));
     }
+
     void configureRadioButtons() {
         JRadioButton jrbNormal = new JRadioButton("Normal");
         jrbNormal.setBackground(Color.decode(MinderColor.WHITE));
@@ -156,6 +160,7 @@ public class RegisterView extends JFrame{
         jpRadioButtons.add(jrbPremium, BorderLayout.EAST);
         jpBox.add(jpRadioButtons);
     }
+
     private void configureEmail() {
         // TitledBorder
         emailTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Email");
@@ -167,6 +172,7 @@ public class RegisterView extends JFrame{
         jpBox.add(emailField);
         jpBox.add(Box.createVerticalStrut(10));
     }
+
     private void configurePasswd() {
         // TitledBorder
         passwdTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Password");
@@ -178,6 +184,7 @@ public class RegisterView extends JFrame{
         jpBox.add(passwdField);
         jpBox.add(Box.createVerticalStrut(10));
     }
+
     private void configureConfirmPasswd() {
         // TitledBorder
         confirmPasswdTitledBorderUnselected = BorderFactory.createTitledBorder(blackBorder, "Confirm Password");
@@ -189,9 +196,10 @@ public class RegisterView extends JFrame{
         jpBox.add(confirmPasswdField);
         jpBox.add(Box.createVerticalStrut(50));
     }
+
     private void configureButtons() {
         // Login
-        jpButtons = new JPanel();
+        JPanel jpButtons = new JPanel();
         jpButtons.setLayout(new BorderLayout());
         bRegister = new JButton("Register");
         jpButtons.add(new WideButton(bRegister), BorderLayout.NORTH);
@@ -211,6 +219,7 @@ public class RegisterView extends JFrame{
         // Panel
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
+
     public void registerController(ActionListener actionListener) {
         firstNameField.addFocusListener(new FocusListener() {
             @Override
@@ -220,6 +229,7 @@ public class RegisterView extends JFrame{
                 jPanel.revalidate();
                 jPanel.repaint();
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 firstNameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
@@ -236,6 +246,7 @@ public class RegisterView extends JFrame{
                 jPanel.revalidate();
                 jPanel.repaint();
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
@@ -252,6 +263,7 @@ public class RegisterView extends JFrame{
                 jPanel.revalidate();
                 jPanel.repaint();
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 ageTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
@@ -268,6 +280,7 @@ public class RegisterView extends JFrame{
                 jPanel.revalidate();
                 jPanel.repaint();
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 emailTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
@@ -284,6 +297,7 @@ public class RegisterView extends JFrame{
                 jPanel.revalidate();
                 jPanel.repaint();
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 passwdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
@@ -300,6 +314,7 @@ public class RegisterView extends JFrame{
                 jPanel.revalidate();
                 jPanel.repaint();
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 confirmPasswdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
@@ -313,25 +328,43 @@ public class RegisterView extends JFrame{
         bLogin.setActionCommand(MOVE_TO_LOGIN);
         bLogin.addActionListener(actionListener);
     }
+
     public String getFirstName() {
         return firstNameField.getText();
     }
+
     public String getNickname() {
         return nicknameField.getText();
     }
+
     public String getAge() {
         return ageField.getText();
     }
-    public boolean getIsPremium() { return jrbPremium.isSelected(); }
+
+    public String getIsPremium() {
+        if (jrbPremium.isSelected()) {
+            return "Normal";
+        } else {
+            return "Premium";
+        }
+    }
+
     public String getEmail() {
         return emailField.getText();
     }
-    public String getPasswd() { return new String(passwdField.getPassword());}
-    public String getConfirmPasswd() { return new String(confirmPasswdField.getPassword());}
+
+    public String getPasswd() {
+        return new String(passwdField.getPassword());
+    }
+
+    public String getConfirmPasswd() {
+        return new String(confirmPasswdField.getPassword());
+    }
 
     public void delete() {
         setVisible(false);
     }
+
     public void display() {
         setVisible(true);
     }

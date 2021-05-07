@@ -60,9 +60,9 @@ public interface UserDAO {
     ArrayList<User> top5();
 
     /**
-     * Method to get the top 5 of User form the model.
+     * Method to get the intent login of User form the model.
      *
-     * @return the top5 users with most received matches
+     * @return the intent login of users.
      * 
      */
     int checkLoginIntent(User user);

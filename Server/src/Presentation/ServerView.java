@@ -1,7 +1,5 @@
 package Presentation;
 
-import Business.Entity.User;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,7 +7,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ServerView extends JFrame {
     private static final String LOGO_SRC = "Server/Media/TrophyCup.png";

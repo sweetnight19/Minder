@@ -1,4 +1,4 @@
-package Presentation.view;
+package Presentation.View;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,11 +25,8 @@ public class LoginView extends JFrame {
 
     // Components
     private JPanel jPanel;
-    private JScrollPane jScrollPane;
     private JPanel jpBox;
-    private JPanel jpButtons;
     private Image logoImage;
-    private JLabel logoTitle;
     private JTextField nicknameField;
     private JPasswordField passwdField;
     private Border pinkBorder, blackBorder;
@@ -51,7 +48,7 @@ public class LoginView extends JFrame {
         jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
         jPanel.setBackground(Color.decode(MinderColor.WHITE));
-        jScrollPane = new JScrollPane(jPanel);
+        JScrollPane jScrollPane = new JScrollPane(jPanel);
         add(jScrollPane);
     }
 
@@ -77,7 +74,7 @@ public class LoginView extends JFrame {
         logoImage = logoImage.getScaledInstance(LOGO_WIDTH, LOGO_HIGHT, Image.SCALE_DEFAULT);
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
         // Title
-        logoTitle = new JLabel(LOGO_TITLE);
+        JLabel logoTitle = new JLabel(LOGO_TITLE);
         Font logoFont = logoTitle.getFont().deriveFont(Font.BOLD, 30);
         logoTitle.setFont(logoFont);
         // Panel
@@ -122,7 +119,7 @@ public class LoginView extends JFrame {
     }
     private void configureButtons() {
         // Login
-        jpButtons = new JPanel();
+        JPanel jpButtons = new JPanel();
         jpButtons.setLayout(new BorderLayout());
         bLogin = new JButton("Log in");
         jpButtons.add(new WideButton(bLogin), BorderLayout.NORTH);

@@ -8,17 +8,21 @@ import Presentation.view.GlobalView;
 import Presentation.view.HomeView;
 import Presentation.view.LoginView;
 import Presentation.view.RegisterView;
+import Presentation.Controller.ButtonController;
+import Presentation.View.LoginView;
+import Presentation.View.RegisterView;
 
 import java.io.IOException;
 
-public class App {
+public class Client {
     public static void main(String[] args) throws IOException {
-        System.out.println("Hello, World!");
+        System.out.println("Hello, Client!");
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
         ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
-        //connectionDAO.registerUser(new User(0, "Edmon", "bosched", 20, "Normal", "edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
+        SessionManager sessionManager = new SessionManager(connectionDAO);
         LoginView loginView = new LoginView();
         RegisterView registerView = new RegisterView();
+        ButtonController buttonController = new ButtonController(loginView, registerView, sessionManager);
         HomeView homeView = new HomeView();
         GlobalView globalView = new GlobalView(homeView);
 
@@ -30,9 +34,5 @@ public class App {
         homeView.registerController(buttonController);
 
         loginView.display();
-        //globalView.display();
-
-        // ConfigurationDAO confDAO = new
-        // JsonConfigurationDAO("Client/Data/configuracio-client.json");
     }
 }
