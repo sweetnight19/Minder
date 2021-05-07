@@ -120,7 +120,6 @@ public class LoginView extends JFrame {
         jpBox.add(passwdField);
         jpBox.add(Box.createVerticalStrut(50));
     }
-
     private void configureButtons() {
         // Login
         jpButtons = new JPanel();
@@ -143,42 +142,6 @@ public class LoginView extends JFrame {
         // Panel
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
-
-    public void registerController(FocusListener focusListener, ActionListener actionListener) {
-        nicknameField.addFocusListener(focusListener);
-        passwdField.addFocusListener(focusListener);
-        bRegister.setActionCommand(MOVE_TO_REGISTER);
-        bRegister.addActionListener(actionListener);
-    }
-
-    public void nicknameSelected() {
-        nicknameTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
-        nicknameField.setBorder(nicknameTitledBorderSelected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-
-    public void nicknameUnselected() {
-        nicknameTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
-        nicknameField.setBorder(nicknameTitledBorderUnselected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-
-    public void passwdSelected() {
-        passwdTitledBorderSelected.setTitleColor(Color.decode(MinderColor.PINK));
-        passwdField.setBorder(passwdTitledBorderSelected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-
-    public void passwdUnselected() {
-        passwdTitledBorderUnselected.setTitleColor(Color.decode(MinderColor.BLACK));
-        passwdField.setBorder(passwdTitledBorderUnselected);
-        jPanel.revalidate();
-        jPanel.repaint();
-    }
-
     public void registerController(ActionListener actionListener) {
         nicknameField.addFocusListener(new FocusListener() {
             @Override
@@ -223,6 +186,15 @@ public class LoginView extends JFrame {
     }
     public String getPasswd() {
         return new String(passwdField.getPassword());
+    }
+    public void dislplayLoginError() {
+        JOptionPane.showConfirmDialog(null,
+                "An error occurred while Login", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+    // Error si es el primer cop que fa el login
+    public void displayFirstLoginError() {
+        JOptionPane.showConfirmDialog(null,
+                "Error, this user is the first time he logs in", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
     }
     public void delete() {
         setVisible(false);

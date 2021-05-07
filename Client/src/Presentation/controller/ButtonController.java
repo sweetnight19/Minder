@@ -1,5 +1,7 @@
 package Presentation.controller;
 
+import Presentation.view.GlobalView;
+import Presentation.view.HomeView;
 import Presentation.view.LoginView;
 import Presentation.view.RegisterView;
 
@@ -9,10 +11,12 @@ import java.awt.event.ActionListener;
 public class ButtonController implements ActionListener {
     private LoginView loginView;
     private RegisterView registerView;
+    private GlobalView globalView;
 
-    public ButtonController(LoginView loginView, RegisterView registerView) {
+    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView) {
         this.loginView = loginView;
         this.registerView = registerView;
+        this.globalView = globalView;
     }
 
     @Override
@@ -41,6 +45,29 @@ public class ButtonController implements ActionListener {
                 System.out.println(registerView.getEmail());
                 System.out.println(registerView.getPasswd());
                 System.out.println(registerView.getConfirmPasswd());
+                break;
+
+            case GlobalView.HOME:
+                System.out.println("HOME");
+                globalView.setTitle("MINDER HOME");
+                break;
+            case GlobalView.CHAT:
+                System.out.println("CHAT");
+                globalView.setTitle("MINDER CHAT");
+                break;
+            case GlobalView.USER:
+                System.out.println("USER");
+                globalView.setTitle("MINDER USER");
+                break;
+            case GlobalView.LOGOUT:
+                System.out.println("LOGOUT");
+                globalView.dislplayLogoutWindow();
+                break;
+            case HomeView.LIKE:
+                System.out.println("LIKE");
+                break;
+            case HomeView.DENY:
+                System.out.println("DENY");
                 break;
         }
 
