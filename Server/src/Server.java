@@ -20,7 +20,6 @@ public class Server {
         System.out.println("Hello, Server!");
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
-        // int test = userDAO.checkLoginIntent(new User(0, null, "sweetnight", 0, null, null, null, null, null, null));
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);
         ChatDAO chatDAO = new SQLChatDAO(configurationDAO);
 

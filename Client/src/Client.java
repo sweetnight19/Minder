@@ -1,3 +1,4 @@
+import Business.Model.SessionManager;
 import Persistance.ConfigurationDAO;
 import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
@@ -13,18 +14,13 @@ public class Client {
         System.out.println("Hello, Client!");
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
         ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
-        // connectionDAO.registerUser(new User(0, "Edmon", "bosched", 20,
-        // "Normal","edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
-        // connectionDAO.sendImage(new User(0, "Edmon", "bosched", 20,
-        // "Normal","edmonbosch@gmail.com", "hola", null,"soc l'edmon", "Java"));
-
+        SessionManager sessionManager = new SessionManager(connectionDAO);
         LoginView loginView = new LoginView();
         RegisterView registerView = new RegisterView();
-        ButtonController buttonController = new ButtonController(loginView, registerView, connectionDAO);
+        ButtonController buttonController = new ButtonController(loginView, registerView, sessionManager);
 
         loginView.registerController(buttonController);
         registerView.registerController(buttonController);
-
         loginView.display();
     }
 }
