@@ -2,6 +2,8 @@ package Presentation.Controller;
 
 import Business.Entity.User;
 import Business.Model.SessionManager;
+import Presentation.View.GlobalView;
+import Presentation.View.HomeView;
 import Presentation.View.LoginView;
 import Presentation.View.RegisterView;
 
@@ -12,18 +14,18 @@ public class ButtonController implements ActionListener {
     private final LoginView loginView;
     private final RegisterView registerView;
     private final SessionManager sessionManager;
+    private final GlobalView globalView;
 
-    public ButtonController(LoginView loginView, RegisterView registerView, SessionManager sessionManager) {
+    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager) {
         this.loginView = loginView;
         this.registerView = registerView;
+        this.globalView = globalView;
         this.sessionManager = sessionManager;
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         User cliente;
-
         switch (e.getActionCommand()) {
             case LoginView.MOVE_TO_REGISTER:
                 loginView.delete();
@@ -47,6 +49,30 @@ public class ButtonController implements ActionListener {
                     loginView.display();
                 }
                 break;
+
+            case GlobalView.HOME:
+                System.out.println("HOME");
+                globalView.setTitle("MINDER HOME");
+                break;
+            case GlobalView.CHAT:
+                System.out.println("CHAT");
+                globalView.setTitle("MINDER CHAT");
+                break;
+            case GlobalView.USER:
+                System.out.println("USER");
+                globalView.setTitle("MINDER USER");
+                break;
+            case GlobalView.LOGOUT:
+                System.out.println("LOGOUT");
+                globalView.dislplayLogoutWindow();
+                break;
+            case HomeView.LIKE:
+                System.out.println("LIKE");
+                break;
+            case HomeView.DENY:
+                System.out.println("DENY");
+                break;
         }
+
     }
 }
