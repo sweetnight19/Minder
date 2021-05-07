@@ -58,8 +58,6 @@ public class ButtonController implements ActionListener {
                         //error en les credencials
                         loginView.displayCredentialsLoginError();
                 }
-                break;
-
             case RegisterView.REGISTER:
                 cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
                 if (sessionManager.register(cliente)) {
