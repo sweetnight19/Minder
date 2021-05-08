@@ -9,10 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class HomeView extends JPanel
-{
-    private static final String USER_IMG_ERR = "Error al carregar la imatge d'usuari!!";
-    private static final int TEXTFIELD_COLUMNS = 20;
+public class HomeView extends JPanel {
     public static final String LIKE = "LIKE";
     public static final String DENY = "DENY";
 
@@ -33,17 +30,11 @@ public class HomeView extends JPanel
         setBorder(generalBorder);
     }
     private void configureCenter() {
-        BufferedImage userImage = null;
         JPanel pUser = new JPanel();
         pUser.setLayout(new BorderLayout());
-        try {
-            userImage = ImageIO.read(new File("Client/Media/Brain.png"));
-        } catch (IOException e) {
-            System.out.println(USER_IMG_ERR);
-        }
-        JLabel lImageUser = new JLabel(new ImageIcon(userImage));
-        pUser.add(lImageUser, BorderLayout.CENTER);
-
+        // User Photo
+        PhotoPanel photoPanel = new PhotoPanel("Client/Media/person.png");
+        pUser.add(photoPanel, BorderLayout.CENTER);
         // Info User
         JPanel pInfoUser = new JPanel();
         pInfoUser.setLayout(new BorderLayout());
