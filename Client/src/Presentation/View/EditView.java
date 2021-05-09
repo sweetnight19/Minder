@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,12 +14,22 @@ public class EditView extends JPanel {
     private JLabel jname;
     private JLabel jage;
     private JComboBox<String> jlanguage;
+    private JLabel jlanguageNotEditable;
     private JLabel jtype;
     private JLabel jemail;
     private JTextArea jdesc;
     private JScrollPane sp;
     private BufferedImage logoImage;
+    private JButton southSave;
+    private JButton southEdit;
+    private JButton southDelete;
+    private JButton changebtn;
+
     private String[] data = { "Java", "Javascript", "html", "C++" };
+    public static final String EDIT_BTN = "EDIT_BTN";
+    public static final String SAVE_BTN = "SAVE_BTN";
+    public static final String DELETE_BTN = "DELETE_BTN";
+    public static final String CHANGE_BTN = "CHANGE_BTN";
 
     public EditView(){
         setLayout(new BorderLayout());
@@ -54,6 +65,7 @@ public class EditView extends JPanel {
         profile.add(jname);
         profile.add(jage);
         profile.add(jlanguage);
+        profile.add(jlanguageNotEditable);
         profile.add(jtype);
         profile.add(jemail);
 
@@ -73,6 +85,10 @@ public class EditView extends JPanel {
         jlanguage.setAlignmentX(Component.LEFT_ALIGNMENT);
         jlanguage.setBackground(Color.white);
         jlanguage.setBorder(new EmptyBorder(5,0 ,5,5));
+
+        jlanguageNotEditable = new JLabel();
+        jlanguageNotEditable.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jlanguageNotEditable.setBorder(new EmptyBorder(10,0 ,15,5));
 
         jemail = new JLabel();
         jemail.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -109,7 +125,7 @@ public class EditView extends JPanel {
         }
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
 
-        JButton changebtn = new JButton("Change");
+        changebtn = new JButton("Change");
         changebtn.setBackground(Color.decode("#DF4B74"));
         changebtn.setForeground(Color.WHITE);
 
@@ -126,16 +142,25 @@ public class EditView extends JPanel {
         JPanel butconatiner = new JPanel(new BorderLayout());
         butconatiner.setBackground(Color.WHITE);
 
-        JButton southEdit = new JButton("SAVE");
+        southEdit = new JButton("EDIT");
         southEdit.setBackground(Color.decode("#DF4B74"));
         southEdit.setForeground(Color.WHITE);
 
-        JButton southDelete = new JButton("Delete");
+        southSave = new JButton("SAVE");
+        southSave.setBackground(Color.decode("#DF4B74"));
+        southSave.setForeground(Color.WHITE);
+
+        southDelete = new JButton("Delete");
         southDelete.setBackground(Color.WHITE);
         southDelete.setForeground(Color.decode("#DF4B74"));
 
+        JPanel eastBtns = new JPanel();
+        eastBtns.add(southEdit);
+        eastBtns.add(southSave);
+        eastBtns.setBackground(Color.WHITE);
+
         butconatiner.setBorder(new EmptyBorder(10,10,10,10));
-        butconatiner.add(southEdit, BorderLayout.EAST);
+        butconatiner.add(eastBtns, BorderLayout.EAST);
         butconatiner.add(southDelete, BorderLayout.WEST);
         return butconatiner;
     }
@@ -145,6 +170,7 @@ public class EditView extends JPanel {
         jname.setText(user.getName());
         jage.setText(user.getAge + " years");
         jlanguage.setSelectedItem(user.getProgrammingLanguage());
+        jlanguageNotEditable.setText(user.getProgrammingLanguage();
         jemail.setText(user.getEmail());
         jtype.setText(user.getType());
         jdesc.setText(user.getDescription());
@@ -155,9 +181,44 @@ public class EditView extends JPanel {
         jname.setText("Edmon Bosch");
         jage.setText("21 years");
         jlanguage.setSelectedItem("Javascript");
+        jlanguageNotEditable.setText("JavaScript");
         jemail.setText("edmonbosch@gmail.com");
         jtype.setText("Premium");
         jdesc.setText("Estudio GTAS i soc de Girona, m'agrada mirar crims amb els amics del pis mentres bec una cervesa.");
+    }
+
+    public void transformToEditable(){
+        jdesc.setEditable(true);
+        changebtn.setVisible(true);
+        southEdit.setVisible(false);
+        southDelete.setVisible(true);
+        southSave.setVisible(true);
+        jlanguageNotEditable.setVisible(false);
+        jlanguage.setVisible(true);
+    }
+
+    public void transfromToNotEditable(){
+        jdesc.setEditable(false);
+        changebtn.setVisible(false);
+        southDelete.setVisible(false);
+        southSave.setVisible(false);
+        southEdit.setVisible(true);
+        jlanguageNotEditable.setVisible(true);
+        jlanguage.setVisible(false);
+    }
+
+    public void registerController(ActionListener listener){
+        southEdit.setActionCommand(EDIT_BTN);
+        southEdit.addActionListener(listener);
+
+        southSave.setActionCommand(SAVE_BTN);
+        southSave.addActionListener(listener);
+
+        southDelete.setActionCommand(DELETE_BTN);
+        southDelete.addActionListener(listener);
+
+        changebtn.setActionCommand(CHANGE_BTN);
+        changebtn.addActionListener(listener);
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
