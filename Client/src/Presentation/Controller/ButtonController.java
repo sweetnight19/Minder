@@ -38,15 +38,33 @@ public class ButtonController implements ActionListener {
                 break;
 
             case LoginView.LOGIN:
-                cliente = new User(0, null, registerView.getNickname(), 0, null, null, registerView.getPasswd(), null, null, null);
-                sessionManager.login(cliente);
-                break;
-
+                cliente = new User(0, null, loginView.getNickname(), 0, null, null, loginView.getPasswd(), null, null, null);
+                switch (sessionManager.login(cliente)) {
+                    case 0:
+                        //Login correcte, primer cop
+                        loginView.delete();
+                        globalView.display();
+                        break;
+                    case 1:
+                        //login correcte, usuari reincident
+                        loginView.delete();
+                        globalView.display();
+                        break;
+                    case -1:
+                        //error en el servidor
+                        loginView.dislplayLoginError();
+                        break;
+                    case -2:
+                        //error en les credencials
+                        loginView.displayCredentialsLoginError();
+                }
             case RegisterView.REGISTER:
                 cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
                 if (sessionManager.register(cliente)) {
                     registerView.delete();
                     loginView.display();
+                } else {
+                    loginView.dislplayLoginError();
                 }
                 break;
 

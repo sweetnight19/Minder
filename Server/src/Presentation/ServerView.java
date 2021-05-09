@@ -19,6 +19,7 @@ public class ServerView extends JFrame {
     public ServerView(){
         add(configureCenter());
         configureWindow();
+        setBackground(Color.WHITE);
     }
 
     private void configureWindow() {
@@ -31,6 +32,8 @@ public class ServerView extends JFrame {
     private JSplitPane configureCenter(){
         JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, configureGraphic(), configureTop5());
         sp.setResizeWeight(0.75);
+        sp.setOpaque(true);
+        sp.setBackground(Color.WHITE);
         return sp;
     }
 
@@ -38,11 +41,16 @@ public class ServerView extends JFrame {
         JPanel hola = new JPanel();
         JLabel hola2 = new JLabel("TODO Statistics Graphic");
         hola.add(hola2);
+        hola.setBackground(Color.WHITE);
+        hola.setOpaque(true);
         return hola;
     }
 
     private JPanel configureTop5() {
         top5 = new JPanel(new BorderLayout());
+        top5.setBackground(Color.WHITE);
+        top5.setOpaque(true);
+
         try {
             logoImage = ImageIO.read(new File(LOGO_SRC));
             // Image
@@ -57,6 +65,7 @@ public class ServerView extends JFrame {
             jpLogo.add(logoTitle);
             jpLogo.add(logoLabel);
             jpLogo.setBorder(new EmptyBorder(25,10,25,10));
+            jpLogo.setBackground(Color.WHITE);
 
             top5.add(jpLogo, BorderLayout.NORTH);
         } catch (IOException e) {
@@ -107,6 +116,8 @@ public class ServerView extends JFrame {
 
         JScrollPane scrollPane= new  JScrollPane(j);
         scrollPane.setBorder(new EmptyBorder(0, 15, 0, 15));
+        scrollPane.setBackground(Color.WHITE);
+        scrollPane.setOpaque(true);
         top5.add(scrollPane, BorderLayout.CENTER);
         revalidate();
         repaint();
