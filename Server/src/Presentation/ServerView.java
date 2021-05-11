@@ -7,6 +7,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class ServerView extends JFrame {
     private static final String LOGO_SRC = "Server/Media/TrophyCup.png";
@@ -38,12 +40,33 @@ public class ServerView extends JFrame {
     }
 
     private JPanel configureGraphic() {
-        JPanel hola = new JPanel();
-        JLabel hola2 = new JLabel("TODO Statistics Graphic");
-        hola.add(hola2);
-        hola.setBackground(Color.WHITE);
-        hola.setOpaque(true);
-        return hola;
+        JPanel graphicPanel = new JPanel(new BorderLayout());
+        JLabel jtitle = new JLabel("Matching Statistics Graphic", SwingConstants.CENTER);
+        jtitle.setBorder(new EmptyBorder(10,0,10,0));
+
+        ArrayList<Integer> scores = new ArrayList<Integer>();
+        Random random = new Random();
+        int maxDataPoints = 16;
+        int maxScore = 20;
+        for (int i = 0; i < maxDataPoints ; i++) {
+            scores.add(random.nextInt(maxScore));
+        }
+        DrawGraph mainPanel = new DrawGraph(scores);
+        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setOpaque(true);
+
+        VerticalPanel vertPanel = new VerticalPanel();
+        vertPanel.setBackground(Color.WHITE);
+        HorizontalPanel horiPanel = new HorizontalPanel();
+        horiPanel.setBackground(Color.WHITE);
+
+        graphicPanel.add(jtitle, BorderLayout.NORTH);
+        graphicPanel.add(mainPanel, BorderLayout.CENTER);
+        graphicPanel.add(vertPanel, BorderLayout.WEST);
+        graphicPanel.add(horiPanel, BorderLayout.SOUTH);
+        graphicPanel.setBackground(Color.WHITE);
+        graphicPanel.setOpaque(true);
+        return graphicPanel;
     }
 
     private JPanel configureTop5() {
