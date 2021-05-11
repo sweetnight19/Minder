@@ -15,6 +15,7 @@ public interface ConnectionDAO {
     int checklogin(User user);
     boolean updateUser(User user);
     User readUser(User user);
+    boolean deleteUser(User user);
 
     //PeerDAO
     boolean insertLike(Peer peer);
@@ -28,7 +29,7 @@ public interface ConnectionDAO {
 
     //Images
     BufferedImage readImage(User user);
-    boolean sendImage(User user);
+    boolean sendImage(User user, BufferedImage image2);
 
     //Actions
     void disconnectFromServer();
