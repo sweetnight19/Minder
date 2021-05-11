@@ -71,4 +71,6 @@ public interface UserDAO {
 
     ArrayList<User> getPretendents(User user);
 
+    int countPretendentsPremium(User user);
+
 }

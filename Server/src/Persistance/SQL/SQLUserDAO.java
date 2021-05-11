@@ -131,10 +131,9 @@ public class SQLUserDAO implements UserDAO {
 
     @Override
     public ArrayList<User> getPretendentsPremium(User user) {
-        // TODO
+        //SELECT * FROM usuari WHERE usuari.llenguatgeDeProgramacio="Rust" AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =7) AND usuari.uuid IN (SELECT pair.idOrigen FROM pair WHERE pair.idDesti=7) UNION SELECT * FROM usuari WHERE usuari.llenguatgeDeProgramacio="Rust" AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =7) AND usuari.uuid NOT IN (SELECT pair.idOrigen FROM pair WHERE pair.idDesti=7)
         ArrayList<User> users = new ArrayList<>();
-        String query = "SELECT * FROM usuari,pair WHERE usuari.llenguatgeDeProgramacio=" + user.getProgrammingLanguage()
-                + " AND usuari.uuid=pair.idDesti AND pair.matchDuo=0 HAVING usuari.uuid=" + user.getId() + ";";
+        String query = "SELECT * FROM usuari WHERE usuari.llenguatgeDeProgramacio=" + user.getProgrammingLanguage() + " AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =" + user.getId() + ") AND usuari.uuid IN (SELECT pair.idOrigen FROM pair WHERE pair.idDesti=" + user.getId() + ") UNION SELECT * FROM usuari WHERE usuari.llenguatgeDeProgramacio=" + user.getProgrammingLanguage() + " AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =" + user.getId() + ") AND usuari.uuid NOT IN (SELECT pair.idOrigen FROM pair WHERE pair.idDesti=" + user.getId() + ");";
 
         ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
         try {
@@ -153,8 +152,38 @@ public class SQLUserDAO implements UserDAO {
 
     @Override
     public ArrayList<User> getPretendents(User user) {
-        // TODO
-        return null;
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM usuari WHERE usuari.llenguatgeDeProgramacio=" + user.getProgrammingLanguage() + " AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =" + user.getId() + ");";
+
+        ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
+        try {
+            while (result.next()) {
+                users.add(new User(result.getInt("uuid"), result.getString("nomPila"), result.getString("nickname"),
+                        result.getInt("edat"), result.getString("tipusCompte"), result.getString("email"),
+                        result.getString("password"), result.getString("pathImage"), result.getString("descripcio"),
+                        result.getString("llenguatgeDeProgramacio")));
+            }
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public int countPretendentsPremium(User user) {
+        //SELECT COUNT(*) AS total FROM usuari WHERE usuari.llenguatgeDeProgramacio="Rust" AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =7) AND usuari.uuid IN (SELECT pair.idOrigen FROM pair WHERE pair.idDesti=7)
+        String query = "SELECT COUNT(*) AS total FROM usuari WHERE usuari.llenguatgeDeProgramacio=" + user.getProgrammingLanguage() + " AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =" + user.getId() + ") AND usuari.uuid IN (SELECT pair.idOrigen FROM pair WHERE pair.idDesti=" + user.getId() + ")";
+        ResultSet result;
+
+        result = SQLConnector.getInstance(confDAO).selectQuery(query);
+        try {
+            result.next();
+            return result.getInt("total");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
@@ -171,4 +200,7 @@ public class SQLUserDAO implements UserDAO {
             return -1;
         }
     }
+
 }
+
+
