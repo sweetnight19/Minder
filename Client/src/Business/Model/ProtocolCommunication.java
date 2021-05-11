@@ -18,6 +18,7 @@ public class ProtocolCommunication {
     public static final String CREATE_USER = "CREATE_USER";
     public static final String READ_USER = "READ_USER";
     public static final String UPDATE_USER = "UPDATE_USER";
+    public static final String DELETE_USER = "DELETE_USER";
 
     //Protocols for requesting or updating information about the likes between users
     public static final String CREATE_PEER = "CREATE_PEER";

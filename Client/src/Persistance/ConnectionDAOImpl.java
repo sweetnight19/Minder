@@ -130,6 +130,22 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
+    public boolean deleteUser(User user) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.DELETE_USER));
+            os.writeObject(user);
+            Trama trama = (Trama) is.readObject();
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
+                System.out.println("User has been deleted");
+                return true;
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public boolean insertLike(Peer peer) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.CREATE_PEER));
@@ -253,7 +269,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
-    public boolean sendImage(User user) {
+    public boolean sendImage(User user, BufferedImage image2) {
         BufferedImage image;
         try {
             image = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\softwareTest.jpg"));
