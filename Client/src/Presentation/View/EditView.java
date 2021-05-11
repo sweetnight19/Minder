@@ -20,6 +20,7 @@ public class EditView extends JPanel {
     private JTextArea jdesc;
     private JScrollPane sp;
     private BufferedImage logoImage;
+    private JLabel logoLabel;
     private JButton southSave;
     private JButton southEdit;
     private JButton southDelete;
@@ -123,7 +124,7 @@ public class EditView extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
+        logoLabel = new JLabel(new ImageIcon(logoImage));
 
         changebtn = new JButton("Change");
         changebtn.setBackground(Color.decode("#DF4B74"));
@@ -167,6 +168,7 @@ public class EditView extends JPanel {
 
     /*public void updateData(User user, BufferedImage image){
         logoImage = resize(image, 70, 70);
+        logoLabel.setIcon(new ImageIcon(logoImage));
         jname.setText(user.getName());
         jage.setText(user.getAge + " years");
         jlanguage.setSelectedItem(user.getProgrammingLanguage());
@@ -178,6 +180,7 @@ public class EditView extends JPanel {
 
     public void updateData(){
         //logoImage = resize(image, 70, 70);
+        //logoLabel.setIcon(new ImageIcon(logoImage));
         jname.setText("Edmon Bosch");
         jage.setText("21 years");
         jlanguage.setSelectedItem("Javascript");
@@ -205,6 +208,19 @@ public class EditView extends JPanel {
         southEdit.setVisible(true);
         jlanguageNotEditable.setVisible(true);
         jlanguage.setVisible(false);
+    }
+
+    public String getLanguage(){
+        return jlanguage.getSelectedItem().toString();
+    }
+
+    public String getDescription(){
+        return jdesc.getText();
+    }
+
+    public void setNewImage(BufferedImage image){
+        logoImage = resize(image, 70, 70);
+        logoLabel.setIcon(new ImageIcon(logoImage));
     }
 
     public void registerController(ActionListener listener){
