@@ -9,6 +9,5 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="gson-2.8.6" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.23" level="project" />
-    <orderEntry type="library" name="de.svenkubiak:jBCrypt:0.4" level="project" />
   </component>
 </module>
