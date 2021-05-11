@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ServerView extends JFrame {
-    private static final String LOGO_SRC = "dp-2021-g1/Server/Media/TrophyCup.png";
+    private static final String LOGO_SRC = "Server/Media/TrophyCup.png";
     private static final int LOGO_WIDTH = 24;
     private static final int LOGO_HIGHT = 24;
 

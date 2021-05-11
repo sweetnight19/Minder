@@ -18,7 +18,7 @@ import Presentation.ServerView;
 public class Server {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, Server!");
-        ConfigurationDAO configurationDAO = new JsonConfigurationDAO("dp-2021-g1/Server/Data/configuracio-servidor.json");
+        ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);
         ChatDAO chatDAO = new SQLChatDAO(configurationDAO);
