@@ -9,11 +9,10 @@ public class GlobalView extends JFrame{
     private static final int TEXTFIELD_COLUMNS = 20;
 
     // Components
-    private HomeView jpHome;
+    private final HomeView jpHome;
     private JPanel jPanel;
     private JScrollPane jScrollPane;
     private JPanel jpNavigationBar;
-    private JPanel jpCard;
     private IconButton bHome;
     private IconButton bUser;
     private IconButton bLogout;
@@ -53,7 +52,7 @@ public class GlobalView extends JFrame{
         jPanel.add(jpNavigationBar, BorderLayout.NORTH);
     }
     private void configureCenter() {
-        jpCard = new JPanel();
+        JPanel jpCard = new JPanel();
         jpCard.setLayout(new CardLayout());
         jpCard.add(jpHome, "1");
         jPanel.add(jpCard, BorderLayout.CENTER);

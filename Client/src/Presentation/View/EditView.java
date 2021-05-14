@@ -18,7 +18,7 @@ public class EditView extends JPanel {
     private JLabel jtype;
     private JLabel jemail;
     private JTextArea jdesc;
-    private JScrollPane sp;
+    private final JScrollPane sp;
     private BufferedImage logoImage;
     private JLabel logoLabel;
     private JButton southSave;
@@ -26,7 +26,7 @@ public class EditView extends JPanel {
     private JButton southDelete;
     private JButton changebtn;
 
-    private String[] data = { "Java", "Javascript", "html", "C++" };
+    private final String[] data = { "Java", "Javascript", "html", "C++" };
     public static final String EDIT_BTN = "EDIT_BTN";
     public static final String SAVE_BTN = "SAVE_BTN";
     public static final String DELETE_BTN = "DELETE_BTN";

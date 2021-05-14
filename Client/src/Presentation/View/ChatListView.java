@@ -10,9 +10,9 @@ import java.io.IOException;
 
 public class ChatListView extends JPanel {
     private BufferedImage logoImage;
-    private JScrollPane schatsScroll;
-    private JPanel chatsPanel;
-    private JPanel globalChats;
+    private final JScrollPane schatsScroll;
+    private final JPanel chatsPanel;
+    private final JPanel globalChats;
 
     public ChatListView(){
         setBackground(Color.WHITE);

@@ -1,20 +1,14 @@
 package Presentation.View;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class HomeView extends JPanel {
     public static final String LIKE = "LIKE";
     public static final String DENY = "DENY";
 
-    // Components
-    private JPanel jpButtons;
     private JButton bLike;
     private JButton bDeny;
 
@@ -23,12 +17,14 @@ public class HomeView extends JPanel {
         configureCenter();
         configureSouth();
     }
+
     private void configureWindow() {
         setLayout(new BorderLayout());
         setBackground(Color.decode(MinderColor.WHITE));
         Border generalBorder = BorderFactory.createEmptyBorder(30, 60, 5, 60);
         setBorder(generalBorder);
     }
+
     private void configureCenter() {
         JPanel pUser = new JPanel();
         pUser.setLayout(new BorderLayout());
@@ -58,9 +54,11 @@ public class HomeView extends JPanel {
 
         add(pUser);
     }
+
     private void configureSouth() {
-        jpButtons = new JPanel();
-        jpButtons.setLayout(new FlowLayout(FlowLayout.CENTER,70,20));
+        // Components
+        JPanel jpButtons = new JPanel();
+        jpButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 70, 20));
         jpButtons.setBackground(Color.decode(MinderColor.WHITE));
         bDeny = new IconButton("Client/Media/denyIcon.png");
         bLike = new IconButton("Client/Media/likeIcon.png");
@@ -68,6 +66,7 @@ public class HomeView extends JPanel {
         jpButtons.add(bLike);
         add(jpButtons, BorderLayout.SOUTH);
     }
+
     public void registerController(ActionListener actionListener) {
         bLike.setActionCommand(LIKE);
         bLike.addActionListener(actionListener);

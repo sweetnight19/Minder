@@ -3,7 +3,7 @@ package Presentation.View;
 import javax.swing.*;
 import java.awt.*;
 
-public class WideButton extends JPanel{
+public class WideButton extends JPanel {
     public WideButton(JButton jButton) {
         setLayout(new BorderLayout());
         jButton.setBackground(Color.decode(MinderColor.PINK));

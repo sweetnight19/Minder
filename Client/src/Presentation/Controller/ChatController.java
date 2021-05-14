@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
 public class ChatController implements ActionListener {
-    private ChatDirectView chatDirectView;
-    private ChatListView chatListView;
-    private ChatManager chatManager;
+    private final ChatDirectView chatDirectView;
+    private final ChatListView chatListView;
+    private final ChatManager chatManager;
 
     public ChatController(ChatDirectView chatDirectView, ChatListView chatListView, ChatManager chatManager){
         this.chatListView = chatListView;

@@ -6,7 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class CheckLoginGUI extends JFrame {
-    private String[] data = { "Java", "Javascript", "html", "C++" };
+    private final String[] data = { "Java", "Javascript", "html", "C++" };
 
     public CheckLoginGUI(){
         setTitle("Fill profile information");
