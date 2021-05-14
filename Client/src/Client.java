@@ -4,10 +4,7 @@ import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
 import Persistance.JsonConfigurationDAO;
 import Presentation.Controller.ButtonController;
-import Presentation.View.GlobalView;
-import Presentation.View.HomeView;
-import Presentation.View.LoginView;
-import Presentation.View.RegisterView;
+import Presentation.View.*;
 
 import java.io.IOException;
 
@@ -21,8 +18,10 @@ public class Client {
         RegisterView registerView = new RegisterView();
         HomeView homeView = new HomeView();
         GlobalView globalView = new GlobalView(homeView);
-        ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager);
+        CheckLoginGUI checkLoginGUI = new CheckLoginGUI();
+        ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, checkLoginGUI);
 
+        checkLoginGUI.registerController(buttonController);
         loginView.registerController(buttonController);
         registerView.registerController(buttonController);
         globalView.registerController(buttonController);

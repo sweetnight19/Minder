@@ -42,4 +42,8 @@ public class SessionManager {
     public void disconnect() {
         connectionDAO.disconnectFromServer();
     }
+
+    public boolean updateUser(User user) {
+        return connectionDAO.updateUser(user);
+    }
 }
