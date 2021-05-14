@@ -106,6 +106,8 @@ public class ServerView extends JFrame {
         };
         j.setBounds(50, 400, 200, 500);
         j.setShowGrid(false);
+        j.setBackground(Color.WHITE);
+        j.setOpaque(true);
         j.getTableHeader().setBackground(Color.WHITE);
         j.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 

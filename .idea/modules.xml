@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Client/Client.iml" filepath="$PROJECT_DIR$/Client/Client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/Projecte-DPO.iml" filepath="$PROJECT_DIR$/.idea/Projecte-DPO.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dp-2021-g1.iml" filepath="$PROJECT_DIR$/.idea/dp-2021-g1.iml" />
     </modules>
   </component>
 </project>
