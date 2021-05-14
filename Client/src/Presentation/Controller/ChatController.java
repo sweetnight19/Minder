@@ -1,7 +1,9 @@
 package Presentation.Controller;
 
+import Business.Entity.ChatMessage;
 import Business.Entity.User;
 import Business.Model.ChatManager;
+import Business.Model.NewMessageListener;
 import Presentation.View.ChatDirectView;
 import Presentation.View.ChatListView;
 
@@ -33,5 +35,10 @@ public class ChatController implements ActionListener {
                 }
             }
         }
+    }
+
+    @Override
+    public void newMessage(ChatMessage message) {
+        this.chatDirectView.addFriendMessage(message.getMessage());
     }
 }

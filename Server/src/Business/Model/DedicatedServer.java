@@ -22,7 +22,7 @@ public class DedicatedServer extends Thread {
     private final UserDAO userDAO;
     private final ChatDAO chatDAO;
     private final PeerDAO peerDAO;
-    private boolean clientDisconnect;
+    public static boolean clientDisconnect;
 
     public DedicatedServer(Socket client, UserDAO userDAO, ChatDAO chatDAO, PeerDAO peerDAO) {
         this.client = client;
@@ -193,6 +193,7 @@ public class DedicatedServer extends Thread {
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
         if (this.chatDAO.addMessage(message)) {
+            ChatMessagesManager.addMessage(message);
             os.writeObject(new Trama(ProtocolCommunication.OK));
         } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));

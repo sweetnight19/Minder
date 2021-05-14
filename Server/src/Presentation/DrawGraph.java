@@ -1,13 +1,6 @@
 package Presentation;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -48,6 +41,7 @@ public class DrawGraph extends JPanel {
         g2.drawLine(BORDER_GAP, getHeight() - BORDER_GAP, BORDER_GAP, BORDER_GAP);
         g2.drawLine(BORDER_GAP, getHeight() - BORDER_GAP, getWidth() - BORDER_GAP, getHeight() - BORDER_GAP);
 
+        FontMetrics fm = g2.getFontMetrics();
         // create hatch marks for y axis.
         for (int i = 0; i < Y_HATCH_CNT; i++) {
             int x0 = BORDER_GAP;
@@ -55,6 +49,8 @@ public class DrawGraph extends JPanel {
             int y0 = getHeight() - (((i + 1) * (getHeight() - BORDER_GAP * 2)) / Y_HATCH_CNT + BORDER_GAP);
             int y1 = y0;
             g2.drawLine(x0, y0, x1, y1);
+            String value = Integer.toString(i);
+            g2.drawString(value, x0 - fm.stringWidth(value), y0 + (fm.getAscent() / 2));
         }
 
         // and for x axis
@@ -64,6 +60,8 @@ public class DrawGraph extends JPanel {
             int y0 = getHeight() - BORDER_GAP;
             int y1 = y0 - GRAPH_POINT_WIDTH;
             g2.drawLine(x0, y0, x1, y1);
+            String value = Integer.toString(i);
+            g2.drawString(value, x0 - (fm.stringWidth(value) / 2), y0 + fm.getAscent());
         }
 
         Stroke oldStroke = g2.getStroke();

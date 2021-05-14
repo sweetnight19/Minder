@@ -8,6 +8,8 @@ public class PanelCustomWrap extends JPanel implements Scrollable {
         super(layoutManager);
     }
 
+    public PanelCustomWrap(){}
+
     @Override
     public Dimension getPreferredScrollableViewportSize() {
         return getPreferredSize();

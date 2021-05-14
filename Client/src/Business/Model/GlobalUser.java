@@ -2,15 +2,15 @@ package Business.Model;
 
 import Business.Entity.User;
 
-public class Singleton {
+public class GlobalUser {
     private User myUser;
-    private static Singleton instance = null;
+    private static GlobalUser instance = null;
 
-    private Singleton(){ }
+    private GlobalUser(){ }
 
-    public static Singleton getInstance(){
+    public static GlobalUser getInstance(){
         if (instance == null){
-            instance = new Singleton();
+            instance = new GlobalUser();
         }
         return instance;
     }
