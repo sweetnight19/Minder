@@ -1,7 +1,9 @@
 package Presentation.Controller;
 
+import Business.Entity.ChatMessage;
 import Business.Entity.User;
 import Business.Model.ChatManager;
+import Business.Model.NewMessageListener;
 import Presentation.View.ChatDirectView;
 import Presentation.View.ChatListView;
 
@@ -10,7 +12,7 @@ import java.awt.event.ActionListener;
 
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
-public class ChatController implements ActionListener {
+public class ChatController implements ActionListener, NewMessageListener {
     private ChatDirectView chatDirectView;
     private ChatListView chatListView;
     private ChatManager chatManager;
@@ -33,5 +35,10 @@ public class ChatController implements ActionListener {
                 }
             }
         }
+    }
+
+    @Override
+    public void newMessage(ChatMessage message) {
+        this.chatDirectView.addFriendMessage(message.getMessage());
     }
 }

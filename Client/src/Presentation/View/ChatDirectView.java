@@ -108,19 +108,19 @@ public class ChatDirectView extends JPanel {
     private JPanel configureSelfMessage(String message){
         PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
-        PanelCustomWrap jMsg = new PanelCustomWrap(new BorderLayout());
 
-        JLabel jtext = new JLabel(message);
+        JTextArea jtext = new JTextArea(0,20);
+        jtext.setText(message);
+        jtext.setEditable(false);
+        jtext.setLineWrap(true);
+        jtext.setWrapStyleWord(true);
+
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
         jtext.setForeground(Color.white);
-        jtext.setHorizontalAlignment(JLabel.CENTER);
         jtext.setBorder(new EmptyBorder(5,10,5,10));
-        jtext.setMaximumSize(new Dimension(30, 0));
+        jtext.setBackground(Color.decode("#E27B97"));
 
-        jMsg.setBackground(Color.decode("#E27B97"));
-        jMsg.add(jtext, BorderLayout.CENTER);
-        jMsg.setOpaque(true);
-        jbox.add(jMsg, BorderLayout.EAST);
+        jbox.add(jtext, BorderLayout.EAST);
         return jbox;
     }
 
@@ -130,6 +130,7 @@ public class ChatDirectView extends JPanel {
     private JPanel configureMessage(String message){
         PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
+
         JTextArea jtext = new JTextArea(0,20);
         jtext.setText(message);
         jtext.setEditable(false);
@@ -139,7 +140,6 @@ public class ChatDirectView extends JPanel {
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
         jtext.setForeground(Color.WHITE);
         jtext.setBackground(Color.decode("#DF4B74"));
-        jtext.setOpaque(true);
         jtext.setBorder(new EmptyBorder(5,10,5,10));
 
         jbox.add(jtext, BorderLayout.WEST);
