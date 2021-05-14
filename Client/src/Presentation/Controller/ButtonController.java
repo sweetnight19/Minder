@@ -3,10 +3,8 @@ package Presentation.Controller;
 import Business.Entity.User;
 import Business.Model.SessionManager;
 import Presentation.View.GlobalView;
-import Presentation.View.HomeView;
 import Presentation.View.LoginView;
 import Presentation.View.RegisterView;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -57,7 +55,9 @@ public class ButtonController implements ActionListener {
                     case -2:
                         //error en les credencials
                         loginView.displayCredentialsLoginError();
+                        break;
                 }
+
             case RegisterView.REGISTER:
                 cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
                 if (sessionManager.register(cliente)) {
@@ -67,30 +67,6 @@ public class ButtonController implements ActionListener {
                     loginView.dislplayLoginError();
                 }
                 break;
-
-            case GlobalView.HOME:
-                System.out.println("HOME");
-                globalView.setTitle("MINDER HOME");
-                break;
-            case GlobalView.CHAT:
-                System.out.println("CHAT");
-                globalView.setTitle("MINDER CHAT");
-                break;
-            case GlobalView.USER:
-                System.out.println("USER");
-                globalView.setTitle("MINDER USER");
-                break;
-            case GlobalView.LOGOUT:
-                System.out.println("LOGOUT");
-                globalView.dislplayLogoutWindow();
-                break;
-            case HomeView.LIKE:
-                System.out.println("LIKE");
-                break;
-            case HomeView.DENY:
-                System.out.println("DENY");
-                break;
         }
-
     }
 }

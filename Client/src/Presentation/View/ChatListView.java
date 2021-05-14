@@ -41,7 +41,7 @@ public class ChatListView extends JPanel {
 
         logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\javaJoan.png"));
+            logoImage = ImageIO.read(new File("Client/Media/moreInfoIcon.png"));
             logoImage = resize(logoImage, 40, 40);
         } catch (IOException e) {
             e.printStackTrace();

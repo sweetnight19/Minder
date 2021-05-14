@@ -64,7 +64,7 @@ public class ChatDirectView extends JPanel {
 
         BufferedImage logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("src/Media/sendIcon.png"));
+            logoImage = ImageIO.read(new File("Client/Media/profileVector.png"));
             logoImage = resize(logoImage, 20, 20);
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class ChatDirectView extends JPanel {
 
         BufferedImage logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\profileTest.jpg"));
+            logoImage = ImageIO.read(new File("Client/Media/profileVector.png"));
             logoImage = resize(logoImage, 40, 40);
         } catch (IOException e) {
             e.printStackTrace();

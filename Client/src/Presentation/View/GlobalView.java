@@ -9,25 +9,34 @@ public class GlobalView extends JFrame{
     private static final int TEXTFIELD_COLUMNS = 20;
 
     // Components
-    private final HomeView jpHome;
+    private HomeView jpHome;
+    private ChatListView jpChat;
+    private EditView jpUser;
     private JPanel jPanel;
     private JScrollPane jScrollPane;
     private JPanel jpNavigationBar;
+    private CardLayout cardLayout;
+    private JPanel jpCard;
     private IconButton bHome;
     private IconButton bUser;
     private IconButton bLogout;
     private IconButton bChat;
+    public static final String MINDER_HOME = "MINDER HOME";
     public static final String HOME = "HOME";
     public static final String CHAT = "CHAT";
     public static final String USER = "USER";
     public static final String LOGOUT = "LOGOUT";
 
-    public GlobalView(HomeView homeView) {
+    public GlobalView(HomeView homeView, ChatListView chatListView, EditView editView) {
+        setTitle(MINDER_HOME);
+        setSize(450, 700);
         this.jpHome = homeView;
+        this.jpChat = chatListView;
+        this.jpUser = editView;
         configureWindow();
         configureNorth();
         configureCenter();
-        pack();
+        //pack();
         setLocationRelativeTo(null);
     }
     private void configureWindow() {
@@ -44,7 +53,7 @@ public class GlobalView extends JFrame{
         bUser = new IconButton("Client/Media/profileVector.png");
         bLogout = new IconButton("Client/Media/logoutIcon.png");
         jpNavigationBar = new JPanel();
-        jpNavigationBar.setLayout(new FlowLayout(FlowLayout.CENTER,70,10));
+        jpNavigationBar.setLayout(new FlowLayout(FlowLayout.CENTER,50,10));
         jpNavigationBar.add(bHome);
         jpNavigationBar.add(bChat);
         jpNavigationBar.add(bUser);
@@ -52,9 +61,16 @@ public class GlobalView extends JFrame{
         jPanel.add(jpNavigationBar, BorderLayout.NORTH);
     }
     private void configureCenter() {
-        JPanel jpCard = new JPanel();
-        jpCard.setLayout(new CardLayout());
-        jpCard.add(jpHome, "1");
+        jpCard = new JPanel();
+        cardLayout = new CardLayout();
+        jpCard.setLayout(cardLayout);
+        jpUser.transfromToNotEditable();
+        jpCard.add(jpUser, USER);
+        jpChat.addUserChat();
+        jpChat.addUserChat();
+        jpCard.add(jpChat, CHAT);
+        jpCard.add(jpHome, HOME);
+        cardLayout.last(jpCard);
         jPanel.add(jpCard, BorderLayout.CENTER);
     }
     public void registerController(ActionListener actionListener) {
@@ -73,6 +89,15 @@ public class GlobalView extends JFrame{
         if(answer == JOptionPane.YES_OPTION){
             System.exit(0);
         }
+    }
+    public void showHome() {
+        cardLayout.show(jpCard, HOME);
+    }
+    public void showChat() {
+        cardLayout.show(jpCard, CHAT);
+    }
+    public void showUser() {
+        cardLayout.show(jpCard, USER);
     }
     public void display() {
         setVisible(true);

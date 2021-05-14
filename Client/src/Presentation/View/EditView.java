@@ -119,7 +119,7 @@ public class EditView extends JPanel {
 
         logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\javaJoan.png"));
+            logoImage = ImageIO.read(new File("Client/Media/profileVector.png"));
             logoImage = resize(logoImage, 70, 70);
         } catch (IOException e) {
             e.printStackTrace();
