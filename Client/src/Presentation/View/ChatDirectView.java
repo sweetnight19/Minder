@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ChatDirectView extends JPanel {
     public static final String BTN_SEND = "BUT_SEND";
 
-    private JPanel jPanel;
+    private PanelCustomWrap jPanel;
     private JScrollPane jspComments;
     private JTextField textMessage;
     private JButton jbutIcon;
@@ -33,10 +33,10 @@ public class ChatDirectView extends JPanel {
     Configuració de la part que ocupa el xat en el centre de la pantalla
      */
     private JScrollPane configureCenter() {
-        JPanel jglobal = new JPanel();
-        jglobal.setLayout(new BorderLayout());
+        JPanel jglobal = new JPanel(new BorderLayout());
         jglobal.setBackground(Color.white);
-        jPanel = new JPanel();
+        jglobal.setOpaque(true);
+        jPanel = new PanelCustomWrap();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.PAGE_AXIS));
         jPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
         jPanel.setBackground(Color.white);
@@ -106,10 +106,9 @@ public class ChatDirectView extends JPanel {
     Funció per crear el panell del nostre propi missatge HONK
      */
     private JPanel configureSelfMessage(String message){
-        JPanel jbox = new JPanel(new BorderLayout());
+        PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
-        JPanel jMsg = new JPanel();
-        jMsg.setLayout(new BorderLayout());
+        PanelCustomWrap jMsg = new PanelCustomWrap(new BorderLayout());
 
         JLabel jtext = new JLabel(message);
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
@@ -129,23 +128,21 @@ public class ChatDirectView extends JPanel {
     Funció per crear el panell dels missatges HONK que ens envien els altres usuaris
      */
     private JPanel configureMessage(String message){
-        JPanel jbox = new JPanel(new BorderLayout());
+        PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
-        JPanel jMsg = new JPanel();
-        jMsg.setLayout(new BorderLayout());
-        JLabel jtext = new JLabel(message);
+        JTextArea jtext = new JTextArea(0,20);
+        jtext.setText(message);
+        jtext.setEditable(false);
+        jtext.setLineWrap(true);
+        jtext.setWrapStyleWord(true);
 
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
         jtext.setForeground(Color.WHITE);
-        jtext.setHorizontalAlignment(JLabel.CENTER);
         jtext.setBackground(Color.decode("#DF4B74"));
-        jtext.setMaximumSize(new Dimension(30, 0));
         jtext.setOpaque(true);
         jtext.setBorder(new EmptyBorder(5,10,5,10));
 
-        jMsg.add(jtext, BorderLayout.CENTER);
-        jMsg.setOpaque(true);
-        jbox.add(jMsg, BorderLayout.WEST);
+        jbox.add(jtext, BorderLayout.WEST);
         return jbox;
     }
 
