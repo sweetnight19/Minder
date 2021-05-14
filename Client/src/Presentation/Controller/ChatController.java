@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
-public class ChatController implements ActionListener {
+public class ChatController implements ActionListener, NewMessageListener {
     private final ChatDirectView chatDirectView;
     private final ChatListView chatListView;
     private final ChatManager chatManager;
