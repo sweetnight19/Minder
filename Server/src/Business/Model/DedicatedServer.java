@@ -37,6 +37,8 @@ public class DedicatedServer extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        ChatServer chatServer = new ChatServer();
     }
 
     @Override

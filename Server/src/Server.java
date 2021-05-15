@@ -32,15 +32,11 @@ public class Server {
 
         try {
             ServerSocket sSocket = new ServerSocket(configurationDAO.getPortTCP()); // Inicialitzem el socket
-            ServerSocket sSocketChat = new ServerSocket(54333);
             while (true) {
                 Socket client = sSocket.accept(); // Acceptem peticions dels cients
-                Socket chatClient = sSocketChat.accept(); //Peticions de client per chat instantani
                 // Creem un servidor dedicat per cada client en particular
                 DedicatedServer dedicated = new DedicatedServer(client, userDAO, chatDAO, peerDAO);
-                ChatServer chatServer = new ChatServer(chatClient);
                 dedicated.start();
-                chatServer.start();
             }
         } catch (IOException e) {
             e.printStackTrace();

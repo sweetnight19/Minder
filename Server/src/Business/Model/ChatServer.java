@@ -6,23 +6,23 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ChatServer extends Thread {
-    private final Socket client;
+    private Socket client;
+    private ServerSocket sSocketChat;
     private ObjectOutputStream os;
     private ObjectInputStream is;
     private int sizeArr;
     private User myUser;
     private User otherUser;
 
-    public ChatServer(Socket client) {
-        this.client = client;
-        this.sizeArr = 0;
-
+    public ChatServer() {
         try {
-            this.is = new ObjectInputStream(client.getInputStream());
-            this.os = new ObjectOutputStream(client.getOutputStream());
+            this.sizeArr = 0;
+            this.sSocketChat = new ServerSocket(54333);
+            start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,6 +31,10 @@ public class ChatServer extends Thread {
     @Override
     public void run() {
         try{
+            client = sSocketChat.accept(); //Peticions de client per chat instantani
+            this.is = new ObjectInputStream(client.getInputStream());
+            this.os = new ObjectOutputStream(client.getOutputStream());
+
             myUser = (User) is.readObject();
             otherUser = (User) is.readObject();
             sizeArr = ChatMessagesManager.getSize();
