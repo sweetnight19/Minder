@@ -1,5 +1,7 @@
 package Presentation.View;
 
+import Business.Entity.User;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -166,28 +168,28 @@ public class EditView extends JPanel {
         return butconatiner;
     }
 
-    /*public void updateData(User user, BufferedImage image){
-        logoImage = resize(image, 70, 70);
-        logoLabel.setIcon(new ImageIcon(logoImage));
-        jname.setText(user.getName());
-        jage.setText(user.getAge + " years");
+    public void updateData(User user, BufferedImage image){
+        if(image!=null) {
+            logoImage = resize(image, 70, 70);
+            logoLabel.setIcon(new ImageIcon(logoImage));
+        }
+        jname.setText(user.getFirstName());
+        jage.setText(user.getAge() + " years");
         jlanguage.setSelectedItem(user.getProgrammingLanguage());
-        jlanguageNotEditable.setText(user.getProgrammingLanguage();
+        jlanguageNotEditable.setText(user.getProgrammingLanguage());
         jemail.setText(user.getEmail());
         jtype.setText(user.getType());
         jdesc.setText(user.getDescription());
-    }*/
+    }
 
     public void updateData(){
-        //logoImage = resize(image, 70, 70);
-        //logoLabel.setIcon(new ImageIcon(logoImage));
-        jname.setText("Edmon Bosch");
+        jname.setText("Test Test");
         jage.setText("21 years");
         jlanguage.setSelectedItem("Javascript");
         jlanguageNotEditable.setText("JavaScript");
-        jemail.setText("edmonbosch@gmail.com");
+        jemail.setText("test@gmail.com");
         jtype.setText("Premium");
-        jdesc.setText("Estudio GTAS i soc de Girona, m'agrada mirar crims amb els amics del pis mentres bec una cervesa.");
+        jdesc.setText("Sóc la persona per fer testos.");
     }
 
     public void transformToEditable(){

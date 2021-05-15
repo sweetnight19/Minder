@@ -114,7 +114,7 @@ public class DedicatedServer extends Thread {
 
     private void readImage() throws IOException, InterruptedException, ClassNotFoundException {
         User user = (User) is.readObject();
-        user = this.userDAO.getUser(user.getId());
+        user = this.userDAO.getUser(user.getNickname());
 
         BufferedImage image;
         image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
@@ -231,7 +231,7 @@ public class DedicatedServer extends Thread {
 
     private void readUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        User response = this.userDAO.getUser(user.getId());
+        User response = this.userDAO.getUser(user.getNickname());
         if (response != null) {
             os.writeObject(response);
         } else {

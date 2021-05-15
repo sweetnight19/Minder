@@ -39,6 +39,13 @@ public class SessionManager {
         }
     }
 
+    public void saveGlobalUser(User cliente){
+        User user = this.connectionDAO.readUser(cliente);
+        if(user!= null){
+            GlobalUser.getInstance().setMyUser(user);
+        }
+    }
+
     public void disconnect() {
         connectionDAO.disconnectFromServer();
     }

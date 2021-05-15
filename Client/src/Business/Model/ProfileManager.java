@@ -14,7 +14,8 @@ public class ProfileManager {
 
     public User getUserProfileInformation(){
         GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
-        profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
+        //profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
+        System.out.println("aqui esta dificil arribar");
         return GlobalUser.getInstance().getMyUser();
     }
 

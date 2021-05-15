@@ -15,8 +15,8 @@ import java.io.IOException;
 import static Presentation.View.EditView.*;
 
 public class ProfileController implements ActionListener {
-    private final EditView editView;
-    private final ProfileManager profileManager;
+    private EditView editView;
+    private ProfileManager profileManager;
 
     public ProfileController(EditView editView, ProfileManager manager) {
         this.editView = editView;
@@ -63,5 +63,11 @@ public class ProfileController implements ActionListener {
                 }
                 break;
         }
+    }
+
+    public void loadProfileInformation(){
+        SwingUtilities.invokeLater(() -> {
+            this.editView.updateData(profileManager.getUserProfileInformation(), profileManager.getProfileImage());
+        });
     }
 }

@@ -28,17 +28,18 @@ public class Client {
             ProfileManager profileManager = new ProfileManager(connectionDAO);
             // Controller
             ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager);
-            NavigationController navigationController = new NavigationController(globalView);
-            HomeController homeController = new HomeController(homeView);
             ProfileController profileController = new ProfileController(editView, profileManager);
+            NavigationController navigationController = new NavigationController(globalView, profileController);
+            HomeController homeController = new HomeController(homeView);
+
             loginView.registerController(buttonController);
             registerView.registerController(buttonController);
             globalView.registerController(navigationController);
             homeView.registerController(homeController);
             editView.registerController(profileController);
 
-            //loginView.display();
-            globalView.display();
+            loginView.display();
+            //globalView.display();
         });
     }
 }

@@ -112,8 +112,8 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
-    public User getUser(int uuid) {
-        String query = "SELECT * FROM usuari WHERE usuari.uuid=" + uuid + ";";
+    public User getUser(String nickname) {
+        String query = "SELECT * FROM `usuari` WHERE `nickname`= '" + nickname + "';";
 
         ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
         try {

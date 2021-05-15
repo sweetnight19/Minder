@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 
 public class NavigationController implements ActionListener {
     private final GlobalView globalView;
+    private ProfileController profileController;
 
-    public NavigationController(GlobalView globalView) {
+    public NavigationController(GlobalView globalView, ProfileController profileController) {
         this.globalView = globalView;
+        this.profileController = profileController;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -25,6 +27,8 @@ public class NavigationController implements ActionListener {
                 break;
             case GlobalView.USER:
                 globalView.setTitle("MINDER USER");
+                profileController.loadProfileInformation();
+                System.out.println("almenys tmb he arribat aqui");
                 globalView.showUser();
                 break;
             case GlobalView.LOGOUT:

@@ -41,11 +41,15 @@ public class ButtonController implements ActionListener {
                     case 0:
                         //Login correcte, primer cop
                         loginView.delete();
+                        sessionManager.saveGlobalUser(cliente);
                         globalView.display();
+                        System.out.println("al final es veu q estic aqui haha");
                         break;
                     case 1:
                         //login correcte, usuari reincident
                         loginView.delete();
+                        System.out.println("he entrat aqui");
+                        sessionManager.saveGlobalUser(cliente);
                         globalView.display();
                         break;
                     case -1:
@@ -57,6 +61,7 @@ public class ButtonController implements ActionListener {
                         loginView.displayCredentialsLoginError();
                         break;
                 }
+                break;
 
             case RegisterView.REGISTER:
                 cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
