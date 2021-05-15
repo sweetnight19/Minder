@@ -22,4 +22,12 @@ public class GlobalUser {
     public User getMyUser(){
         return this.myUser;
     }
+
+    public void setLanguage(String programmingLanguage) {
+        myUser.setProgrammingLanguage(programmingLanguage);
+    }
+
+    public void setDescription(String description) {
+        myUser.setDescription(description);
+    }
 }

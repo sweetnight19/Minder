@@ -43,6 +43,7 @@ public class ChatController implements ActionListener, NewMessageListener {
     }
 
     public void loadListChat(){
+        this.chatListView.removeChats();
         ArrayList<User> users = new ArrayList<>();
         users = this.chatManager.getChatList();
         for (int i = 0; i < users.size(); i++) {

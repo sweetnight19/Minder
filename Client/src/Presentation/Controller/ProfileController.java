@@ -1,5 +1,6 @@
 package Presentation.Controller;
 
+import Business.Model.GlobalUser;
 import Business.Model.ProfileManager;
 import Presentation.View.EditView;
 
@@ -39,6 +40,7 @@ public class ProfileController implements ActionListener {
                 System.out.println(editView.getDescription());
                 this.profileManager.saveUserChanges(editView.getLanguage(), editView.getDescription());
                 SwingUtilities.invokeLater(() -> {
+                    editView.updateData(GlobalUser.getInstance().getMyUser(), this.profileManager.getProfileImage());
                     editView.transfromToNotEditable();
                 });
 

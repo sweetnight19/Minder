@@ -112,21 +112,25 @@ public class DedicatedServer extends Thread {
         }
     }
 
-    private void readImage() throws IOException, InterruptedException, ClassNotFoundException {
+    private void readImage() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         user = this.userDAO.getUser(user.getNickname());
+        System.out.println(user.getPathImage());
+        if(!user.getPathImage().equals("null")) {
+            BufferedImage image;
+            image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
 
-        BufferedImage image;
-        image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", byteArrayOutputStream);
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpg", byteArrayOutputStream);
-
-        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
-        os.write(size);
-        os.write(byteArrayOutputStream.toByteArray());
-        os.flush();
-        Thread.sleep(120000);
+            byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+            os.write(size);
+            os.write(byteArrayOutputStream.toByteArray());
+            os.flush();
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void saveImage() throws IOException, ClassNotFoundException {

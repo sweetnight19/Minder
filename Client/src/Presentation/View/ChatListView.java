@@ -31,6 +31,7 @@ public class ChatListView extends JPanel {
 
         schatsScroll = new JScrollPane(globalChats);
         schatsScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        schatsScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         add(schatsScroll, BorderLayout.CENTER);
     }
 
@@ -62,6 +63,10 @@ public class ChatListView extends JPanel {
 
         chatsPanel.add(userChat);
         chatsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+    }
+
+    public void removeChats(){
+        chatsPanel.removeAll();
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {

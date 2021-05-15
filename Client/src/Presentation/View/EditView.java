@@ -171,13 +171,13 @@ public class EditView extends JPanel {
     public void updateData(User user, BufferedImage image){
         if(image!=null) {
             logoImage = null;
-            logoImage = resize(image, 70, 70);
+            logoImage = resize(image, 100, 100);
             logoLabel.setIcon(new ImageIcon(logoImage));
         }
         jname.setText(user.getFirstName());
         jage.setText(user.getAge() + " years");
-        jlanguage.setSelectedItem(user.getProgrammingLanguage());
         jlanguageNotEditable.setText(user.getProgrammingLanguage());
+        jlanguage.setSelectedItem(user.getProgrammingLanguage());
         jemail.setText(user.getEmail());
         jtype.setText(user.getType());
         jdesc.setText(user.getDescription());
@@ -223,7 +223,7 @@ public class EditView extends JPanel {
 
     public void setNewImage(BufferedImage image){
         logoImage = null;
-        logoImage = resize(image, 70, 70);
+        logoImage = resize(image, 100, 100);
         logoLabel.setIcon(new ImageIcon(logoImage));
     }
 

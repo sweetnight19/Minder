@@ -28,8 +28,8 @@ public class ProfileManager {
     }
 
     public boolean saveUserChanges(String programmingLanguage, String description){
-        GlobalUser.getInstance().getMyUser().setProgrammingLanguage(programmingLanguage);
-        GlobalUser.getInstance().getMyUser().setDescription(description);
+        GlobalUser.getInstance().setLanguage(programmingLanguage);
+        GlobalUser.getInstance().setDescription(description);
         if(this.connectionDAO.updateUser(GlobalUser.getInstance().getMyUser())){
             return true;
         }
