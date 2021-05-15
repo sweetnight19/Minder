@@ -26,10 +26,12 @@ public class Client {
             EditView editView = new EditView();
             GlobalView globalView = new GlobalView(homeView, chatListView, editView);
             ProfileManager profileManager = new ProfileManager(connectionDAO);
+            ChatManager chatManager = new ChatManager(connectionDAO, configurationDAO);
             // Controller
             ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager);
             ProfileController profileController = new ProfileController(editView, profileManager);
-            NavigationController navigationController = new NavigationController(globalView, profileController);
+            ChatController chatController = new ChatController(chatListView, chatManager);
+            NavigationController navigationController = new NavigationController(globalView, profileController, chatController);
             HomeController homeController = new HomeController(homeView);
 
             loginView.registerController(buttonController);

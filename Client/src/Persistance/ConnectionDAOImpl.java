@@ -270,9 +270,9 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 
     @Override
     public boolean sendImage(User user, BufferedImage image2) {
-        BufferedImage image;
+        BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\softwareTest.jpg"));
+            image = image2;
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", byteArrayOutputStream);

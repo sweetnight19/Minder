@@ -9,13 +9,13 @@ public class ProfileManager {
     private BufferedImage profileImage;
 
     public ProfileManager(ConnectionDAO connectionDAO) {
+        profileImage = null;
         this.connectionDAO = connectionDAO;
     }
 
     public User getUserProfileInformation(){
         GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
-        //profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
-        System.out.println("aqui esta dificil arribar");
+        profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
         return GlobalUser.getInstance().getMyUser();
     }
 

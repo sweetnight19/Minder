@@ -66,8 +66,8 @@ public class GlobalView extends JFrame{
         jpCard.setLayout(cardLayout);
         jpUser.transfromToNotEditable();
         jpCard.add(jpUser, USER);
-        jpChat.addUserChat();
-        jpChat.addUserChat();
+        //jpChat.addUserChat();
+        //jpChat.addUserChat();
         jpCard.add(jpChat, CHAT);
         jpCard.add(jpHome, HOME);
         cardLayout.last(jpCard);

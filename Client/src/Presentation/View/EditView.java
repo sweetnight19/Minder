@@ -121,7 +121,7 @@ public class EditView extends JPanel {
 
         logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("Client/Media/profileVector.png"));
+            logoImage = ImageIO.read(new File("Client/Media/avatar.png"));
             logoImage = resize(logoImage, 70, 70);
         } catch (IOException e) {
             e.printStackTrace();
@@ -170,6 +170,7 @@ public class EditView extends JPanel {
 
     public void updateData(User user, BufferedImage image){
         if(image!=null) {
+            logoImage = null;
             logoImage = resize(image, 70, 70);
             logoLabel.setIcon(new ImageIcon(logoImage));
         }
@@ -221,6 +222,7 @@ public class EditView extends JPanel {
     }
 
     public void setNewImage(BufferedImage image){
+        logoImage = null;
         logoImage = resize(image, 70, 70);
         logoLabel.setIcon(new ImageIcon(logoImage));
     }

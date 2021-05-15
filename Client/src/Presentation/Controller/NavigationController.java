@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 public class NavigationController implements ActionListener {
     private final GlobalView globalView;
     private ProfileController profileController;
+    private ChatController chatController;
 
-    public NavigationController(GlobalView globalView, ProfileController profileController) {
+    public NavigationController(GlobalView globalView, ProfileController profileController, ChatController chatController) {
         this.globalView = globalView;
         this.profileController = profileController;
+        this.chatController = chatController;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -23,12 +25,12 @@ public class NavigationController implements ActionListener {
                 break;
             case GlobalView.CHAT:
                 globalView.setTitle("MINDER CHAT");
+                chatController.loadListChat();
                 globalView.showChat();
                 break;
             case GlobalView.USER:
                 globalView.setTitle("MINDER USER");
                 profileController.loadProfileInformation();
-                System.out.println("almenys tmb he arribat aqui");
                 globalView.showUser();
                 break;
             case GlobalView.LOGOUT:

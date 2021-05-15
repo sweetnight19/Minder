@@ -6,6 +6,7 @@ import Persistance.ChatConnectionDAO;
 import Persistance.ConfigurationDAO;
 import Persistance.ConnectionDAO;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class ChatManager implements NewMessageListener {
@@ -28,6 +29,11 @@ public class ChatManager implements NewMessageListener {
         chatListUsers = null;
         chatListUsers = this.connectionDAO.getChatList(GlobalUser.getInstance().getMyUser());
         return this.chatListUsers;
+    }
+
+    public BufferedImage getImageFromFriend(User friend){
+        BufferedImage image = this.connectionDAO.readImage(friend);
+        return image;
     }
 
     public boolean insertNewMessage(String message, User destiny){

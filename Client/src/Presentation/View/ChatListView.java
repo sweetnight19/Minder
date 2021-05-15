@@ -1,5 +1,7 @@
 package Presentation.View;
 
+import Business.Entity.User;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -32,23 +34,25 @@ public class ChatListView extends JPanel {
         add(schatsScroll, BorderLayout.CENTER);
     }
 
-    /*public void addUserChat(User user){}*/
-
-    public void addUserChat(){
+    public void addUserChat(User user, BufferedImage image){
         JPanel userChat = new JPanel();
         userChat.setBackground(Color.WHITE);
         userChat.setLayout(new BoxLayout(userChat, BoxLayout.X_AXIS));
 
         logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("Client/Media/moreInfoIcon.png"));
+            if(image == null) {
+                logoImage = ImageIO.read(new File("Client/Media/avatar.png"));
+            }else{
+                logoImage = image;
+            }
             logoImage = resize(logoImage, 40, 40);
         } catch (IOException e) {
             e.printStackTrace();
         }
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
 
-        JLabel name = new JLabel("Edmon Bosch");
+        JLabel name = new JLabel(user.getFirstName());
 
         logoLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
         name.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -57,6 +61,7 @@ public class ChatListView extends JPanel {
         userChat.add(name);
 
         chatsPanel.add(userChat);
+        chatsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {

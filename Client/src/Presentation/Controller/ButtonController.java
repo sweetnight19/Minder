@@ -43,12 +43,10 @@ public class ButtonController implements ActionListener {
                         loginView.delete();
                         sessionManager.saveGlobalUser(cliente);
                         globalView.display();
-                        System.out.println("al final es veu q estic aqui haha");
                         break;
                     case 1:
                         //login correcte, usuari reincident
                         loginView.delete();
-                        System.out.println("he entrat aqui");
                         sessionManager.saveGlobalUser(cliente);
                         globalView.display();
                         break;
