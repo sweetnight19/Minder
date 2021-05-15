@@ -248,21 +248,24 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.READ_IMAGE));
             os.writeObject(user);
 
-            byte[] sizeAr = new byte[4];
-            is.read(sizeAr);
+            Trama trama = (Trama) is.readObject();
+            if(trama.getContext().equals(ProtocolCommunication.OK)) {
+                byte[] sizeAr = new byte[4];
+                is.read(sizeAr);
 
-            int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-            byte[] imageAr = new byte[size];
-            is.readFully(imageAr);
+                int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+                byte[] imageAr = new byte[size];
+                is.readFully(imageAr);
 
-            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
 
-            System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
-            //ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg"));
+                System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+                //ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg"));
+                return image;
+            }
+            return null;
 
-            return image;
-
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -270,9 +273,9 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 
     @Override
     public boolean sendImage(User user, BufferedImage image2) {
-        BufferedImage image;
+        BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\softwareTest.jpg"));
+            image = image2;
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", byteArrayOutputStream);
@@ -284,14 +287,13 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.write(size);
             os.write(byteArrayOutputStream.toByteArray());
             os.flush();
-            Thread.sleep(120000);
 
             Trama trama = (Trama) is.readObject();
             if(trama.getContext().equals(ProtocolCommunication.OK)){
                 System.out.println("Image has been sent correctly and saved");
                 return true;
             }
-        } catch (IOException | InterruptedException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;

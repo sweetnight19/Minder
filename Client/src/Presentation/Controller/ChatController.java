@@ -7,20 +7,25 @@ import Business.Model.NewMessageListener;
 import Presentation.View.ChatDirectView;
 import Presentation.View.ChatListView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
 public class ChatController implements ActionListener, NewMessageListener {
-    private final ChatDirectView chatDirectView;
-    private final ChatListView chatListView;
-    private final ChatManager chatManager;
+    private ChatDirectView chatDirectView;
+    private ChatListView chatListView;
+    private ChatManager chatManager;
 
-    public ChatController(ChatDirectView chatDirectView, ChatListView chatListView, ChatManager chatManager){
+    public ChatController(ChatListView chatListView, ChatManager chatManager){
         this.chatListView = chatListView;
-        this.chatDirectView = chatDirectView;
         this.chatManager = chatManager;
+    }
+
+    public ChatController(ChatDirectView chatDirectView){
+        this.chatDirectView = chatDirectView;
     }
 
     @Override
@@ -34,6 +39,19 @@ public class ChatController implements ActionListener, NewMessageListener {
                     this.chatDirectView.setTextFieldHint();
                 }
             }
+        }
+    }
+
+    public void loadListChat(){
+        this.chatListView.removeChats();
+        ArrayList<User> users = new ArrayList<>();
+        users = this.chatManager.getChatList();
+        for (int i = 0; i < users.size(); i++) {
+            ArrayList<User> finalUsers = users;
+            int finalI = i;
+            SwingUtilities.invokeLater(() -> {
+                this.chatListView.addUserChat(finalUsers.get(finalI), this.chatManager.getImageFromFriend(finalUsers.get(finalI)) );
+            });
         }
     }
 

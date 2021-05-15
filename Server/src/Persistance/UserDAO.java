@@ -18,7 +18,7 @@ public interface UserDAO {
      * @return user.
      * @param uuid The id of corresponding User to get
      */
-    User getUser(int uuid);
+    User getUser(String nickname);
 
     /**
      * Method that creates a new User with a given text.
