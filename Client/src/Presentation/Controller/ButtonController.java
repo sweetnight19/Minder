@@ -2,23 +2,30 @@ package Presentation.Controller;
 
 import Business.Entity.User;
 import Business.Model.SessionManager;
+import Persistance.ConnectionDAO;
 import Presentation.View.GlobalView;
 import Presentation.View.LoginView;
 import Presentation.View.RegisterView;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class ButtonController implements ActionListener {
+public class ButtonController implements ActionListener, WindowListener {
     private final LoginView loginView;
     private final RegisterView registerView;
     private final SessionManager sessionManager;
     private final GlobalView globalView;
+    private ConnectionDAO connectionDAO;
 
-    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager) {
+    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, ConnectionDAO connectionDAO) {
         this.loginView = loginView;
         this.registerView = registerView;
         this.globalView = globalView;
         this.sessionManager = sessionManager;
+        this.connectionDAO = connectionDAO;
     }
 
     @Override
@@ -71,5 +78,40 @@ public class ButtonController implements ActionListener {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent windowEvent) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent windowEvent) {
+        connectionDAO.disconnectFromServer();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent windowEvent) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent windowEvent) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent windowEvent) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent windowEvent) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent windowEvent) {
+
     }
 }

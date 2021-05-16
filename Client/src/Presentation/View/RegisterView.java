@@ -1,5 +1,7 @@
 package Presentation.View;
 
+import Presentation.Controller.ButtonController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -220,7 +223,7 @@ public class RegisterView extends JFrame {
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
 
-    public void registerController(ActionListener actionListener) {
+    public void registerController(ButtonController controller) {
         firstNameField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -324,9 +327,10 @@ public class RegisterView extends JFrame {
             }
         });
         bRegister.setActionCommand(REGISTER);
-        bRegister.addActionListener(actionListener);
+        bRegister.addActionListener(controller);
         bLogin.setActionCommand(MOVE_TO_LOGIN);
-        bLogin.addActionListener(actionListener);
+        bLogin.addActionListener(controller);
+        this.addWindowListener(controller);
     }
 
     public String getFirstName() {

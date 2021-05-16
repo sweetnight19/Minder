@@ -1,8 +1,11 @@
 package Presentation.View;
 
+import Presentation.Controller.NavigationController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 
 public class GlobalView extends JFrame{
     private static final String USER_IMG_ERR = "Error al carregar la imatge d'usuari!!";
@@ -73,22 +76,23 @@ public class GlobalView extends JFrame{
         cardLayout.last(jpCard);
         jPanel.add(jpCard, BorderLayout.CENTER);
     }
-    public void registerController(ActionListener actionListener) {
+    public void registerController(NavigationController controller) {
         bHome.setActionCommand(HOME);
-        bHome.addActionListener(actionListener);
+        bHome.addActionListener(controller);
         bChat.setActionCommand(CHAT);
-        bChat.addActionListener(actionListener);
+        bChat.addActionListener(controller);
         bUser.setActionCommand(USER);
-        bUser.addActionListener(actionListener);
+        bUser.addActionListener(controller);
         bLogout.setActionCommand(LOGOUT);
-        bLogout.addActionListener(actionListener);
+        bLogout.addActionListener(controller);
+        this.addWindowListener(controller);
     }
-    public void dislplayLogoutWindow() {
+    public int dislplayLogoutWindow() {
         ImageIcon icon = new ImageIcon("Client/Media/logoutIcon.png");
-        int answer = JOptionPane.showConfirmDialog(null, "Would you like to logout?", "MINDER LOGOUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
-        if(answer == JOptionPane.YES_OPTION){
-            System.exit(0);
-        }
+        return JOptionPane.showConfirmDialog(null, "Would you like to logout?", "MINDER LOGOUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
+    }
+    public int displayExitWindow() {
+        return JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the application?", "EXIT APPLICATION", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
     }
     public void showHome() {
         cardLayout.show(jpCard, HOME);
