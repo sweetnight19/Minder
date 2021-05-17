@@ -34,8 +34,8 @@ public class HomeView extends JPanel {
         // Info User
         JPanel pInfoUser = new JPanel();
         pInfoUser.setLayout(new BorderLayout());
-        Border infolBorder = BorderFactory.createEmptyBorder(5, 10, 5, 10);
-        pInfoUser.setBorder(infolBorder);
+        Border infoBorder = BorderFactory.createEmptyBorder(5, 10, 5, 10);
+        pInfoUser.setBorder(infoBorder);
         pInfoUser.setBackground(Color.decode(MinderColor.PINK));
         // Age
         JLabel lAge = new JLabel("20");
