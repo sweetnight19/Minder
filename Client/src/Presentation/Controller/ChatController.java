@@ -10,11 +10,13 @@ import Presentation.View.ChatListView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
-public class ChatController implements ActionListener, NewMessageListener {
+public class ChatController implements ActionListener, NewMessageListener, MouseListener {
     private ChatDirectView chatDirectView;
     private ChatListView chatListView;
     private ChatManager chatManager;
@@ -22,10 +24,6 @@ public class ChatController implements ActionListener, NewMessageListener {
     public ChatController(ChatListView chatListView, ChatManager chatManager){
         this.chatListView = chatListView;
         this.chatManager = chatManager;
-    }
-
-    public ChatController(ChatDirectView chatDirectView){
-        this.chatDirectView = chatDirectView;
     }
 
     @Override
@@ -59,4 +57,23 @@ public class ChatController implements ActionListener, NewMessageListener {
     public void newMessage(ChatMessage message) {
         this.chatDirectView.addFriendMessage(message.getMessage());
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //aqui
+        System.out.println(e);
+        System.out.println("hem clicat");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) { }
+
+    @Override
+    public void mouseReleased(MouseEvent e) { }
+
+    @Override
+    public void mouseEntered(MouseEvent e) { }
+
+    @Override
+    public void mouseExited(MouseEvent e) { }
 }

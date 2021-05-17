@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,7 @@ public class ChatListView extends JPanel {
     private final JScrollPane schatsScroll;
     private final JPanel chatsPanel;
     private final JPanel globalChats;
+    private MouseListener listener;
 
     public ChatListView(){
         setBackground(Color.WHITE);
@@ -37,6 +39,7 @@ public class ChatListView extends JPanel {
 
     public void addUserChat(User user, BufferedImage image){
         JPanel userChat = new JPanel();
+        userChat.addMouseListener(this.listener);
         userChat.setBackground(Color.WHITE);
         userChat.setLayout(new BoxLayout(userChat, BoxLayout.X_AXIS));
 
@@ -67,6 +70,10 @@ public class ChatListView extends JPanel {
 
     public void removeChats(){
         chatsPanel.removeAll();
+    }
+
+    public void registerController(MouseListener listener){
+        this.listener = listener;
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {

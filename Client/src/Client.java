@@ -38,6 +38,7 @@ public class Client {
             registerView.registerController(buttonController);
             globalView.registerController(navigationController);
             homeView.registerController(homeController);
+            chatListView.registerController(chatController);
             editView.registerController(profileController);
 
             loginView.display();
