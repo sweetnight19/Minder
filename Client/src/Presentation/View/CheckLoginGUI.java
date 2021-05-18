@@ -81,7 +81,6 @@ public class CheckLoginGUI extends JFrame {
     }
 
     public void display() {
-
         setVisible(true);
     }
 

@@ -28,13 +28,13 @@ public class EditView extends JPanel {
     private JButton southDelete;
     private JButton changebtn;
 
-    private final String[] data = { "Java", "Javascript", "html", "C++" };
+    private final String[] data = {"Java", "Javascript", "html", "C++"};
     public static final String EDIT_BTN = "EDIT_BTN";
     public static final String SAVE_BTN = "SAVE_BTN";
     public static final String DELETE_BTN = "DELETE_BTN";
     public static final String CHANGE_BTN = "CHANGE_BTN";
 
-    public EditView(){
+    public EditView() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         setOpaque(true);
@@ -53,12 +53,12 @@ public class EditView extends JPanel {
         updateData();
     }
 
-    private JPanel profileInformation(){
+    private JPanel profileInformation() {
         JPanel profile = new JPanel();
         profile.setBackground(Color.WHITE);
 
         profile.setLayout(new BoxLayout(profile, BoxLayout.PAGE_AXIS));
-        profile.setBorder(new EmptyBorder(10,10,10,10));
+        profile.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         setBorders();
 
@@ -75,46 +75,46 @@ public class EditView extends JPanel {
         return profile;
     }
 
-    private void setBorders(){
+    private void setBorders() {
         jname = new JLabel();
         jname.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jname.setBorder(new EmptyBorder(25,0 ,15,5));
+        jname.setBorder(new EmptyBorder(25, 0, 15, 5));
 
         jage = new JLabel();
         jage.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jage.setBorder(new EmptyBorder(10,0 ,15,5));
+        jage.setBorder(new EmptyBorder(10, 0, 15, 5));
 
         jlanguage = new JComboBox<>(data);
         jlanguage.setAlignmentX(Component.LEFT_ALIGNMENT);
         jlanguage.setBackground(Color.white);
-        jlanguage.setBorder(new EmptyBorder(5,0 ,5,5));
+        jlanguage.setBorder(new EmptyBorder(5, 0, 5, 5));
 
         jlanguageNotEditable = new JLabel();
         jlanguageNotEditable.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jlanguageNotEditable.setBorder(new EmptyBorder(10,0 ,15,5));
+        jlanguageNotEditable.setBorder(new EmptyBorder(10, 0, 15, 5));
 
         jemail = new JLabel();
         jemail.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jemail.setBorder(new EmptyBorder(10,0 ,15,5));
+        jemail.setBorder(new EmptyBorder(10, 0, 15, 5));
 
         jtype = new JLabel();
         jtype.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jtype.setBorder(new EmptyBorder(10,0 ,15,5));
+        jtype.setBorder(new EmptyBorder(10, 0, 15, 5));
     }
 
-    private JTextArea centerTextArea(){
-        jdesc = new JTextArea(0,0);
+    private JTextArea centerTextArea() {
+        jdesc = new JTextArea(0, 0);
         jdesc.setLineWrap(true);
         jdesc.setWrapStyleWord(true);
         jdesc.setRows(2);
         jdesc.setAlignmentX(Component.LEFT_ALIGNMENT);
         jdesc.setBackground(Color.white);
         jdesc.setBorder(new CompoundBorder(BorderFactory.createLineBorder(Color.black, 1, true),
-                BorderFactory.createEmptyBorder(5,5 ,5,5)));
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         return jdesc;
     }
 
-    private  JPanel imageChange(){
+    private JPanel imageChange() {
         JPanel changeImage = new JPanel();
         changeImage.setBackground(Color.WHITE);
         changeImage.setLayout(new BoxLayout(changeImage, BoxLayout.X_AXIS));
@@ -138,10 +138,10 @@ public class EditView extends JPanel {
         changeImage.add(Box.createRigidArea(new Dimension(20, 0)));
         changeImage.add(changebtn);
 
-        return  changeImage;
+        return changeImage;
     }
 
-    private JPanel southButtons(){
+    private JPanel southButtons() {
         JPanel butconatiner = new JPanel(new BorderLayout());
         butconatiner.setBackground(Color.WHITE);
 
@@ -162,14 +162,14 @@ public class EditView extends JPanel {
         eastBtns.add(southSave);
         eastBtns.setBackground(Color.WHITE);
 
-        butconatiner.setBorder(new EmptyBorder(10,10,10,10));
+        butconatiner.setBorder(new EmptyBorder(10, 10, 10, 10));
         butconatiner.add(eastBtns, BorderLayout.EAST);
         butconatiner.add(southDelete, BorderLayout.WEST);
         return butconatiner;
     }
 
-    public void updateData(User user, BufferedImage image){
-        if(image!=null) {
+    public void updateData(User user, BufferedImage image) {
+        if (image != null) {
             logoImage = null;
             logoImage = resize(image, 100, 100);
             logoLabel.setIcon(new ImageIcon(logoImage));
@@ -183,7 +183,7 @@ public class EditView extends JPanel {
         jdesc.setText(user.getDescription());
     }
 
-    public void updateData(){
+    public void updateData() {
         jname.setText("Test Test");
         jage.setText("21 years");
         jlanguage.setSelectedItem("Javascript");
@@ -193,7 +193,7 @@ public class EditView extends JPanel {
         jdesc.setText("Sóc la persona per fer testos.");
     }
 
-    public void transformToEditable(){
+    public void transformToEditable() {
         jdesc.setEditable(true);
         changebtn.setVisible(true);
         southEdit.setVisible(false);
@@ -203,7 +203,7 @@ public class EditView extends JPanel {
         jlanguage.setVisible(true);
     }
 
-    public void transfromToNotEditable(){
+    public void transfromToNotEditable() {
         jdesc.setEditable(false);
         changebtn.setVisible(false);
         southDelete.setVisible(false);
@@ -213,21 +213,21 @@ public class EditView extends JPanel {
         jlanguage.setVisible(false);
     }
 
-    public String getLanguage(){
+    public String getLanguage() {
         return jlanguage.getSelectedItem().toString();
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return jdesc.getText();
     }
 
-    public void setNewImage(BufferedImage image){
+    public void setNewImage(BufferedImage image) {
         logoImage = null;
         logoImage = resize(image, 100, 100);
         logoLabel.setIcon(new ImageIcon(logoImage));
     }
 
-    public void registerController(ActionListener listener){
+    public void registerController(ActionListener listener) {
         southEdit.setActionCommand(EDIT_BTN);
         southEdit.addActionListener(listener);
 

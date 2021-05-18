@@ -1,14 +1,14 @@
 package Presentation.Controller;
 
 import Business.Entity.User;
+import Business.Model.GlobalUser;
 import Business.Model.SessionManager;
 import Persistance.ConnectionDAO;
+import Presentation.View.CheckLoginGUI;
 import Presentation.View.GlobalView;
 import Presentation.View.LoginView;
 import Presentation.View.RegisterView;
-import Presentation.View.*;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -18,24 +18,23 @@ public class ButtonController implements ActionListener, WindowListener {
     private final LoginView loginView;
     private final RegisterView registerView;
     private final SessionManager sessionManager;
-    private CheckLoginGUI checkLoginGUI;
+    private final CheckLoginGUI checkLoginGUI;
     private final GlobalView globalView;
-    private ConnectionDAO connectionDAO;
+    private final ConnectionDAO connectionDAO;
     private User cliente;
 
-    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, ConnectionDAO connectionDAO) {
-    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, CheckLoginGUI checkLoginGUI) {
+    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, CheckLoginGUI checkLoginGUI, ConnectionDAO connectionDAO) {
         this.loginView = loginView;
         this.registerView = registerView;
         this.globalView = globalView;
         this.sessionManager = sessionManager;
         this.connectionDAO = connectionDAO;
         this.checkLoginGUI = checkLoginGUI;
+        cliente = null;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        User cliente;
         switch (e.getActionCommand()) {
             case LoginView.MOVE_TO_REGISTER:
                 loginView.delete();
@@ -54,7 +53,6 @@ public class ButtonController implements ActionListener, WindowListener {
                         //Login correcte, primer cop
                         loginView.delete();
                         sessionManager.saveGlobalUser(cliente);
-                        globalView.display();
                         checkLoginGUI.display();
                         break;
                     case 1:
@@ -81,6 +79,18 @@ public class ButtonController implements ActionListener, WindowListener {
                     loginView.display();
                 } else {
                     loginView.dislplayLoginError();
+                }
+                break;
+            case CheckLoginGUI.SAVE_BUTTON:
+                GlobalUser.getInstance().getMyUser().setDescription(checkLoginGUI.getDescription());
+                GlobalUser.getInstance().getMyUser().setProgrammingLanguage(checkLoginGUI.getLanguage());
+
+                if (sessionManager.updateUser(GlobalUser.getInstance().getMyUser())) {
+                    globalView.display();
+                } else {
+                    loginView.displayCredentialsLoginError();
+                    checkLoginGUI.delete();
+                    loginView.display();
                 }
                 break;
         }
