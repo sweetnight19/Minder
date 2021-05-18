@@ -4,6 +4,7 @@ import Persistance.ConnectionDAO;
 import Persistance.ConnectionDAOImpl;
 import Presentation.View.GlobalView;
 import Presentation.View.HomeView;
+import Presentation.View.LoginView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,15 +14,17 @@ import java.awt.event.WindowListener;
 
 public class NavigationController implements ActionListener, WindowListener {
     private final GlobalView globalView;
-    private ProfileController profileController;
-    private ChatController chatController;
-    private ConnectionDAO connectionDAO;
+    private final ProfileController profileController;
+    private final ChatController chatController;
+    private final ConnectionDAO connectionDAO;
+    private final LoginView loginView;
 
-    public NavigationController(GlobalView globalView, ProfileController profileController, ChatController chatController, ConnectionDAO connectionDAO) {
+    public NavigationController(GlobalView globalView, ProfileController profileController, ChatController chatController, ConnectionDAO connectionDAO, LoginView loginView) {
         this.globalView = globalView;
         this.profileController = profileController;
         this.chatController = chatController;
         this.connectionDAO = connectionDAO;
+        this.loginView = loginView;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -42,7 +45,11 @@ public class NavigationController implements ActionListener, WindowListener {
                 break;
             case GlobalView.LOGOUT:
                 int answer = globalView.dislplayLogoutWindow();
-                if (answer == JOptionPane.YES_OPTION) {System.exit(0);}
+                if (answer == JOptionPane.YES_OPTION) {
+                    //System.exit(0);
+                    globalView.delete();
+                    loginView.display();
+                }
                 break;
             case HomeView.LIKE:
                 System.out.println("LIKE");

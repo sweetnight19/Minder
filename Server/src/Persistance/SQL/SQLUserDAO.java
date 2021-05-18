@@ -71,7 +71,7 @@ public class SQLUserDAO implements UserDAO {
                 + "',`edat`=" + user.getAge() + ",`uuid`=" + user.getId() + ",`tipusCompte`= '" + user.getType()
                 + "',`email`= '" + user.getEmail() + "' ,`password`= '" + user.getPassword() + "',`pathImage`= '"
                 + user.getPathImage() + "' ,`descripcio`= '" + user.getDescription() + "' ,`llenguatgeDeProgramacio`= '"
-                + user.getProgrammingLanguage() + "' ,`status`= '" + user.getStatus() + "' WHERE `uuid`= "
+                + user.getProgrammingLanguage() + "' ,`status`= '1' WHERE `uuid`= "
                 + user.getId() + ";";
         return SQLConnector.getInstance(confDAO).updateQuery(query);
     }

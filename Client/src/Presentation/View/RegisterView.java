@@ -347,9 +347,9 @@ public class RegisterView extends JFrame {
 
     public String getIsPremium() {
         if (jrbPremium.isSelected()) {
-            return "Normal";
-        } else {
             return "Premium";
+        } else {
+            return "Normal";
         }
     }
 

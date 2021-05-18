@@ -9,10 +9,16 @@ import Presentation.View.GlobalView;
 import Presentation.View.LoginView;
 import Presentation.View.RegisterView;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ButtonController implements ActionListener, WindowListener {
     private final LoginView loginView;
@@ -21,6 +27,7 @@ public class ButtonController implements ActionListener, WindowListener {
     private final CheckLoginGUI checkLoginGUI;
     private final GlobalView globalView;
     private final ConnectionDAO connectionDAO;
+    private BufferedImage image;
     private User cliente;
 
     public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, CheckLoginGUI checkLoginGUI, ConnectionDAO connectionDAO) {
@@ -91,6 +98,20 @@ public class ButtonController implements ActionListener, WindowListener {
                     loginView.displayCredentialsLoginError();
                     checkLoginGUI.delete();
                     loginView.display();
+                }
+                break;
+            case CheckLoginGUI.CHOOSE_IMAGE_BUTTON:
+                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                int returnValue = jfc.showOpenDialog(null);
+
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = jfc.getSelectedFile();
+                    try {
+                        image = ImageIO.read(new File(selectedFile.getAbsolutePath()));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    sessionManager.saveNewImage(image);
                 }
                 break;
         }

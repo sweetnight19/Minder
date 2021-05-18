@@ -34,7 +34,7 @@ public class Client {
             ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, checkLoginGUI, connectionDAO);
             ProfileController profileController = new ProfileController(editView, profileManager);
             ChatController chatController = new ChatController(chatListView, chatManager);
-            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO);
+            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO,loginView);
             HomeController homeController = new HomeController(homeView);
 
             loginView.registerController(buttonController);

@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 public class CheckLoginGUI extends JFrame {
     private final String[] data = {"Java", "Javascript", "html", "C++"};
     public static final String SAVE_BUTTON = "SAVE_BUTTON";
+    public static final String CHOOSE_IMAGE_BUTTON = "CHOOSE_IMAGE_BUTTON";
     JButton jSaveBtn;
+    JButton jchooseImage;
     JTextArea jdesc;
     JComboBox<String> jlanguage;
 
@@ -33,7 +35,7 @@ public class CheckLoginGUI extends JFrame {
         center.setLayout(new BoxLayout(center, BoxLayout.PAGE_AXIS));
         center.setBackground(Color.WHITE);
 
-        JButton jchooseImage = new JButton("CHOOSE PHOTO");
+        jchooseImage = new JButton("CHOOSE PHOTO");
         jchooseImage.setBackground(Color.decode("#DF4B74"));
         jchooseImage.setForeground(Color.WHITE);
         jchooseImage.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -78,6 +80,9 @@ public class CheckLoginGUI extends JFrame {
     public void registerController(ActionListener actionListener) {
         jSaveBtn.setActionCommand(SAVE_BUTTON);
         jSaveBtn.addActionListener(actionListener);
+
+        jchooseImage.setActionCommand(CHOOSE_IMAGE_BUTTON);
+        jchooseImage.addActionListener(actionListener);
     }
 
     public void display() {
