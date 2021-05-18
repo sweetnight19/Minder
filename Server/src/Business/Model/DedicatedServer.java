@@ -22,7 +22,7 @@ public class DedicatedServer extends Thread {
     private final UserDAO userDAO;
     private final ChatDAO chatDAO;
     private final PeerDAO peerDAO;
-    private boolean clientDisconnect;
+    public static boolean clientDisconnect;
 
     public DedicatedServer(Socket client, UserDAO userDAO, ChatDAO chatDAO, PeerDAO peerDAO) {
         this.client = client;
@@ -37,6 +37,8 @@ public class DedicatedServer extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        ChatServer chatServer = new ChatServer();
     }
 
     @Override
@@ -110,21 +112,25 @@ public class DedicatedServer extends Thread {
         }
     }
 
-    private void readImage() throws IOException, InterruptedException, ClassNotFoundException {
+    private void readImage() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        user = this.userDAO.getUser(user.getId());
+        user = this.userDAO.getUser(user.getNickname());
+        System.out.println(user.getPathImage());
+        if(!user.getPathImage().equals("null")) {
+            BufferedImage image;
+            image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
 
-        BufferedImage image;
-        image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
+            os.writeObject(new Trama(ProtocolCommunication.OK));
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", byteArrayOutputStream);
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpg", byteArrayOutputStream);
-
-        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
-        os.write(size);
-        os.write(byteArrayOutputStream.toByteArray());
-        os.flush();
-        Thread.sleep(120000);
+            byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+            os.write(size);
+            os.write(byteArrayOutputStream.toByteArray());
+            os.flush();
+        }else{
+            os.writeObject(new Trama(ProtocolCommunication.KO));
+        }
     }
 
     private void saveImage() throws IOException, ClassNotFoundException {
@@ -193,6 +199,7 @@ public class DedicatedServer extends Thread {
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
         if (this.chatDAO.addMessage(message)) {
+            ChatMessagesManager.addMessage(message);
             os.writeObject(new Trama(ProtocolCommunication.OK));
         } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));
@@ -228,12 +235,8 @@ public class DedicatedServer extends Thread {
 
     private void readUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
-        User response = this.userDAO.getUser(user.getId());
-        if (response != null) {
-            os.writeObject(response);
-        } else {
-            os.writeObject(new Trama(ProtocolCommunication.KO));
-        }
+        User response = this.userDAO.getUser(user.getNickname());
+        os.writeObject(response);
     }
 
     private void updateUser() throws IOException, ClassNotFoundException {

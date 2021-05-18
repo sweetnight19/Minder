@@ -5,17 +5,20 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ChatDirectView extends JPanel {
+public class ChatDirectView extends JFrame {
     public static final String BTN_SEND = "BUT_SEND";
 
-    private JPanel jPanel;
+    private PanelCustomWrap jPanel;
     private JScrollPane jspComments;
     private JTextField textMessage;
     private JButton jbutIcon;
+    private JLabel name;
+    private JLabel logoLabel;
 
     /*
     Constructor que afegeix els elements i configuracion necessàries a la vista
@@ -23,20 +26,29 @@ public class ChatDirectView extends JPanel {
     public ChatDirectView(){
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
+        configureWindow();
 
         add(configureNorth(), BorderLayout.NORTH);
         add(configureCenter(), BorderLayout.CENTER);
         add(configureSouth(), BorderLayout.SOUTH);
     }
 
+    public void configureWindow(){
+        setTitle("ChatDirect");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(350, 500);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
     /*
     Configuració de la part que ocupa el xat en el centre de la pantalla
      */
     private JScrollPane configureCenter() {
-        JPanel jglobal = new JPanel();
-        jglobal.setLayout(new BorderLayout());
+        JPanel jglobal = new JPanel(new BorderLayout());
         jglobal.setBackground(Color.white);
-        jPanel = new JPanel();
+        jglobal.setOpaque(true);
+        jPanel = new PanelCustomWrap();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.PAGE_AXIS));
         jPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
         jPanel.setBackground(Color.white);
@@ -64,7 +76,7 @@ public class ChatDirectView extends JPanel {
 
         BufferedImage logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("src/Media/sendIcon.png"));
+            logoImage = ImageIO.read(new File("Client/Media/sendIcon.png"));
             logoImage = resize(logoImage, 20, 20);
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,14 +97,14 @@ public class ChatDirectView extends JPanel {
 
         BufferedImage logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\profileTest.jpg"));
+            logoImage = ImageIO.read(new File("Client/Media/avatar.png"));
             logoImage = resize(logoImage, 40, 40);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
+        logoLabel = new JLabel(new ImageIcon(logoImage));
 
-        JLabel name = new JLabel("Edmon Bosch");
+        name = new JLabel("Edmon Bosch");
 
         logoLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
         name.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -106,22 +118,21 @@ public class ChatDirectView extends JPanel {
     Funció per crear el panell del nostre propi missatge HONK
      */
     private JPanel configureSelfMessage(String message){
-        JPanel jbox = new JPanel(new BorderLayout());
+        PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
-        JPanel jMsg = new JPanel();
-        jMsg.setLayout(new BorderLayout());
 
-        JLabel jtext = new JLabel(message);
+        JTextArea jtext = new JTextArea(0,20);
+        jtext.setText(message);
+        jtext.setEditable(false);
+        jtext.setLineWrap(true);
+        jtext.setWrapStyleWord(true);
+
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
         jtext.setForeground(Color.white);
-        jtext.setHorizontalAlignment(JLabel.CENTER);
         jtext.setBorder(new EmptyBorder(5,10,5,10));
-        jtext.setMaximumSize(new Dimension(30, 0));
+        jtext.setBackground(Color.decode("#E27B97"));
 
-        jMsg.setBackground(Color.decode("#E27B97"));
-        jMsg.add(jtext, BorderLayout.CENTER);
-        jMsg.setOpaque(true);
-        jbox.add(jMsg, BorderLayout.EAST);
+        jbox.add(jtext, BorderLayout.EAST);
         return jbox;
     }
 
@@ -129,23 +140,21 @@ public class ChatDirectView extends JPanel {
     Funció per crear el panell dels missatges HONK que ens envien els altres usuaris
      */
     private JPanel configureMessage(String message){
-        JPanel jbox = new JPanel(new BorderLayout());
+        PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
-        JPanel jMsg = new JPanel();
-        jMsg.setLayout(new BorderLayout());
-        JLabel jtext = new JLabel(message);
+
+        JTextArea jtext = new JTextArea(0,20);
+        jtext.setText(message);
+        jtext.setEditable(false);
+        jtext.setLineWrap(true);
+        jtext.setWrapStyleWord(true);
 
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
         jtext.setForeground(Color.WHITE);
-        jtext.setHorizontalAlignment(JLabel.CENTER);
         jtext.setBackground(Color.decode("#DF4B74"));
-        jtext.setMaximumSize(new Dimension(30, 0));
-        jtext.setOpaque(true);
         jtext.setBorder(new EmptyBorder(5,10,5,10));
 
-        jMsg.add(jtext, BorderLayout.CENTER);
-        jMsg.setOpaque(true);
-        jbox.add(jMsg, BorderLayout.WEST);
+        jbox.add(jtext, BorderLayout.WEST);
         return jbox;
     }
 
@@ -155,6 +164,15 @@ public class ChatDirectView extends JPanel {
     public void registerButtonController(ActionListener listener){
         jbutIcon.setActionCommand(BTN_SEND);
         jbutIcon.addActionListener(listener);
+    }
+
+    public void registerWindowController(WindowListener listener){
+        this.addWindowListener(listener);
+    }
+
+    public void updateNorth(ImageIcon icon ,String nameDestiny){
+        logoLabel.setIcon(icon);
+        name.setText(nameDestiny);
     }
 
     public String getTextFieldMessage(){

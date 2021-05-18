@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import Business.Model.ChatServer;
 import Business.Model.DedicatedServer;
 import Business.Model.StatisticsManagement;
 import Persistance.ChatDAO;
@@ -31,7 +32,6 @@ public class Server {
 
         try {
             ServerSocket sSocket = new ServerSocket(configurationDAO.getPortTCP()); // Inicialitzem el socket
-
             while (true) {
                 Socket client = sSocket.accept(); // Acceptem peticions dels cients
                 // Creem un servidor dedicat per cada client en particular

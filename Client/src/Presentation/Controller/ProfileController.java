@@ -1,5 +1,6 @@
 package Presentation.Controller;
 
+import Business.Model.GlobalUser;
 import Business.Model.ProfileManager;
 import Presentation.View.EditView;
 
@@ -15,8 +16,8 @@ import java.io.IOException;
 import static Presentation.View.EditView.*;
 
 public class ProfileController implements ActionListener {
-    private final EditView editView;
-    private final ProfileManager profileManager;
+    private EditView editView;
+    private ProfileManager profileManager;
 
     public ProfileController(EditView editView, ProfileManager manager) {
         this.editView = editView;
@@ -28,7 +29,9 @@ public class ProfileController implements ActionListener {
         switch (e.getActionCommand()) {
             case EDIT_BTN:
                 System.out.println("Edit button selected");
-                editView.transformToEditable();
+                SwingUtilities.invokeLater(() -> {
+                    editView.transformToEditable();
+                });
 
                 break;
             case SAVE_BTN:
@@ -36,12 +39,16 @@ public class ProfileController implements ActionListener {
                 System.out.println(editView.getLanguage());
                 System.out.println(editView.getDescription());
                 this.profileManager.saveUserChanges(editView.getLanguage(), editView.getDescription());
-                editView.transfromToNotEditable();
+                SwingUtilities.invokeLater(() -> {
+                    editView.updateData(GlobalUser.getInstance().getMyUser(), this.profileManager.getProfileImage());
+                    editView.transfromToNotEditable();
+                });
 
                 break;
             case DELETE_BTN:
                 System.out.println("Delete button selected");
                 this.profileManager.deleteUser();
+                //redirigir al login
 
                 break;
             case CHANGE_BTN:
@@ -51,10 +58,12 @@ public class ProfileController implements ActionListener {
 
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = jfc.getSelectedFile();
-                    //System.out.println(selectedFile.getAbsolutePath());
+                    System.out.println(selectedFile.getAbsolutePath());
                     try {
                         BufferedImage image = ImageIO.read(new File(selectedFile.getAbsolutePath()));
-                        editView.setNewImage(image);
+                        SwingUtilities.invokeLater(() -> {
+                            editView.setNewImage(image);
+                        });
                         this.profileManager.saveNewImage(image);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
@@ -63,5 +72,11 @@ public class ProfileController implements ActionListener {
                 }
                 break;
         }
+    }
+
+    public void loadProfileInformation(){
+        SwingUtilities.invokeLater(() -> {
+            this.editView.updateData(profileManager.getUserProfileInformation(), profileManager.getProfileImage());
+        });
     }
 }

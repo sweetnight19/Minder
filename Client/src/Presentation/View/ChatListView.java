@@ -1,9 +1,12 @@
 package Presentation.View;
 
+import Business.Entity.User;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +16,7 @@ public class ChatListView extends JPanel {
     private final JScrollPane schatsScroll;
     private final JPanel chatsPanel;
     private final JPanel globalChats;
+    private MouseListener listener;
 
     public ChatListView(){
         setBackground(Color.WHITE);
@@ -29,26 +33,30 @@ public class ChatListView extends JPanel {
 
         schatsScroll = new JScrollPane(globalChats);
         schatsScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        schatsScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         add(schatsScroll, BorderLayout.CENTER);
     }
 
-    /*public void addUserChat(User user){}*/
-
-    public void addUserChat(){
+    public void addUserChat(User user, BufferedImage image){
         JPanel userChat = new JPanel();
+        userChat.addMouseListener(this.listener);
         userChat.setBackground(Color.WHITE);
         userChat.setLayout(new BoxLayout(userChat, BoxLayout.X_AXIS));
 
         logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("C:\\Users\\edmon\\Downloads\\javaJoan.png"));
+            if(image == null) {
+                logoImage = ImageIO.read(new File("Client/Media/avatar.png"));
+            }else{
+                logoImage = image;
+            }
             logoImage = resize(logoImage, 40, 40);
         } catch (IOException e) {
             e.printStackTrace();
         }
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
 
-        JLabel name = new JLabel("Edmon Bosch");
+        JLabel name = new JLabel(user.getNickname() + "-/-" + user.getFirstName());
 
         logoLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
         name.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -57,6 +65,15 @@ public class ChatListView extends JPanel {
         userChat.add(name);
 
         chatsPanel.add(userChat);
+        chatsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+    }
+
+    public void removeChats(){
+        chatsPanel.removeAll();
+    }
+
+    public void registerController(MouseListener listener){
+        this.listener = listener;
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {

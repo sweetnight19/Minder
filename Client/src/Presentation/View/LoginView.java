@@ -1,5 +1,7 @@
 package Presentation.View;
 
+import Presentation.Controller.ButtonController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -141,7 +144,7 @@ public class LoginView extends JFrame {
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
 
-    public void registerController(ActionListener actionListener) {
+    public void registerController(ButtonController controller) {
         nicknameField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -177,9 +180,10 @@ public class LoginView extends JFrame {
             }
         });
         bLogin.setActionCommand(LOGIN);
-        bLogin.addActionListener(actionListener);
+        bLogin.addActionListener(controller);
         bRegister.setActionCommand(MOVE_TO_REGISTER);
-        bRegister.addActionListener(actionListener);
+        bRegister.addActionListener(controller);
+        this.addWindowListener(controller);
     }
 
     public String getNickname() {

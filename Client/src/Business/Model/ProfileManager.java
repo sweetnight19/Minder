@@ -9,17 +9,18 @@ public class ProfileManager {
     private BufferedImage profileImage;
 
     public ProfileManager(ConnectionDAO connectionDAO) {
+        profileImage = null;
         this.connectionDAO = connectionDAO;
     }
 
     public User getUserProfileInformation(){
-        Singleton.getInstance().setMyUser(this.connectionDAO.readUser(Singleton.getInstance().getMyUser()));
-        profileImage = this.connectionDAO.readImage(Singleton.getInstance().getMyUser());
-        return Singleton.getInstance().getMyUser();
+        GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
+        profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
+        return GlobalUser.getInstance().getMyUser();
     }
 
     public boolean deleteUser(){
-        if(this.connectionDAO.deleteUser(Singleton.getInstance().getMyUser())){
+        if(this.connectionDAO.deleteUser(GlobalUser.getInstance().getMyUser())){
             this.connectionDAO.disconnectFromServer();
             return true;
         }
@@ -27,16 +28,16 @@ public class ProfileManager {
     }
 
     public boolean saveUserChanges(String programmingLanguage, String description){
-        Singleton.getInstance().getMyUser().setProgrammingLanguage(programmingLanguage);
-        Singleton.getInstance().getMyUser().setDescription(description);
-        if(this.connectionDAO.updateUser(Singleton.getInstance().getMyUser())){
+        GlobalUser.getInstance().setLanguage(programmingLanguage);
+        GlobalUser.getInstance().setDescription(description);
+        if(this.connectionDAO.updateUser(GlobalUser.getInstance().getMyUser())){
             return true;
         }
         return false;
     }
 
     public boolean saveNewImage(BufferedImage image){
-        if(this.connectionDAO.sendImage(Singleton.getInstance().getMyUser(), image)){
+        if(this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)){
             return true;
         }
         return false;

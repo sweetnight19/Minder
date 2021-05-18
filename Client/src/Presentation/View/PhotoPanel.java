@@ -18,19 +18,42 @@ public class PhotoPanel extends JPanel {
         }
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        Dimension preferredSize = super.getPreferredSize();
-        // Ratio
-        preferredSize.height = this.getWidth() * photo.getHeight() / photo.getWidth();
-
-        return preferredSize;
-    }
-
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(photo, 0, 0, this.getWidth(), this.getHeight(), this);
+        // Fins a on es pintara la foto
+        int x = 0;
+        int y = 0;
+
+        int w = this.getWidth();
+        int h = this.getHeight();
+        if (photo.getHeight() < photo.getWidth()) {
+            // mes ample -> vols fer el resize de altura
+            h = this.getWidth() * photo.getHeight() / photo.getWidth();
+            y = (this.getHeight() - h) / 2;
+        } else {
+            // mes alta -> vols fer el resize de amplada
+            w = this.getHeight() * photo.getWidth() / photo.getHeight();
+            x = (this.getWidth() - w) / 2;
+        }
+        g.drawImage(photo, x, y, w, h, this);
     }
+
+//    @Override
+//    public Dimension getPreferredSize() {
+//        // Mida actual imatge
+//        Dimension preferredSize = super.getPreferredSize();
+//
+//        // Ratio
+//        //preferredSize.height = this.getWidth() * photo.getHeight() / photo.getWidth();
+//        if (photo.getHeight() < photo.getWidth()) {
+//            // mes ample -> vols fer el resize de altura
+//            preferredSize.height = this.getWidth() * photo.getHeight() / photo.getWidth();
+//        } else {
+//            // mes alta -> vols fer el resize de amplada
+//            preferredSize.width = this.getHeight() * photo.getWidth() / photo.getHeight();
+//        }
+//        return preferredSize;
+//    }
 }
 
 

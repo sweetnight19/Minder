@@ -46,7 +46,7 @@ public class HomeView extends JPanel {
         lName.setForeground(Color.decode(MinderColor.WHITE));
         pInfoUser.add(lName, BorderLayout.CENTER);
         // More Info
-        IconButton bMoreInfo = new IconButton("Client/Media/moreInfoIcon.png");
+        IconButton bMoreInfo = new IconButton("Client/Media/moreInfoIcon2.png");
         pInfoUser.add(bMoreInfo, BorderLayout.EAST);
 
         pInfoUser.add(lName);

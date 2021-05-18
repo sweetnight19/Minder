@@ -1,33 +1,45 @@
 package Presentation.View;
 
+import Presentation.Controller.NavigationController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 
 public class GlobalView extends JFrame{
     private static final String USER_IMG_ERR = "Error al carregar la imatge d'usuari!!";
     private static final int TEXTFIELD_COLUMNS = 20;
 
     // Components
-    private final HomeView jpHome;
+    private HomeView jpHome;
+    private ChatListView jpChat;
+    private EditView jpUser;
     private JPanel jPanel;
     private JScrollPane jScrollPane;
     private JPanel jpNavigationBar;
+    private CardLayout cardLayout;
+    private JPanel jpCard;
     private IconButton bHome;
     private IconButton bUser;
     private IconButton bLogout;
     private IconButton bChat;
+    public static final String MINDER_HOME = "MINDER HOME";
     public static final String HOME = "HOME";
     public static final String CHAT = "CHAT";
     public static final String USER = "USER";
     public static final String LOGOUT = "LOGOUT";
 
-    public GlobalView(HomeView homeView) {
+    public GlobalView(HomeView homeView, ChatListView chatListView, EditView editView) {
+        setTitle(MINDER_HOME);
+        setSize(450, 700);
         this.jpHome = homeView;
+        this.jpChat = chatListView;
+        this.jpUser = editView;
         configureWindow();
         configureNorth();
         configureCenter();
-        pack();
+        //pack();
         setLocationRelativeTo(null);
     }
     private void configureWindow() {
@@ -44,7 +56,7 @@ public class GlobalView extends JFrame{
         bUser = new IconButton("Client/Media/profileVector.png");
         bLogout = new IconButton("Client/Media/logoutIcon.png");
         jpNavigationBar = new JPanel();
-        jpNavigationBar.setLayout(new FlowLayout(FlowLayout.CENTER,70,10));
+        jpNavigationBar.setLayout(new FlowLayout(FlowLayout.CENTER,50,10));
         jpNavigationBar.add(bHome);
         jpNavigationBar.add(bChat);
         jpNavigationBar.add(bUser);
@@ -52,27 +64,44 @@ public class GlobalView extends JFrame{
         jPanel.add(jpNavigationBar, BorderLayout.NORTH);
     }
     private void configureCenter() {
-        JPanel jpCard = new JPanel();
-        jpCard.setLayout(new CardLayout());
-        jpCard.add(jpHome, "1");
+        jpCard = new JPanel();
+        cardLayout = new CardLayout();
+        jpCard.setLayout(cardLayout);
+        jpUser.transfromToNotEditable();
+        jpCard.add(jpUser, USER);
+        //jpChat.addUserChat();
+        //jpChat.addUserChat();
+        jpCard.add(jpChat, CHAT);
+        jpCard.add(jpHome, HOME);
+        cardLayout.last(jpCard);
         jPanel.add(jpCard, BorderLayout.CENTER);
     }
-    public void registerController(ActionListener actionListener) {
+    public void registerController(NavigationController controller) {
         bHome.setActionCommand(HOME);
-        bHome.addActionListener(actionListener);
+        bHome.addActionListener(controller);
         bChat.setActionCommand(CHAT);
-        bChat.addActionListener(actionListener);
+        bChat.addActionListener(controller);
         bUser.setActionCommand(USER);
-        bUser.addActionListener(actionListener);
+        bUser.addActionListener(controller);
         bLogout.setActionCommand(LOGOUT);
-        bLogout.addActionListener(actionListener);
+        bLogout.addActionListener(controller);
+        this.addWindowListener(controller);
     }
-    public void dislplayLogoutWindow() {
+    public int dislplayLogoutWindow() {
         ImageIcon icon = new ImageIcon("Client/Media/logoutIcon.png");
-        int answer = JOptionPane.showConfirmDialog(null, "Would you like to logout?", "MINDER LOGOUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
-        if(answer == JOptionPane.YES_OPTION){
-            System.exit(0);
-        }
+        return JOptionPane.showConfirmDialog(null, "Would you like to logout?", "MINDER LOGOUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
+    }
+    public int displayExitWindow() {
+        return JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the application?", "EXIT APPLICATION", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+    }
+    public void showHome() {
+        cardLayout.show(jpCard, HOME);
+    }
+    public void showChat() {
+        cardLayout.show(jpCard, CHAT);
+    }
+    public void showUser() {
+        cardLayout.show(jpCard, USER);
     }
     public void display() {
         setVisible(true);
