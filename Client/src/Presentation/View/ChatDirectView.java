@@ -38,7 +38,6 @@ public class ChatDirectView extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(350, 500);
         setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     /*

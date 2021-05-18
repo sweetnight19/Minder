@@ -84,6 +84,7 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
             }
         }
         this.chatManager.launchChatThread(this.destiny);
+        this.chatDirectView.setVisible(true);
     }
 
     @Override
