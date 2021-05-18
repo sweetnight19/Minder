@@ -101,6 +101,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     public boolean updateUser(User user) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.UPDATE_USER));
+            os.reset();
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
             if (trama.getContext().equals(ProtocolCommunication.OK)) {

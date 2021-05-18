@@ -103,11 +103,14 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
 
     @Override
     public void windowClosing(WindowEvent e) {
-        this.chatManager.closeSocketAndThread();
+
     }
 
     @Override
-    public void windowClosed(WindowEvent e) { }
+    public void windowClosed(WindowEvent e) {
+        System.out.println("hoalal");
+        this.chatManager.closeSocketAndThread();
+    }
 
     @Override
     public void windowIconified(WindowEvent e) { }

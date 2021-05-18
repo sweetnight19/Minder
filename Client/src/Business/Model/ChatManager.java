@@ -57,12 +57,7 @@ public class ChatManager implements NewMessageListener {
     }
 
     public void closeSocketAndThread(){
-        try {
-            chatDAO.setClosed();
-            chatDAO.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        chatDAO.setClosed();
     }
 
     @Override

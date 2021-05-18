@@ -46,13 +46,17 @@ public class ChatConnectionDAO extends Thread {
                 messageListener.newMessage(message);
             }
 
-            socket.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     public void setClosed(){
-        closed = true;
+        try {
+            closed = true;
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
