@@ -1,19 +1,21 @@
 package Business.Entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 
 public class ChatMessage implements Serializable {
     private final int idSource;
     private final int idDestiny;
     private final String message;
-    private final Date date;
+    private Date date;
 
     public ChatMessage(int idSource, int idDestiny, String message) {
         this.idSource = idSource;
         this.idDestiny = idDestiny;
         this.message = message;
-        this.date = new Date();
     }
 
     public ChatMessage(int idSource, int idDestiny, String message, Date date) {

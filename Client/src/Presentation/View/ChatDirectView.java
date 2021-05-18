@@ -5,17 +5,20 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ChatDirectView extends JPanel {
+public class ChatDirectView extends JFrame {
     public static final String BTN_SEND = "BUT_SEND";
 
     private PanelCustomWrap jPanel;
     private JScrollPane jspComments;
     private JTextField textMessage;
     private JButton jbutIcon;
+    private JLabel name;
+    private JLabel logoLabel;
 
     /*
     Constructor que afegeix els elements i configuracion necessàries a la vista
@@ -23,10 +26,19 @@ public class ChatDirectView extends JPanel {
     public ChatDirectView(){
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
+        configureWindow();
 
         add(configureNorth(), BorderLayout.NORTH);
         add(configureCenter(), BorderLayout.CENTER);
         add(configureSouth(), BorderLayout.SOUTH);
+    }
+
+    public void configureWindow(){
+        setTitle("ChatDirect");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setSize(350, 500);
+        setVisible(true);
     }
 
     /*
@@ -64,7 +76,7 @@ public class ChatDirectView extends JPanel {
 
         BufferedImage logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("Client/Media/profileVector.png"));
+            logoImage = ImageIO.read(new File("Client/Media/sendIcon.png"));
             logoImage = resize(logoImage, 20, 20);
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,14 +97,14 @@ public class ChatDirectView extends JPanel {
 
         BufferedImage logoImage = null;
         try {
-            logoImage = ImageIO.read(new File("Client/Media/profileVector.png"));
+            logoImage = ImageIO.read(new File("Client/Media/avatar.png"));
             logoImage = resize(logoImage, 40, 40);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
+        logoLabel = new JLabel(new ImageIcon(logoImage));
 
-        JLabel name = new JLabel("Edmon Bosch");
+        name = new JLabel("Edmon Bosch");
 
         logoLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
         name.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -152,6 +164,15 @@ public class ChatDirectView extends JPanel {
     public void registerButtonController(ActionListener listener){
         jbutIcon.setActionCommand(BTN_SEND);
         jbutIcon.addActionListener(listener);
+    }
+
+    public void registerWindowController(WindowListener listener){
+        this.addWindowListener(listener);
+    }
+
+    public void updateNorth(ImageIcon icon ,String nameDestiny){
+        logoLabel.setIcon(icon);
+        name.setText(nameDestiny);
     }
 
     public String getTextFieldMessage(){

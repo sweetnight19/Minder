@@ -56,7 +56,7 @@ public class ChatListView extends JPanel {
         }
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
 
-        JLabel name = new JLabel(user.getFirstName());
+        JLabel name = new JLabel(user.getNickname() + "-/-" + user.getFirstName());
 
         logoLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
         name.setAlignmentY(Component.CENTER_ALIGNMENT);

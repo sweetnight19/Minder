@@ -42,9 +42,9 @@ public class SQLChatDAO implements ChatDAO {
 
     @Override
     public boolean addMessage(ChatMessage chatMessage) {
-        String query = "INSERT INTO `xat` (`idOrigen`, `idDesti`, `missatge`, `data`) VALUES ('"
+        String query = "INSERT INTO `xat` (`idOrigen`, `idDesti`, `missatge`) VALUES ('"
                 + chatMessage.getIdSource() + "', '" + chatMessage.getIdDestiny() + "', '" + chatMessage.getMessage()
-                + "', '" + chatMessage.getDate() + "');";
+                + "');";
 
         return SQLConnector.getInstance(confDAO).insertQuery(query);
 

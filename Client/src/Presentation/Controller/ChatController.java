@@ -3,23 +3,24 @@ package Presentation.Controller;
 import Business.Entity.ChatMessage;
 import Business.Entity.User;
 import Business.Model.ChatManager;
+import Business.Model.GlobalUser;
 import Business.Model.NewMessageListener;
 import Presentation.View.ChatDirectView;
 import Presentation.View.ChatListView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
-public class ChatController implements ActionListener, NewMessageListener, MouseListener {
+public class ChatController implements ActionListener, NewMessageListener, MouseListener, WindowListener {
     private ChatDirectView chatDirectView;
     private ChatListView chatListView;
     private ChatManager chatManager;
+    private User destiny;
+    private ArrayList<User> users;
 
     public ChatController(ChatListView chatListView, ChatManager chatManager){
         this.chatListView = chatListView;
@@ -31,7 +32,6 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
         if(e.getActionCommand().equals(BTN_SEND)){
             String message = this.chatDirectView.getTextFieldMessage();
             if(!message.isEmpty()){
-                User destiny = null;    //falta implementar
                 if(this.chatManager.insertNewMessage(message, destiny)){
                     this.chatDirectView.addOwnMessage(message);
                     this.chatDirectView.setTextFieldHint();
@@ -42,8 +42,7 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
 
     public void loadListChat(){
         this.chatListView.removeChats();
-        ArrayList<User> users = new ArrayList<>();
-        users = this.chatManager.getChatList();
+        this.users = this.chatManager.getChatList();
         for (int i = 0; i < users.size(); i++) {
             ArrayList<User> finalUsers = users;
             int finalI = i;
@@ -60,9 +59,31 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //aqui
-        System.out.println(e);
-        System.out.println("hem clicat");
+        Component[] components;
+        JPanel jPanel = (JPanel) e.getComponent();
+        components = jPanel.getComponents();
+        JLabel jimage = (JLabel) components[0];
+        JLabel jtext = (JLabel) components[2];
+        for (User user: users) {
+            if(user.getNickname().equals(jtext.getText().split("-/-")[0])){
+                this.destiny = user;
+            }
+        }
+        ArrayList<ChatMessage> messages = this.chatManager.getChatMessages(this.destiny);
+
+        ChatDirectView chatDirect = new ChatDirectView();
+        this.chatDirectView = chatDirect;
+        this.chatDirectView.registerButtonController(this);
+        this.chatDirectView.registerWindowController(this);
+        this.chatDirectView.updateNorth((ImageIcon) jimage.getIcon(), jtext.getText());
+        for (ChatMessage message: messages) {
+            if(message.getIdSource() == GlobalUser.getInstance().getMyUser().getId()){
+                this.chatDirectView.addOwnMessage(message.getMessage());
+            }else{
+                this.chatDirectView.addFriendMessage(message.getMessage());
+            }
+        }
+        this.chatManager.launchChatThread(this.destiny);
     }
 
     @Override
@@ -76,4 +97,27 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
 
     @Override
     public void mouseExited(MouseEvent e) { }
+
+    @Override
+    public void windowOpened(WindowEvent e) { }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        this.chatManager.closeSocketAndThread();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) { }
+
+    @Override
+    public void windowIconified(WindowEvent e) { }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) { }
+
+    @Override
+    public void windowActivated(WindowEvent e) { }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) { }
 }

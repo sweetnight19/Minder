@@ -236,11 +236,7 @@ public class DedicatedServer extends Thread {
     private void readUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         User response = this.userDAO.getUser(user.getNickname());
-        if (response != null) {
-            os.writeObject(response);
-        } else {
-            os.writeObject(new Trama(ProtocolCommunication.KO));
-        }
+        os.writeObject(response);
     }
 
     private void updateUser() throws IOException, ClassNotFoundException {
