@@ -18,6 +18,7 @@ public class Client {
         SwingUtilities.invokeLater(() -> {
             ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
             SessionManager sessionManager = new SessionManager(connectionDAO);
+
             // View
             LoginView loginView = new LoginView();
             RegisterView registerView = new RegisterView();
@@ -27,11 +28,13 @@ public class Client {
             GlobalView globalView = new GlobalView(homeView, chatListView, editView);
             ProfileManager profileManager = new ProfileManager(connectionDAO);
             ChatManager chatManager = new ChatManager(connectionDAO, configurationDAO);
+            CheckLoginGUI checkLoginGUI = new CheckLoginGUI();
+
             // Controller
-            ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, connectionDAO);
+            ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, checkLoginGUI, connectionDAO);
             ProfileController profileController = new ProfileController(editView, profileManager);
             ChatController chatController = new ChatController(chatListView, chatManager);
-            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO);
+            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO,loginView);
             HomeController homeController = new HomeController(homeView);
 
             loginView.registerController(buttonController);
@@ -40,6 +43,7 @@ public class Client {
             homeView.registerController(homeController);
             chatListView.registerController(chatController);
             editView.registerController(profileController);
+            checkLoginGUI.registerController(buttonController);
 
             loginView.display();
             //globalView.display();

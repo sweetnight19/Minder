@@ -3,6 +3,8 @@ package Business.Model;
 import Business.Entity.User;
 import Persistance.ConnectionDAO;
 
+import java.awt.image.BufferedImage;
+
 public class SessionManager {
     private final ConnectionDAO connectionDAO;
 
@@ -39,14 +41,25 @@ public class SessionManager {
         }
     }
 
-    public void saveGlobalUser(User cliente){
+    public void saveGlobalUser(User cliente) {
         User user = this.connectionDAO.readUser(cliente);
-        if(user!= null){
+        if (user != null) {
             GlobalUser.getInstance().setMyUser(user);
         }
     }
 
+    public boolean saveNewImage(BufferedImage image) {
+        if (this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)) {
+            return true;
+        }
+        return false;
+    }
+
     public void disconnect() {
         connectionDAO.disconnectFromServer();
+    }
+
+    public boolean updateUser(User user) {
+        return connectionDAO.updateUser(user);
     }
 }
