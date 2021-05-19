@@ -181,6 +181,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     public ArrayList<User> getRandomUsers(User user) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.READ_PEERS));
+            os.reset();
             os.writeObject(user);
             ArrayList<User> usersCarrussel = (ArrayList<User>) is.readObject();
             if (usersCarrussel != null) {

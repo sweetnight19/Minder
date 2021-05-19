@@ -42,7 +42,9 @@ public class NavigationController implements ActionListener, WindowListener {
                 break;
             case GlobalView.LOGOUT:
                 int answer = globalView.dislplayLogoutWindow();
-                if (answer == JOptionPane.YES_OPTION) {System.exit(0);}
+                if (answer == JOptionPane.YES_OPTION) {
+                    connectionDAO.disconnectFromServer();
+                }
                 break;
             case HomeView.LIKE:
                 System.out.println("LIKE");
