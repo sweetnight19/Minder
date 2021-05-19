@@ -108,6 +108,9 @@ public class ButtonController implements ActionListener, WindowListener {
                     File selectedFile = jfc.getSelectedFile();
                     try {
                         image = ImageIO.read(new File(selectedFile.getAbsolutePath()));
+                        SwingUtilities.invokeLater(() -> {
+                            checkLoginGUI.setNewImage(image);
+                        });
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
