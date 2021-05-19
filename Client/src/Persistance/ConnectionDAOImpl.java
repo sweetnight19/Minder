@@ -251,7 +251,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(user);
 
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)) {
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 byte[] sizeAr = new byte[4];
                 is.read(sizeAr);
 
@@ -291,7 +291,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.flush();
 
             Trama trama = (Trama) is.readObject();
-            if(trama.getContext().equals(ProtocolCommunication.OK)){
+            if (trama.getContext().equals(ProtocolCommunication.OK)) {
                 System.out.println("Image has been sent correctly and saved");
                 return true;
             }

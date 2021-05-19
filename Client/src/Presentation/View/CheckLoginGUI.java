@@ -1,19 +1,26 @@
 package Presentation.View;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class CheckLoginGUI extends JFrame {
     private final String[] data = {"Java", "Javascript", "html", "C++"};
     public static final String SAVE_BUTTON = "SAVE_BUTTON";
     public static final String CHOOSE_IMAGE_BUTTON = "CHOOSE_IMAGE_BUTTON";
-    JButton jSaveBtn;
-    JButton jchooseImage;
-    JTextArea jdesc;
-    JComboBox<String> jlanguage;
+    private JButton jSaveBtn;
+    private JButton jchooseImage;
+    private JTextArea jdesc;
+    private JComboBox<String> jlanguage;
+    private JLabel logoLabel;
+    private BufferedImage logoImage;
+
 
     public CheckLoginGUI() {
         setTitle("Fill profile information");
@@ -35,11 +42,24 @@ public class CheckLoginGUI extends JFrame {
         center.setLayout(new BoxLayout(center, BoxLayout.PAGE_AXIS));
         center.setBackground(Color.WHITE);
 
+        logoImage = null;
+        try {
+            logoImage = ImageIO.read(new File("Client/Media/avatar.png"));
+            logoImage = resize(logoImage, 70, 70);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        logoLabel = new JLabel(new ImageIcon(logoImage));
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        logoLabel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+
         jchooseImage = new JButton("CHOOSE PHOTO");
         jchooseImage.setBackground(Color.decode("#DF4B74"));
         jchooseImage.setForeground(Color.WHITE);
         jchooseImage.setAlignmentX(Component.CENTER_ALIGNMENT);
         jchooseImage.setBorder(new EmptyBorder(10, 10, 10, 10));
+
 
         jlanguage = new JComboBox<>(data);
         jlanguage.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -57,6 +77,7 @@ public class CheckLoginGUI extends JFrame {
 
         jdesc.setText("Introduce here the description that defines yourself.");
 
+        center.add(logoLabel);
         center.add(jchooseImage);
         center.add(jlanguage);
         center.add(jdesc);
@@ -99,6 +120,23 @@ public class CheckLoginGUI extends JFrame {
 
     public void delete() {
         setVisible(false);
+    }
+
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
+    }
+
+    public void setNewImage(BufferedImage image) {
+        logoImage = null;
+        logoImage = resize(image, 100, 100);
+        logoLabel.setIcon(new ImageIcon(logoImage));
     }
 
 }
