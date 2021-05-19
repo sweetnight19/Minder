@@ -9,13 +9,30 @@ import java.io.IOException;
 
 public class PhotoPanel extends JPanel {
     private BufferedImage photo;
-
+/*
     public PhotoPanel(String path) {
         try {
             photo = ImageIO.read(new File(path));
         } catch (IOException e) {
             System.out.println("Error al carregar la foto de l'usuari");
         }
+    }
+*/
+    public PhotoPanel(BufferedImage image) {
+        try {
+            if (image == null) {
+                photo = ImageIO.read(new File("Client/Media/avatar.png"));
+            } else {
+                photo = image;
+            }
+        } catch (IOException e) {
+            System.out.println("Error al carregar la foto de l'usuari");
+        }
+    }
+
+    public void setPhoto(BufferedImage photo) {
+        this.photo = photo;
+        this.repaint();
     }
 
     protected void paintComponent(Graphics g) {

@@ -32,14 +32,14 @@ public class GlobalView extends JFrame {
 
     public GlobalView(HomeView homeView, ChatListView chatListView, EditView editView) {
         setTitle(MINDER_HOME);
-        setSize(450, 700);
+        setPreferredSize(new Dimension(500, 700));
         this.jpHome = homeView;
         this.jpChat = chatListView;
         this.jpUser = editView;
         configureWindow();
         configureNorth();
         configureCenter();
-        //pack();
+        pack();
         setLocationRelativeTo(null);
     }
 

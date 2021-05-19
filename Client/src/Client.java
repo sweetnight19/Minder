@@ -1,4 +1,5 @@
 import Business.Model.ChatManager;
+import Business.Model.HomeManager;
 import Business.Model.ProfileManager;
 import Business.Model.SessionManager;
 import Persistance.ConfigurationDAO;
@@ -18,7 +19,7 @@ public class Client {
         SwingUtilities.invokeLater(() -> {
             ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
             SessionManager sessionManager = new SessionManager(connectionDAO);
-
+            HomeManager homeManager = new HomeManager(connectionDAO);
             // View
             LoginView loginView = new LoginView();
             RegisterView registerView = new RegisterView();
@@ -35,7 +36,7 @@ public class Client {
             ProfileController profileController = new ProfileController(editView, profileManager);
             ChatController chatController = new ChatController(chatListView, chatManager);
             NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO,loginView);
-            HomeController homeController = new HomeController(homeView);
+            HomeController homeController = new HomeController(homeView, homeManager);
 
             loginView.registerController(buttonController);
             registerView.registerController(buttonController);
