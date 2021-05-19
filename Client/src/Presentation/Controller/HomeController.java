@@ -24,6 +24,10 @@ public class HomeController implements ActionListener {
         this.homeManager = homeManager;
     }
 
+    public void enableButtons(){
+        this.homeView.enableButtons();
+    }
+
     public void loadFirstUser() {
         if (homeManager.getSize() != 0) {
             this.sizeArray = 0;
@@ -36,6 +40,12 @@ public class HomeController implements ActionListener {
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
+            }
+            if(this.sizeArray < this.homeManager.getCountPremium()){
+                this.homeView.showIsPremium();
+                System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
+            }else{
+                this.homeView.showIsNotPremium();
             }
             homeView.showNextUser(user, image);
         } else {
@@ -60,6 +70,12 @@ public class HomeController implements ActionListener {
                             ioException.printStackTrace();
                         }
                     }
+                    if(this.sizeArray < this.homeManager.getCountPremium()){
+                        this.homeView.showIsPremium();
+                        System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
+                    }else{
+                        this.homeView.showIsNotPremium();
+                    }
                     homeView.showNextUser(nextUser, nextImage);
                 }else{
                     this.homeView.disableButtons();
@@ -79,6 +95,12 @@ public class HomeController implements ActionListener {
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
+                    }
+                    if(this.sizeArray < this.homeManager.getCountPremium()){
+                        this.homeView.showIsPremium();
+                        System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
+                    }else{
+                        this.homeView.showIsNotPremium();
                     }
                     homeView.showNextUser(nextUserDeny, nextImageDeny);
                 }else{

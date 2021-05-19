@@ -22,6 +22,8 @@ public interface ConnectionDAO {
 
     boolean deleteUser(User user);
 
+    int countPremium(User user);
+
     //PeerDAO
     boolean insertLike(Peer peer);
 

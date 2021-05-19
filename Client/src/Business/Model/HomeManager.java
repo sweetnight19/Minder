@@ -11,6 +11,7 @@ public class HomeManager {
     private ConnectionDAO connectionDAO;
     private BufferedImage homeImage;
     private ArrayList<User> arrayNextUsers;
+    private int countPremium;
 
     public HomeManager(ConnectionDAO connectionDAO) {
         this.connectionDAO = connectionDAO;
@@ -31,6 +32,10 @@ public class HomeManager {
                 arrayNextUsers.remove(i);
             }
         }
+        if(GlobalUser.getInstance().getMyUser().getType().equals("Premium")){
+            this.countPremium = this.connectionDAO.countPremium(GlobalUser.getInstance().getMyUser());
+            System.out.println(this.countPremium + "usuaris que mhan donat like");
+        }
         System.out.println("despues");
         System.out.println("is empty = " + arrayNextUsers.isEmpty());
         System.out.println("size = " + arrayNextUsers.size());
@@ -42,6 +47,11 @@ public class HomeManager {
     public int getSize() {
         return arrayNextUsers.size();
     }
+
+    public int getCountPremium(){
+        return this.countPremium;
+    }
+
     public BufferedImage getNextImage(User nextUser){
         BufferedImage image = this.connectionDAO.readImage(nextUser);
         return image;

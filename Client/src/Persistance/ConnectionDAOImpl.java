@@ -148,6 +148,20 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     }
 
     @Override
+    public int countPremium(User user) {
+        try {
+            os.writeObject(new Trama(ProtocolCommunication.COUNT));
+            os.writeObject(user);
+            Trama trama = (Trama) is.readObject();
+            System.out.println("auqi arriba la trama");
+            return Integer.parseInt(trama.getContext());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public boolean insertLike(Peer peer) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.CREATE_PEER));

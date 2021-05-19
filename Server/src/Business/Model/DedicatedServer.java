@@ -94,6 +94,9 @@ public class DedicatedServer extends Thread {
                         case ProtocolCommunication.SEND_IMAGE:
                             saveImage();
                             break;
+                        case ProtocolCommunication.COUNT:
+                            countPremiumUsers();
+                            break;
                         default:
                             os.writeObject(new Trama(ProtocolCommunication.KO));
                     }
@@ -179,6 +182,12 @@ public class DedicatedServer extends Thread {
             pretendientes = this.userDAO.getPretendents(user);
         }
         os.writeObject(pretendientes);
+    }
+
+    private void countPremiumUsers() throws IOException, ClassNotFoundException {
+        User user = (User) is.readObject();
+        int countPremium = this.userDAO.countPretendentsPremium(user);
+        os.writeObject(new Trama(String.valueOf(countPremium)));
     }
 
     private void listchat() throws IOException, ClassNotFoundException {

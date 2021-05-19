@@ -73,6 +73,7 @@ public class ButtonController implements ActionListener, WindowListener {
                         sessionManager.saveGlobalUser(cliente);
                         homeManager.getNextUsers();
                         homeController.loadFirstUser();
+                        homeController.enableButtons();
                         globalView.display();
                         break;
                     case -1:
@@ -103,6 +104,7 @@ public class ButtonController implements ActionListener, WindowListener {
                     sessionManager.saveGlobalUser(GlobalUser.getInstance().getMyUser());
                     homeManager.getNextUsers();
                     homeController.loadFirstUser();
+                    homeController.enableButtons();
                     globalView.display();
                 } else {
                     loginView.displayCredentialsLoginError();

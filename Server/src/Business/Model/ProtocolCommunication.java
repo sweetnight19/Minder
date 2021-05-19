@@ -37,4 +37,6 @@ public class ProtocolCommunication {
   public static final String SEND_IMAGE = "SEND_IMAGE";
   public static final String STATUS_0 = "STATUS_0";
   public static final String STATUS_1 = "STATUS_1";
+  public static final String COUNT = "COUNT";
+
 }

@@ -2,11 +2,14 @@ package Presentation.View;
 
 import Business.Entity.User;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class HomeView extends JPanel {
     public static final String LIKE = "LIKE";
@@ -18,6 +21,8 @@ public class HomeView extends JPanel {
     private JLabel lName;
     private JButton bLike;
     private JButton bDeny;
+    private IconButton bMoreInfo;
+    private JLabel logoLabel;
 
     public HomeView() {
         configureWindow();
@@ -64,8 +69,15 @@ public class HomeView extends JPanel {
         lName.setForeground(Color.decode(MinderColor.WHITE));
         pInfoUser.add(lName, BorderLayout.CENTER);
         // More Info
-        IconButton bMoreInfo = new IconButton("Client/Media/moreInfoIcon2.png");
-        pInfoUser.add(bMoreInfo, BorderLayout.EAST);
+        BufferedImage logoImage = null;
+        try {
+            logoImage = ImageIO.read(new File("Client/Media/moreInfoIcon2.png"));
+            logoLabel = new JLabel(new ImageIcon(logoImage));
+            repaint();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        pInfoUser.add(logoLabel, BorderLayout.EAST);
 
         pInfoUser.add(lName);
         pUser.add(pInfoUser, BorderLayout.SOUTH);
@@ -102,6 +114,33 @@ public class HomeView extends JPanel {
     public void disableButtons(){
         bLike.setEnabled(false);
         bDeny.setEnabled(false);
+    }
+
+    public void enableButtons(){
+        bLike.setEnabled(true);
+        bDeny.setEnabled(true);
+    }
+
+    public void showIsPremium(){
+        BufferedImage logoImage = null;
+        try {
+            logoImage = ImageIO.read(new File("Client/Media/Star.png"));
+            logoLabel.setIcon(new ImageIcon(logoImage));
+            repaint();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showIsNotPremium(){
+        BufferedImage logoImage = null;
+        try {
+            logoImage = ImageIO.read(new File("Client/Media/moreInfoIcon2.png"));
+            logoLabel.setIcon(new ImageIcon(logoImage));
+            repaint();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void nextUser() {
