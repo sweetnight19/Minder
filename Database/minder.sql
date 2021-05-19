@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2021 a las 01:07:38
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.2
+-- Tiempo de generación: 19-05-2021 a las 18:33:10
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `minder`
 --
-CREATE DATABASE IF NOT EXISTS `minder` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `minder`;
 
 -- --------------------------------------------------------
 
@@ -33,7 +32,7 @@ CREATE TABLE `pair` (
   `idOrigen` int(11) NOT NULL,
   `idDesti` int(11) NOT NULL,
   `matchDuo` tinyint(1) NOT NULL,
-  `data` date NOT NULL
+  `data` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -1042,7 +1041,16 @@ INSERT INTO `pair` (`idOrigen`, `idDesti`, `matchDuo`, `data`) VALUES
 (632, 103, 0, '2020-10-16'),
 (701, 473, 0, '2020-10-07'),
 (7, 60, 1, '2021-04-21'),
-(60, 7, 1, '2021-04-22');
+(60, 7, 1, '2021-04-22'),
+(1002, 1007, 1, '0000-00-00'),
+(1007, 1002, 1, '0000-00-00'),
+(1002, 1006, 1, '0000-00-00'),
+(1006, 1002, 1, '0000-00-00'),
+(1002, 1008, 1, '0000-00-00'),
+(1008, 1002, 1, '0000-00-00'),
+(1010, 1006, 1, '2021-05-19'),
+(1010, 1002, 1, '2021-05-19'),
+(1009, 1010, 1, '2021-05-19');
 
 -- --------------------------------------------------------
 
@@ -2072,7 +2080,14 @@ INSERT INTO `usuari` (`nomPila`, `nickname`, `edat`, `uuid`, `tipusCompte`, `ema
 ('Oralia Geddis', 'ogeddisro', 74, 997, 'Premium', 'ogeddisro@hibu.com', 'NiXwo6dbhoy', 'http://dummyimage.com/108x100.png/dddddd/000000', 'Laceration with foreign body of left forearm, sequela', 'Python', 0),
 ('Johann Treeby', 'jtreebyrp', 65, 998, 'Normal', 'jtreebyrp@163.com', 'hOMcBb', 'http://dummyimage.com/183x100.png/ff4444/ffffff', 'Pnctr w/o fb of unsp great toe w damage to nail, subs', 'Flutter', 0),
 ('Joey Bunt', 'jbuntrq', 78, 999, 'Premium', 'jbuntrq@nhs.uk', 'NSMt0O0pZA', 'http://dummyimage.com/113x100.png/5fa2dd/ffffff', 'Sltr-haris Type II physl fx low end humer, r arm, 7thG', 'C#', 0),
-('Gian Yegorchenkov', 'gyegorchenkovrr', 58, 1000, 'Normal', 'gyegorchenkovrr@ucla.edu', 'Kbl3wpqwk1pm', 'http://dummyimage.com/201x100.png/5fa2dd/ffffff', 'Nail disorders in diseases classified elsewhere', 'Flutter', 0);
+('Gian Yegorchenkov', 'gyegorchenkovrr', 58, 1000, 'Normal', 'gyegorchenkovrr@ucla.edu', 'Kbl3wpqwk1pm', 'http://dummyimage.com/201x100.png/5fa2dd/ffffff', 'Nail disorders in diseases classified elsewhere', 'Flutter', 0),
+('Edmon', 'edbobo', 21, 1001, 'Normal', 'edmonbosch@gmail.com', 'lasallebcn', 'null', 'null', 'null', 0),
+('Edmon', 'bosched', 21, 1002, 'Normal', 'edmonbosch@gmail.com', 'lasallebcn', 'bosched.jpg', 'soc jo otra vez', 'html', 1),
+('Joan', 'juanca', 21, 1006, 'Normal', 'joancasals@gmail.com', 'lasallebcn', 'juanca.jpg', 'null', 'html', 0),
+('Xavier', 'garri', 23, 1007, 'Normal', 'xaviergarrigos@gmail.com', 'lasallebcn', 'garri.jpg', 'Introduce here the description that defines yourselsfsfsf', 'html', 1),
+('David', 'motero', 25, 1008, 'Normal', 'davidmarquet@gmail.com', 'lasallebcn', 'motero.jpg', 'david otra vez', 'html', 1),
+('Ana', 'anatest', 32, 1009, 'Normal', 'anatest@gmail.com', 'lasallebcn', 'anatest.jpg', 'soc lana magrada lesport', 'html', 1),
+('Ramon', 'ramontest', 21, 1010, 'Normal', 'ramontest@gmail.com', 'lasallebcn', 'ramontest.jpg', 'hola hola hola', 'html', 1);
 
 -- --------------------------------------------------------
 
@@ -2084,7 +2099,7 @@ CREATE TABLE `xat` (
   `idOrigen` int(11) NOT NULL,
   `idDesti` int(11) NOT NULL,
   `missatge` text NOT NULL,
-  `data` date NOT NULL
+  `data` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -3092,7 +3107,13 @@ INSERT INTO `xat` (`idOrigen`, `idDesti`, `missatge`, `data`) VALUES
 (953, 880, 'Unsp fx upr end r rad, 7thJ', '2020-08-10'),
 (1000, 254, 'Nondisp fx of shaft of 4th MC bone, l hand, init for opn fx', '2021-04-08'),
 (329, 486, 'Torus fracture of upper end of right humerus, sequela', '2021-04-20'),
-(821, 794, 'Path fx in neopltc dis, hip, unsp, subs for fx w malunion', '2020-05-18');
+(821, 794, 'Path fx in neopltc dis, hip, unsp, subs for fx w malunion', '2020-05-18'),
+(1002, 1008, 'hola', '2021-05-18'),
+(1002, 1008, 'que tal', '2021-05-18'),
+(1002, 1008, 'prova', '2021-05-18'),
+(1008, 1002, 'Prova crucial', '2021-05-18'),
+(1008, 1002, 'prova no tan crucial', '2021-05-18'),
+(1002, 1008, 'mes proves siusplau', '2021-05-19');
 
 --
 -- Índices para tablas volcadas
@@ -3126,7 +3147,7 @@ ALTER TABLE `xat`
 -- AUTO_INCREMENT de la tabla `usuari`
 --
 ALTER TABLE `usuari`
-  MODIFY `uuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
+  MODIFY `uuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
 
 --
 -- Restricciones para tablas volcadas

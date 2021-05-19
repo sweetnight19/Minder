@@ -26,6 +26,11 @@ public class HomeManager {
         System.out.println("premium = " + GlobalUser.getInstance().getMyUser().getType());
         User myUser = GlobalUser.getInstance().getMyUser();
         arrayNextUsers = connectionDAO.getRandomUsers(myUser);
+        for (int i = 0; i < arrayNextUsers.size(); i++) {
+            if(arrayNextUsers.get(i).getId() == GlobalUser.getInstance().getMyUser().getId()){
+                arrayNextUsers.remove(i);
+            }
+        }
         System.out.println("despues");
         System.out.println("is empty = " + arrayNextUsers.isEmpty());
         System.out.println("size = " + arrayNextUsers.size());

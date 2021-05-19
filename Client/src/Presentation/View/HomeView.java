@@ -94,6 +94,16 @@ public class HomeView extends JPanel {
         bDeny.addActionListener(actionListener);
     }
 
+    public void dislplayNotMoreUsers() {
+        JOptionPane.showMessageDialog(null,
+                "You don't have more pretendents for today", "Enough for Today", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void disableButtons(){
+        bLike.setEnabled(false);
+        bDeny.setEnabled(false);
+    }
+
     public void nextUser() {
 
     }

@@ -38,9 +38,10 @@ public class ProfileManager {
 
     public boolean saveNewImage(BufferedImage image){
         if(this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)){
+            profileImage = image;
+            GlobalUser.getInstance().getMyUser().setPathImage(GlobalUser.getInstance().getMyUser().getNickname() + ".jpg");
             return true;
         }
-        GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
         return false;
     }
 

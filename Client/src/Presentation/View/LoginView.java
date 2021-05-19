@@ -194,7 +194,7 @@ public class LoginView extends JFrame {
         return new String(passwdField.getPassword());
     }
 
-    public void dislplayLoginError() {
+    public void displayLoginError() {
         JOptionPane.showMessageDialog(null,
                 "An error occurred on the server", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
     }
