@@ -100,6 +100,7 @@ public class ButtonController implements ActionListener, WindowListener {
                 GlobalUser.getInstance().getMyUser().setProgrammingLanguage(checkLoginGUI.getLanguage());
 
                 if (sessionManager.updateUser(GlobalUser.getInstance().getMyUser())) {
+                    sessionManager.saveGlobalUser(GlobalUser.getInstance().getMyUser());
                     homeManager.getNextUsers();
                     homeController.loadFirstUser();
                     globalView.display();

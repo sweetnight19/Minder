@@ -14,7 +14,7 @@ public class ProfileManager {
     }
 
     public User getUserProfileInformation(){
-        GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
+        //GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
         profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
         return GlobalUser.getInstance().getMyUser();
     }
@@ -40,6 +40,7 @@ public class ProfileManager {
         if(this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)){
             return true;
         }
+        GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
         return false;
     }
 
