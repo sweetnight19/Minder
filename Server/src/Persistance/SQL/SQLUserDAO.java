@@ -94,7 +94,7 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public ArrayList<User> top5() {
         ArrayList<User> top5 = new ArrayList<>();
-        String top5Query = "SELECT *,COUNT(DISTINCT(pair.idDesti)) FROM usuari,pair WHERE pair.idDesti=usuari.uuid GROUP BY idOrigen ORDER BY COUNT(pair.idDesti) DESC LIMIT 5";
+        String top5Query = "SELECT *,COUNT(DISTINCT(pair.idDesti)) as matches FROM usuari,pair WHERE pair.idDesti=usuari.uuid GROUP BY idOrigen ORDER BY COUNT(pair.idDesti) DESC LIMIT 5";
 
         ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(top5Query);
         try {
@@ -102,7 +102,7 @@ public class SQLUserDAO implements UserDAO {
                 top5.add(new User(result.getInt("uuid"), result.getString("nomPila"), result.getString("nickname"),
                         result.getInt("edat"), result.getString("tipusCompte"), result.getString("email"),
                         result.getString("password"), result.getString("pathImage"), result.getString("descripcio"),
-                        result.getString("llenguatgeDeProgramacio")));
+                        result.getString("llenguatgeDeProgramacio"), result.getInt("matches")));
             }
             return top5;
         } catch (SQLException e) {

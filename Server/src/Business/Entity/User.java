@@ -15,6 +15,7 @@ public class User implements Serializable {
     private String description;
     private String programmingLanguage;
     private int status;
+    private int matches;
 
     public User(int id, String firstName, String nickname, int age, String type, String email, String password,
             String pathImage, String description, String programmingLanguage) {
@@ -28,6 +29,21 @@ public class User implements Serializable {
         this.pathImage = pathImage;
         this.description = description;
         this.programmingLanguage = programmingLanguage;
+    }
+
+    public User(int id, String firstName, String nickname, int age, String type, String email, String password,
+                String pathImage, String description, String programmingLanguage, int matches) {
+        this.id = id;
+        this.firstName = firstName;
+        this.nickname = nickname;
+        this.age = age;
+        this.type = type;
+        this.email = email;
+        this.password = password;
+        this.pathImage = pathImage;
+        this.description = description;
+        this.programmingLanguage = programmingLanguage;
+        this.matches = matches;
     }
 
     public int getId() {
@@ -88,5 +104,9 @@ public class User implements Serializable {
 
     public int getStatus() {
         return status;
+    }
+
+    public int getMatches() {
+        return matches;
     }
 }
