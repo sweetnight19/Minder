@@ -26,27 +26,25 @@ public class ChatServerDedicated extends Thread{
             this.is = new ObjectInputStream(client.getInputStream());
             this.os = new ObjectOutputStream(client.getOutputStream());
 
+            myUser = (User) is.readObject();
+            otherUser = (User) is.readObject();
+            sizeArr = ChatMessagesManager.getSize();
 
+            while (!DedicatedServer.clientDisconnect) {
 
-        myUser = (User) is.readObject();
-        otherUser = (User) is.readObject();
-        sizeArr = ChatMessagesManager.getSize();
-
-        while (!DedicatedServer.clientDisconnect) {
-
-            if(ChatMessagesManager.getSize() > sizeArr){
-                for (int i = sizeArr; i < ChatMessagesManager.getSize(); i++) {
-                    if(ChatMessagesManager.getMessages().get(i).getIdDestiny() == myUser.getId()
-                            && ChatMessagesManager.getMessages().get(i).getIdSource() == otherUser.getId()){
-                        os.writeObject(ChatMessagesManager.getMessages().get(i));
+                if(ChatMessagesManager.getSize() > sizeArr){
+                    for (int i = sizeArr; i < ChatMessagesManager.getSize(); i++) {
+                        if(ChatMessagesManager.getMessages().get(i).getIdDestiny() == myUser.getId()
+                                && ChatMessagesManager.getMessages().get(i).getIdSource() == otherUser.getId()){
+                            os.writeObject(ChatMessagesManager.getMessages().get(i));
+                        }
                     }
+
+                    sizeArr = ChatMessagesManager.getSize();
                 }
+                sleep(100);
 
-                sizeArr = ChatMessagesManager.getSize();
             }
-            sleep(100);
-
-        }
             client.close();
         } catch (IOException | ClassNotFoundException | InterruptedException e) {
             e.printStackTrace();
