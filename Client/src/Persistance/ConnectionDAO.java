@@ -11,24 +11,34 @@ public interface ConnectionDAO {
 
     //UserDAO
     boolean registerUser(User user);
+
     boolean validateLogin(User user);
+
     int checklogin(User user);
+
     boolean updateUser(User user);
+
     User readUser(User user);
+
     boolean deleteUser(User user);
 
     //PeerDAO
     boolean insertLike(Peer peer);
+
     boolean deletePeer(Peer peer);
+
     ArrayList<User> getRandomUsers(User user);
 
     //ChatDAO
     ArrayList<User> getChatList(User user);
+
     ArrayList<ChatMessage> getChatMessages(User source, User destiny);
+
     boolean insertNewMessage(ChatMessage message);
 
     //Images
     BufferedImage readImage(User user);
+
     boolean sendImage(User user, BufferedImage image2);
 
     //Actions

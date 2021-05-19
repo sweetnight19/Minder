@@ -49,10 +49,7 @@ public class SessionManager {
     }
 
     public boolean saveNewImage(BufferedImage image) {
-        if (this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)) {
-            return true;
-        }
-        return false;
+        return this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image);
     }
 
     public void disconnect() {

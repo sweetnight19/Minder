@@ -20,6 +20,7 @@ public class Client {
             ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
             HomeManager homeManager = new HomeManager(connectionDAO);
             SessionManager sessionManager = new SessionManager(connectionDAO);
+
             // View
             LoginView loginView = new LoginView();
             RegisterView registerView = new RegisterView();
@@ -34,7 +35,7 @@ public class Client {
             // Controller
             HomeController homeController = new HomeController(homeView, homeManager);
             ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, homeManager, homeController, checkLoginGUI, connectionDAO);
-            ProfileController profileController = new ProfileController(editView, profileManager);
+            ProfileController profileController = new ProfileController(editView, profileManager, loginView, globalView);
             ChatController chatController = new ChatController(chatListView, chatManager);
             NavigationController navigationController = new NavigationController(globalView, profileController, chatController, homeController, connectionDAO,loginView);
 

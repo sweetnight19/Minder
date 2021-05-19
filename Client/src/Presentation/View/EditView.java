@@ -20,7 +20,6 @@ public class EditView extends JPanel {
     private JLabel jtype;
     private JLabel jemail;
     private JTextArea jdesc;
-    private final JScrollPane sp;
     private BufferedImage logoImage;
     private JLabel logoLabel;
     private JButton southSave;
@@ -44,7 +43,7 @@ public class EditView extends JPanel {
         wrapper.add(centerTextArea(), BorderLayout.CENTER);
         wrapper.setBackground(Color.WHITE);
 
-        sp = new JScrollPane(wrapper);
+        JScrollPane sp = new JScrollPane(wrapper);
         sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         sp.setBackground(Color.WHITE);
 

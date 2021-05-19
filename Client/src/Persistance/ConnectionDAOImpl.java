@@ -64,6 +64,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
     public boolean validateLogin(User user) {
         try {
             os.writeObject(new Trama(ProtocolCommunication.LOGIN_USER));
+            os.reset();
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
             if (trama.getContext().equals(ProtocolCommunication.OK)) {
@@ -275,7 +276,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 
     @Override
     public boolean sendImage(User user, BufferedImage image2) {
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = image2;
 

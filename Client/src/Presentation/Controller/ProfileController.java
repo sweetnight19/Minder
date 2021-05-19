@@ -3,6 +3,8 @@ package Presentation.Controller;
 import Business.Model.GlobalUser;
 import Business.Model.ProfileManager;
 import Presentation.View.EditView;
+import Presentation.View.GlobalView;
+import Presentation.View.LoginView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,12 +18,16 @@ import java.io.IOException;
 import static Presentation.View.EditView.*;
 
 public class ProfileController implements ActionListener {
-    private EditView editView;
-    private ProfileManager profileManager;
+    private final LoginView loginView;
+    private final EditView editView;
+    private final ProfileManager profileManager;
+    private final GlobalView globalView;
 
-    public ProfileController(EditView editView, ProfileManager manager) {
+    public ProfileController(EditView editView, ProfileManager manager, LoginView loginView, GlobalView globalView) {
         this.editView = editView;
         this.profileManager = manager;
+        this.globalView = globalView;
+        this.loginView = loginView;
     }
 
     @Override
@@ -29,10 +35,7 @@ public class ProfileController implements ActionListener {
         switch (e.getActionCommand()) {
             case EDIT_BTN:
                 System.out.println("Edit button selected");
-                SwingUtilities.invokeLater(() -> {
-                    editView.transformToEditable();
-                });
-
+                SwingUtilities.invokeLater(editView::transformToEditable);
                 break;
             case SAVE_BTN:
                 System.out.println("Save button selected");
@@ -48,7 +51,10 @@ public class ProfileController implements ActionListener {
             case DELETE_BTN:
                 System.out.println("Delete button selected");
                 this.profileManager.deleteUser();
+
                 //redirigir al login
+                globalView.delete();
+                loginView.display();
 
                 break;
             case CHANGE_BTN:
@@ -61,9 +67,7 @@ public class ProfileController implements ActionListener {
                     System.out.println(selectedFile.getAbsolutePath());
                     try {
                         BufferedImage image = ImageIO.read(new File(selectedFile.getAbsolutePath()));
-                        SwingUtilities.invokeLater(() -> {
-                            editView.setNewImage(image);
-                        });
+                        SwingUtilities.invokeLater(() -> editView.setNewImage(image));
                         this.profileManager.saveNewImage(image);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
@@ -74,9 +78,7 @@ public class ProfileController implements ActionListener {
         }
     }
 
-    public void loadProfileInformation(){
-        SwingUtilities.invokeLater(() -> {
-            this.editView.updateData(profileManager.getUserProfileInformation(), profileManager.getProfileImage());
-        });
+    public void loadProfileInformation() {
+        SwingUtilities.invokeLater(() -> this.editView.updateData(profileManager.getUserProfileInformation(), profileManager.getProfileImage()));
     }
 }
