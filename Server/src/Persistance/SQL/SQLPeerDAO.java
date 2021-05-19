@@ -41,8 +41,8 @@ public class SQLPeerDAO implements PeerDAO {
     @Override
     public boolean addLike(Peer peer) {
 
-        String query = "INSERT INTO `pair` (`idOrigen`, `idDesti`, `matchDuo`, `data`) VALUES ('" + peer.getIdSource()
-                + "', '" + peer.getIdDestiny() + "', '" + 1 + "', '" + peer.getDate() + "');";
+        String query = "INSERT INTO `pair` (`idOrigen`, `idDesti`, `matchDuo`) VALUES ('" + peer.getIdSource()
+                + "', '" + peer.getIdDestiny() + "', '" + 1 + "');";
 
         return SQLConnector.getInstance(confDAO).insertQuery(query);
 

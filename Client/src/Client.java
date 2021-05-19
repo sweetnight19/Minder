@@ -18,8 +18,8 @@ public class Client {
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
         SwingUtilities.invokeLater(() -> {
             ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
-            SessionManager sessionManager = new SessionManager(connectionDAO);
             HomeManager homeManager = new HomeManager(connectionDAO);
+            SessionManager sessionManager = new SessionManager(connectionDAO);
             // View
             LoginView loginView = new LoginView();
             RegisterView registerView = new RegisterView();
@@ -32,11 +32,11 @@ public class Client {
             CheckLoginGUI checkLoginGUI = new CheckLoginGUI();
 
             // Controller
-            ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, checkLoginGUI, connectionDAO);
+            HomeController homeController = new HomeController(homeView, homeManager);
+            ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, homeManager, homeController, checkLoginGUI, connectionDAO);
             ProfileController profileController = new ProfileController(editView, profileManager);
             ChatController chatController = new ChatController(chatListView, chatManager);
-            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO,loginView);
-            HomeController homeController = new HomeController(homeView, homeManager);
+            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, homeController, connectionDAO,loginView);
 
             loginView.registerController(buttonController);
             registerView.registerController(buttonController);

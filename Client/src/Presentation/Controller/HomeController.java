@@ -15,36 +15,66 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class HomeController implements ActionListener {
-    private final HomeView homeView;
-    private final HomeManager homeManager;
+    private HomeView homeView;
+    private HomeManager homeManager;
+    public int sizeArray;
 
     public HomeController(HomeView homeView, HomeManager homeManager) {
         this.homeView = homeView;
         this.homeManager = homeManager;
     }
 
+    public void loadFirstUser() {
+        if (homeManager.getSize() != 0) {
+            this.sizeArray = 0;
+            User user = homeManager.getNextUser(sizeArray);
+            System.out.println("name user " + user.getFirstName());
+            BufferedImage image = homeManager.getNextImage(user);
+            if (image == null) {
+                try {
+                    image = ImageIO.read(new File("Client/Media/avatar.png"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+            homeView.showNextUser(user, image);
+        } else {
+            System.out.println("Es size es 0!!!!!!");
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case HomeView.LIKE:
                 System.out.println("LIKE");
+                homeManager.insertLike(sizeArray);
+                sizeArray++;
+                User nextUser = homeManager.getNextUser(sizeArray);
 
-                ArrayList<User> users = homeManager.getNextUsers();
-                System.out.println("users: " + users.isEmpty());
-
-                User user = homeManager.getUser();
-
-                //BufferedImage image = homeManager.getNextImage(GlobalUser.getInstance().getMyUser());
-                System.out.println("HOLSSSSS");
-                BufferedImage image = null;
-                try {
-                    image = ImageIO.read(new File("C:\\Users\\Xavi\\Desktop\\ImageTest\\image1763433(4).png"));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                BufferedImage nextImage = homeManager.getNextImage(nextUser);
+                if (nextImage == null) {
+                    try {
+                        nextImage = ImageIO.read(new File("Client/Media/avatar.png"));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
-                homeView.showNextUser(user, image);
+                homeView.showNextUser(nextUser, nextImage);
                 break;
             case HomeView.DENY:
                 System.out.println("DENY");
+                sizeArray++;
+                User nextUserDeny = homeManager.getNextUser(sizeArray);
+
+                BufferedImage nextImageDeny = homeManager.getNextImage(nextUserDeny);
+                if (nextImageDeny == null) {
+                    try {
+                        nextImageDeny = ImageIO.read(new File("Client/Media/avatar.png"));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+                homeView.showNextUser(nextUserDeny, nextImageDeny);
                 break;
         }
     }

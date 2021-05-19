@@ -153,7 +153,7 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public ArrayList<User> getPretendents(User user) {
         ArrayList<User> users = new ArrayList<>();
-        String query = "SELECT * FROM usuari WHERE usuari.llenguatgeDeProgramacio=" + user.getProgrammingLanguage() + " AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =" + user.getId() + ");";
+        String query = "SELECT * FROM usuari WHERE usuari.llenguatgeDeProgramacio LIKE '" + user.getProgrammingLanguage() + "' AND usuari.uuid NOT IN (SELECT pair.idDesti FROM pair WHERE pair.idOrigen =" + user.getId() + ");";
 
         ResultSet result = SQLConnector.getInstance(confDAO).selectQuery(query);
         try {

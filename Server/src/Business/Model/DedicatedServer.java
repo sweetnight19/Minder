@@ -116,7 +116,7 @@ public class DedicatedServer extends Thread {
         User user = (User) is.readObject();
         user = this.userDAO.getUser(user.getNickname());
         System.out.println(user.getPathImage());
-        if(!user.getPathImage().equals("null")) {
+        if(!user.getPathImage().equals("null") && !user.getPathImage().startsWith("http://dummyimage.com")) {
             BufferedImage image;
             image = ImageIO.read(new File("Server/images/" + user.getPathImage()));
 

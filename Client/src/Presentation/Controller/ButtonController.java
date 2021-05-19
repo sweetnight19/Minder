@@ -2,6 +2,7 @@ package Presentation.Controller;
 
 import Business.Entity.User;
 import Business.Model.GlobalUser;
+import Business.Model.HomeManager;
 import Business.Model.SessionManager;
 import Persistance.ConnectionDAO;
 import Presentation.View.CheckLoginGUI;
@@ -24,17 +25,21 @@ public class ButtonController implements ActionListener, WindowListener {
     private final LoginView loginView;
     private final RegisterView registerView;
     private final SessionManager sessionManager;
+    private final HomeManager homeManager;
+    private final HomeController homeController;
     private final CheckLoginGUI checkLoginGUI;
     private final GlobalView globalView;
     private final ConnectionDAO connectionDAO;
     private BufferedImage image;
     private User cliente;
 
-    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, CheckLoginGUI checkLoginGUI, ConnectionDAO connectionDAO) {
+    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, HomeManager homeManager, HomeController homeController,CheckLoginGUI checkLoginGUI, ConnectionDAO connectionDAO) {
         this.loginView = loginView;
         this.registerView = registerView;
         this.globalView = globalView;
         this.sessionManager = sessionManager;
+        this.homeManager = homeManager;
+        this.homeController = homeController;
         this.connectionDAO = connectionDAO;
         this.checkLoginGUI = checkLoginGUI;
         cliente = null;
@@ -66,6 +71,8 @@ public class ButtonController implements ActionListener, WindowListener {
                         //login correcte, usuari reincident
                         loginView.delete();
                         sessionManager.saveGlobalUser(cliente);
+                        homeManager.getNextUsers();
+                        homeController.loadFirstUser();
                         globalView.display();
                         break;
                     case -1:
@@ -93,6 +100,8 @@ public class ButtonController implements ActionListener, WindowListener {
                 GlobalUser.getInstance().getMyUser().setProgrammingLanguage(checkLoginGUI.getLanguage());
 
                 if (sessionManager.updateUser(GlobalUser.getInstance().getMyUser())) {
+                    homeManager.getNextUsers();
+                    homeController.loadFirstUser();
                     globalView.display();
                 } else {
                     loginView.displayCredentialsLoginError();
