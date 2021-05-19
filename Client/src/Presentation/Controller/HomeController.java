@@ -49,32 +49,42 @@ public class HomeController implements ActionListener {
                 System.out.println("LIKE");
                 homeManager.insertLike(sizeArray);
                 sizeArray++;
-                User nextUser = homeManager.getNextUser(sizeArray);
+                if(sizeArray < this.homeManager.getSize()) {
+                    User nextUser = homeManager.getNextUser(sizeArray);
 
-                BufferedImage nextImage = homeManager.getNextImage(nextUser);
-                if (nextImage == null) {
-                    try {
-                        nextImage = ImageIO.read(new File("Client/Media/avatar.png"));
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
+                    BufferedImage nextImage = homeManager.getNextImage(nextUser);
+                    if (nextImage == null) {
+                        try {
+                            nextImage = ImageIO.read(new File("Client/Media/avatar.png"));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
+                    homeView.showNextUser(nextUser, nextImage);
+                }else{
+                    this.homeView.disableButtons();
+                    this.homeView.dislplayNotMoreUsers();
                 }
-                homeView.showNextUser(nextUser, nextImage);
                 break;
             case HomeView.DENY:
                 System.out.println("DENY");
                 sizeArray++;
-                User nextUserDeny = homeManager.getNextUser(sizeArray);
+                if(sizeArray < this.homeManager.getSize()) {
+                    User nextUserDeny = homeManager.getNextUser(sizeArray);
 
-                BufferedImage nextImageDeny = homeManager.getNextImage(nextUserDeny);
-                if (nextImageDeny == null) {
-                    try {
-                        nextImageDeny = ImageIO.read(new File("Client/Media/avatar.png"));
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
+                    BufferedImage nextImageDeny = homeManager.getNextImage(nextUserDeny);
+                    if (nextImageDeny == null) {
+                        try {
+                            nextImageDeny = ImageIO.read(new File("Client/Media/avatar.png"));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
+                    homeView.showNextUser(nextUserDeny, nextImageDeny);
+                }else{
+                    this.homeView.disableButtons();
+                    this.homeView.dislplayNotMoreUsers();
                 }
-                homeView.showNextUser(nextUserDeny, nextImageDeny);
                 break;
         }
     }

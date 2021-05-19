@@ -77,7 +77,7 @@ public class ButtonController implements ActionListener, WindowListener {
                         break;
                     case -1:
                         //error en el servidor
-                        loginView.dislplayLoginError();
+                        loginView.displayLoginError();
                         break;
                     case -2:
                         //error en les credencials
@@ -92,7 +92,7 @@ public class ButtonController implements ActionListener, WindowListener {
                     registerView.delete();
                     loginView.display();
                 } else {
-                    loginView.dislplayLoginError();
+                    loginView.displayLoginError();
                 }
                 break;
             case CheckLoginGUI.SAVE_BUTTON:
@@ -100,6 +100,7 @@ public class ButtonController implements ActionListener, WindowListener {
                 GlobalUser.getInstance().getMyUser().setProgrammingLanguage(checkLoginGUI.getLanguage());
 
                 if (sessionManager.updateUser(GlobalUser.getInstance().getMyUser())) {
+                    sessionManager.saveGlobalUser(GlobalUser.getInstance().getMyUser());
                     homeManager.getNextUsers();
                     homeController.loadFirstUser();
                     globalView.display();
