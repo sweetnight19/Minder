@@ -33,8 +33,7 @@ public class StatisticsManagement {
                         data[i][j] = users.get(i).getFirstName();
                         break;
                     case 2:
-                        ArrayList<User> peers = this.peerDAO.getUserPeers(users.get(i));
-                        data[i][j] = String.valueOf(peers.size());
+                        data[i][j] = String.valueOf(users.get(i).getMatches());
                         break;
                 }
             }

@@ -65,7 +65,7 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
         JLabel jimage = (JLabel) components[0];
         JLabel jtext = (JLabel) components[2];
         for (User user: users) {
-            if(user.getNickname().equals(jtext.getText().split("-/-")[0])){
+            if(user.getNickname().equals(jtext.getText().split(" -> Alias: ")[1])){
                 this.destiny = user;
             }
         }

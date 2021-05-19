@@ -14,8 +14,8 @@ public class ProfileManager {
         this.connectionDAO = connectionDAO;
     }
 
-    public User getUserProfileInformation() {
-        GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
+    public User getUserProfileInformation(){
+        //GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
         profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
         return GlobalUser.getInstance().getMyUser();
     }
@@ -34,8 +34,13 @@ public class ProfileManager {
         return this.connectionDAO.updateUser(GlobalUser.getInstance().getMyUser());
     }
 
-    public boolean saveNewImage(BufferedImage image) {
-        return this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image);
+    public boolean saveNewImage(BufferedImage image){
+        if(this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)){
+            profileImage = image;
+            GlobalUser.getInstance().getMyUser().setPathImage(GlobalUser.getInstance().getMyUser().getNickname() + ".jpg");
+            return true;
+        }
+        return false;
     }
 
     public BufferedImage getProfileImage() {
