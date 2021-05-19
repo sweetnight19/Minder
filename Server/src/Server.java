@@ -30,6 +30,9 @@ public class Server {
         serverController.start();
         view.start();
 
+        ChatServer chatServer = new ChatServer();
+        chatServer.start();
+
         try {
             ServerSocket sSocket = new ServerSocket(configurationDAO.getPortTCP()); // Inicialitzem el socket
             while (true) {
