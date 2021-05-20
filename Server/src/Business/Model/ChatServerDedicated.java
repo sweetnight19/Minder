@@ -1,5 +1,6 @@
 package Business.Model;
 
+import Business.Entity.ChatMessage;
 import Business.Entity.User;
 
 import java.io.IOException;
@@ -14,6 +15,8 @@ public class ChatServerDedicated extends Thread{
     private int sizeArr;
     private User myUser;
     private User otherUser;
+    private static ChatMessage newMessage;
+    private static boolean messageToSend = false;
 
     public ChatServerDedicated(Socket client){
         this.sizeArr = 0;
@@ -29,18 +32,30 @@ public class ChatServerDedicated extends Thread{
             myUser = (User) is.readObject();
             otherUser = (User) is.readObject();
             sizeArr = ChatMessagesManager.getSize();
+            System.out.println(ChatMessagesManager.getSize());
 
             while (!DedicatedServer.clientDisconnect) {
 
-                if(ChatMessagesManager.getSize() > sizeArr){
-                    for (int i = sizeArr; i < ChatMessagesManager.getSize(); i++) {
+                /*if(ChatMessagesManager.getSize() > sizeArr){
+                    System.out.println("hi ha un nou missatge");
+                    for (int i = (sizeArr-1); i < ChatMessagesManager.getSize(); i++) {
+                        System.out.println("entrem en el bucle");
                         if(ChatMessagesManager.getMessages().get(i).getIdDestiny() == myUser.getId()
                                 && ChatMessagesManager.getMessages().get(i).getIdSource() == otherUser.getId()){
+                            System.out.println("el missatge es per mi li envio al client");
                             os.writeObject(ChatMessagesManager.getMessages().get(i));
                         }
                     }
 
                     sizeArr = ChatMessagesManager.getSize();
+                }*/
+                if(messageToSend){
+                    if(newMessage.getIdDestiny() == myUser.getId()
+                            && newMessage.getIdSource() == otherUser.getId()){
+                        System.out.println("el missatge es per mi li envio al client");
+                        os.writeObject(newMessage);
+                        messageToSend = false;
+                    }
                 }
                 sleep(100);
 
@@ -51,5 +66,11 @@ public class ChatServerDedicated extends Thread{
         }
 
 
+    }
+
+    public static void newMessage(ChatMessage message){
+        newMessage = message;
+        System.out.println(message.getMessage());
+        messageToSend = true;
     }
 }

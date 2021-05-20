@@ -206,7 +206,8 @@ public class DedicatedServer extends Thread {
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
         if (this.chatDAO.addMessage(message)) {
-            ChatMessagesManager.addMessage(message);
+            //ChatMessagesManager.addMessage(message);
+            ChatServerDedicated.newMessage(message);
             os.writeObject(new Trama(ProtocolCommunication.OK));
         } else {
             os.writeObject(new Trama(ProtocolCommunication.KO));

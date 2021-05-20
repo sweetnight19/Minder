@@ -27,6 +27,8 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
         this.chatManager = chatManager;
     }
 
+    public ChatController(){}
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals(BTN_SEND)){
@@ -83,7 +85,7 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
                 this.chatDirectView.addFriendMessage(message.getMessage());
             }
         }
-        this.chatManager.launchChatThread(this.destiny);
+        this.chatManager.launchChatThread(this.destiny, this);
         this.chatDirectView.setVisible(true);
     }
 

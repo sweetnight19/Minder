@@ -4,6 +4,7 @@ import Business.Entity.ChatMessage;
 import Business.Entity.User;
 import Business.Model.ChatManager;
 import Business.Model.NewMessageListener;
+import Presentation.Controller.ChatController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,7 +20,7 @@ public class ChatConnectionDAO extends Thread {
     private boolean closed = false;
     private Socket socket;
 
-    public ChatConnectionDAO(ConfigurationDAO configurationDAO, User source, User destiny) {
+    public ChatConnectionDAO(ConfigurationDAO configurationDAO, User source, User destiny, ChatController controller) {
         try {
             // Inicialitzem tant el socket com els streams per on rebrem o enviarem la
             // informació
@@ -28,7 +29,7 @@ public class ChatConnectionDAO extends Thread {
             is = new ObjectInputStream(socket.getInputStream());
             this.source = source;
             this.destiny = destiny;
-            messageListener = new ChatManager();
+            messageListener = controller;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,7 +44,10 @@ public class ChatConnectionDAO extends Thread {
 
             while(!closed){
                 ChatMessage message = (ChatMessage) is.readObject();
-                messageListener.newMessage(message);
+                if(message!=null) {
+                    System.out.println(message.getMessage());
+                    messageListener.newMessage(message);
+                }
             }
 
         } catch (IOException | ClassNotFoundException e) {

@@ -13,7 +13,6 @@ public class ChatServer extends Thread {
     private Socket client;
     private ServerSocket sSocketChat;
 
-
     public ChatServer() {
         try {
             this.sSocketChat = new ServerSocket(54333);

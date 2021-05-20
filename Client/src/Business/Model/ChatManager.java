@@ -5,11 +5,12 @@ import Business.Entity.User;
 import Persistance.ChatConnectionDAO;
 import Persistance.ConfigurationDAO;
 import Persistance.ConnectionDAO;
+import Presentation.Controller.ChatController;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class ChatManager implements NewMessageListener {
+public class ChatManager {
     private ConnectionDAO connectionDAO;
     private ConfigurationDAO configurationDAO;
     private ArrayList<User> chatListUsers;
@@ -23,7 +24,7 @@ public class ChatManager implements NewMessageListener {
         chatMessages = new ArrayList<>();
     }
 
-    public ChatManager(){}
+    //public ChatManager(){}
 
     public ArrayList<User> getChatList(){
         chatListUsers = null;
@@ -51,17 +52,12 @@ public class ChatManager implements NewMessageListener {
         return  chatMessages;
     }
 
-    public void launchChatThread(User destiny){
-        chatDAO = new ChatConnectionDAO(configurationDAO, GlobalUser.getInstance().getMyUser(), destiny);
+    public void launchChatThread(User destiny, ChatController controller){
+        chatDAO = new ChatConnectionDAO(configurationDAO, GlobalUser.getInstance().getMyUser(), destiny, controller);
         chatDAO.start();
     }
 
     public void closeSocketAndThread(){
         chatDAO.setClosed();
-    }
-
-    @Override
-    public void newMessage(ChatMessage message) {
-        chatMessages.add(message);
     }
 }

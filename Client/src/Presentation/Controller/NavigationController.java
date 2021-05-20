@@ -50,6 +50,7 @@ public class NavigationController implements ActionListener, WindowListener {
                 if (answer == JOptionPane.YES_OPTION) {
                     //System.exit(0);
                     globalView.delete();
+                    globalView.showHome();
                     loginView.display();
                 }
                 break;
