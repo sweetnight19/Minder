@@ -16,15 +16,13 @@ public class NavigationController implements ActionListener, WindowListener {
     private final GlobalView globalView;
     private final ProfileController profileController;
     private final ChatController chatController;
-    private final HomeController homeController;
     private final ConnectionDAO connectionDAO;
     private final LoginView loginView;
 
-    public NavigationController(GlobalView globalView, ProfileController profileController, ChatController chatController, HomeController homeController, ConnectionDAO connectionDAO, LoginView loginView) {
+    public NavigationController(GlobalView globalView, ProfileController profileController, ChatController chatController, ConnectionDAO connectionDAO, LoginView loginView) {
         this.globalView = globalView;
         this.profileController = profileController;
         this.chatController = chatController;
-        this.homeController = homeController;
         this.connectionDAO = connectionDAO;
         this.loginView = loginView;
     }
@@ -51,12 +49,6 @@ public class NavigationController implements ActionListener, WindowListener {
                     globalView.delete();
                     loginView.display();
                 }
-                break;
-            case HomeView.LIKE:
-                System.out.println("LIKE");
-                break;
-            case HomeView.DENY:
-                System.out.println("DENY");
                 break;
         }
     }

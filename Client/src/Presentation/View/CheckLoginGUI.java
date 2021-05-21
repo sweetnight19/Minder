@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class CheckLoginGUI extends JFrame {
-    private final String[] data = {"Java", "Javascript", "html", "C++"};
+    private final String[] data = {"Java", "JS", "html", "C++", "Flutter" , "C#", "Python", "C", "Android", "Rust"};
     public static final String SAVE_BUTTON = "SAVE_BUTTON";
     public static final String CHOOSE_IMAGE_BUTTON = "CHOOSE_IMAGE_BUTTON";
     private JButton jSaveBtn;

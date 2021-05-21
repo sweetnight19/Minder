@@ -1,6 +1,7 @@
 package Business.Model;
 
 import Business.Entity.ChatMessage;
+import Business.Entity.Peer;
 import Business.Entity.User;
 import Persistance.ChatConnectionDAO;
 import Persistance.ConfigurationDAO;
@@ -50,6 +51,14 @@ public class ChatManager {
         chatMessages = null;
         chatMessages = this.connectionDAO.getChatMessages(GlobalUser.getInstance().getMyUser(), destiny);
         return  chatMessages;
+    }
+
+    public boolean deletePeer(int idSource, int idDestiny){
+        Peer peer = new Peer(idSource, idDestiny, true);
+        if(this.connectionDAO.deletePeer(peer)){
+            return true;
+        }
+        return false;
     }
 
     public void launchChatThread(User destiny, ChatController controller){

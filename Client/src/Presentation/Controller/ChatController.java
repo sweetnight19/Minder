@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+import static Presentation.View.ChatDirectView.BTN_DISLIKE;
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
 public class ChatController implements ActionListener, NewMessageListener, MouseListener, WindowListener {
@@ -27,20 +28,33 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
         this.chatManager = chatManager;
     }
 
-    public ChatController(){}
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals(BTN_SEND)){
-            String message = this.chatDirectView.getTextFieldMessage();
-            if(!message.isEmpty()){
-                if(this.chatManager.insertNewMessage(message, destiny)){
-                    this.chatDirectView.addOwnMessage(message);
-                    this.chatDirectView.setTextFieldHint();
+        switch (e.getActionCommand()) {
+            case BTN_SEND:
+                String message = this.chatDirectView.getTextFieldMessage();
+                if (!message.isEmpty()) {
+                    if (this.chatManager.insertNewMessage(message, destiny)) {
+                        this.chatDirectView.addOwnMessage(message);
+                        this.chatDirectView.setTextFieldHint();
+                    }
                 }
-            }
+                break;
+            case BTN_DISLIKE:
+                if(this.chatManager.deletePeer(GlobalUser.getInstance().getMyUser().getId(), this.destiny.getId())){
+                    //dismatch
+                    for (int i = 0; i < users.size(); i++) {
+                        if(users.get(i).getId() == this.destiny.getId()){
+                            users.remove(i);
+                        }
+                    }
+                    this.chatDirectView.eliminateView();
+                    this.chatListView.removeUser(this.destiny.getNickname());
+                }
+                break;
         }
     }
+
 
     public void loadListChat(){
         this.chatListView.removeChats();
@@ -111,7 +125,6 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
 
     @Override
     public void windowClosed(WindowEvent e) {
-        System.out.println("hoalal");
         this.chatManager.closeSocketAndThread();
     }
 

@@ -35,20 +35,6 @@ public class ChatServerDedicated extends Thread{
             System.out.println(ChatMessagesManager.getSize());
 
             while (!DedicatedServer.clientDisconnect) {
-
-                /*if(ChatMessagesManager.getSize() > sizeArr){
-                    System.out.println("hi ha un nou missatge");
-                    for (int i = (sizeArr-1); i < ChatMessagesManager.getSize(); i++) {
-                        System.out.println("entrem en el bucle");
-                        if(ChatMessagesManager.getMessages().get(i).getIdDestiny() == myUser.getId()
-                                && ChatMessagesManager.getMessages().get(i).getIdSource() == otherUser.getId()){
-                            System.out.println("el missatge es per mi li envio al client");
-                            os.writeObject(ChatMessagesManager.getMessages().get(i));
-                        }
-                    }
-
-                    sizeArr = ChatMessagesManager.getSize();
-                }*/
                 if(messageToSend){
                     if(newMessage.getIdDestiny() == myUser.getId()
                             && newMessage.getIdSource() == otherUser.getId()){

@@ -39,8 +39,6 @@ public class ProfileController implements ActionListener {
                 break;
             case SAVE_BTN:
                 System.out.println("Save button selected");
-                System.out.println(editView.getLanguage());
-                System.out.println(editView.getDescription());
                 this.profileManager.saveUserChanges(editView.getLanguage(), editView.getDescription());
                 SwingUtilities.invokeLater(() -> {
                     editView.updateData(GlobalUser.getInstance().getMyUser(), this.profileManager.getProfileImage());

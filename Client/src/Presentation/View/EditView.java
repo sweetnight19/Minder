@@ -27,7 +27,7 @@ public class EditView extends JPanel {
     private JButton southDelete;
     private JButton changebtn;
 
-    private final String[] data = {"Java", "Javascript", "html", "C++"};
+    private final String[] data = {"Java", "JS", "html", "C++", "Flutter" , "C#", "Python", "C", "Android", "Rust"};
     public static final String EDIT_BTN = "EDIT_BTN";
     public static final String SAVE_BTN = "SAVE_BTN";
     public static final String DELETE_BTN = "DELETE_BTN";
