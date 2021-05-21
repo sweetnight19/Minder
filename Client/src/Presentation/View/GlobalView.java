@@ -20,10 +20,10 @@ public class GlobalView extends JFrame {
     private JPanel jpNavigationBar;
     private CardLayout cardLayout;
     private JPanel jpCard;
-    private IconButton bHome;
-    private IconButton bUser;
-    private IconButton bLogout;
-    private IconButton bChat;
+    private NavigationButton bHome;
+    private NavigationButton bUser;
+    private NavigationButton bLogout;
+    private NavigationButton bChat;
     public static final String MINDER_HOME = "MINDER HOME";
     public static final String HOME = "HOME";
     public static final String CHAT = "CHAT";
@@ -53,10 +53,12 @@ public class GlobalView extends JFrame {
     }
 
     private void configureNorth() {
-        bHome = new IconButton("Client/Media/homeIcon.png");
-        bChat = new IconButton("Client/Media/chatIcon.png");
-        bUser = new IconButton("Client/Media/profileVector.png");
-        bLogout = new IconButton("Client/Media/logoutIcon.png");
+        //bHome = new IconButton();
+        bHome = new NavigationButton("Client/Media/homeIcon.png","Client/Media/homeIconEnabled.png");
+        bChat = new NavigationButton("Client/Media/chatIcon.png", "Client/Media/chatIconEnabled.png");
+        bUser = new NavigationButton("Client/Media/profileVector.png", "Client/Media/profileVectorEnabled.png");
+        bLogout = new NavigationButton("Client/Media/logoutIcon.png", "Client/Media/logoutIconEnabled.png");
+        bHome.changeToEnable();
         jpNavigationBar = new JPanel();
         jpNavigationBar.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 10));
         jpNavigationBar.add(bHome);
@@ -72,8 +74,6 @@ public class GlobalView extends JFrame {
         jpCard.setLayout(cardLayout);
         jpUser.transfromToNotEditable();
         jpCard.add(jpUser, USER);
-        //jpChat.addUserChat();
-        //jpChat.addUserChat();
         jpCard.add(jpChat, CHAT);
         jpCard.add(jpHome, HOME);
         cardLayout.last(jpCard);
@@ -93,24 +93,39 @@ public class GlobalView extends JFrame {
     }
 
     public int dislplayLogoutWindow() {
+        bHome.changeToDisable();
+        bChat.changeToDisable();
+        bUser.changeToDisable();
+        bLogout.changeToEnable();
         ImageIcon icon = new ImageIcon("Client/Media/logoutIcon.png");
-        return JOptionPane.showConfirmDialog(null, "Would you like to logout?", "MINDER LOGOUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
-    }
-
-    public int displayExitWindow() {
-        return JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the application?", "EXIT APPLICATION", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        int answer = JOptionPane.showConfirmDialog(null, "Would you like to logout?", "MINDER LOGOUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
+        bLogout.changeToDisable();
+        return answer;
     }
 
     public void showHome() {
         cardLayout.show(jpCard, HOME);
+        bHome.changeToEnable();
+        bChat.changeToDisable();
+        bUser.changeToDisable();
+        bLogout.changeToDisable();
     }
 
     public void showChat() {
         cardLayout.show(jpCard, CHAT);
+        bHome.setIcon(new ImageIcon("Client/Media/homeIcon.png"));
+        bHome.changeToDisable();
+        bChat.changeToEnable();
+        bUser.changeToDisable();
+        bLogout.changeToDisable();
     }
 
     public void showUser() {
         cardLayout.show(jpCard, USER);
+        bHome.changeToDisable();
+        bChat.changeToDisable();
+        bUser.changeToEnable();
+        bLogout.changeToDisable();
     }
 
     public void display() {
