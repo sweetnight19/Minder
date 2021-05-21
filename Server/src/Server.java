@@ -16,9 +16,12 @@ import Persistance.SQL.SQLUserDAO;
 import Presentation.ServerController;
 import Presentation.ServerView;
 
+import javax.swing.*;
+
 public class Server {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, Server!");
+        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Server/Data/configuracio-servidor.json");
         UserDAO userDAO = new SQLUserDAO(configurationDAO);
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);

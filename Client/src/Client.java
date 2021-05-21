@@ -13,8 +13,9 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class Client {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         System.out.println("Hello, Client!");
+        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         ConfigurationDAO configurationDAO = new JsonConfigurationDAO("Client/Data/configuracio-client.json");
         SwingUtilities.invokeLater(() -> {
             ConnectionDAO connectionDAO = new ConnectionDAOImpl(configurationDAO);
