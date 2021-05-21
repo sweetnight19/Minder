@@ -74,10 +74,10 @@ public class ChatListView extends JPanel {
         for (Component c : chatsPanel.getComponents()) {
             if(c instanceof JPanel) {
                 JPanel jPanel = (JPanel) c;
-                for (Component child : jPanel.getComponents()) {
-                    if (child instanceof JLabel && ((JLabel) child).getText().split(" -> Alias: ")[1].equals(nickname)) {
-                        chatsPanel.remove(c);
-                    }
+                JLabel jLabel = (JLabel) jPanel.getComponent(2);
+                if(jLabel.getText().split(" -> Alias: ")[1].equals(nickname)){
+                    chatsPanel.remove(c);
+                    repaint();
                 }
             }
         }
