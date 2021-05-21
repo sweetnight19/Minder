@@ -68,8 +68,19 @@ public class ChatListView extends JPanel {
         chatsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
     }
 
-    public void removeChats(){
-        chatsPanel.removeAll();
+    public void removeChats(){ chatsPanel.removeAll(); }
+
+    public void removeUser(String nickname) {
+        for (Component c : chatsPanel.getComponents()) {
+            if(c instanceof JPanel) {
+                JPanel jPanel = (JPanel) c;
+                for (Component child : jPanel.getComponents()) {
+                    if (child instanceof JLabel && ((JLabel) child).getText().split(" -> Alias: ")[1].equals(nickname)) {
+                        chatsPanel.remove(c);
+                    }
+                }
+            }
+        }
     }
 
     public void registerController(MouseListener listener){

@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class ChatDirectView extends JFrame {
     public static final String BTN_SEND = "BUT_SEND";
+    public static final String BTN_DISLIKE = "DISLIKE";
 
     private PanelCustomWrap jPanel;
     private JScrollPane jspComments;
@@ -19,6 +20,7 @@ public class ChatDirectView extends JFrame {
     private JButton jbutIcon;
     private JLabel name;
     private JLabel logoLabel;
+    private JButton dislike;
 
     /*
     Constructor que afegeix els elements i configuracion necessàries a la vista
@@ -103,13 +105,28 @@ public class ChatDirectView extends JFrame {
         }
         logoLabel = new JLabel(new ImageIcon(logoImage));
 
+        BufferedImage logoDisLike = null;
+        try {
+            logoDisLike = ImageIO.read(new File("Client/Media/disMatchIcon.png"));
+            logoDisLike = resize(logoDisLike, 30, 30);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dislike = new JButton(new ImageIcon(logoDisLike));
+        dislike.setBackground(Color.WHITE);
+        dislike.setOpaque(true);
+        dislike.setBorderPainted(false);
+
         name = new JLabel("Edmon Bosch");
 
         logoLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
         name.setAlignmentY(Component.CENTER_ALIGNMENT);
+        dislike.setAlignmentY(Component.CENTER_ALIGNMENT);
         north.add(logoLabel);
         north.add(Box.createRigidArea(new Dimension(20, 0)));
         north.add(name);
+        north.add(Box.createRigidArea(new Dimension(50,0)));
+        north.add(dislike);
         return north;
     }
 
@@ -163,6 +180,9 @@ public class ChatDirectView extends JFrame {
     public void registerButtonController(ActionListener listener){
         jbutIcon.setActionCommand(BTN_SEND);
         jbutIcon.addActionListener(listener);
+
+        dislike.setActionCommand(BTN_DISLIKE);
+        dislike.addActionListener(listener);
     }
 
     public void registerWindowController(WindowListener listener){
@@ -211,6 +231,10 @@ public class ChatDirectView extends JFrame {
     public void barScrollSetUp(){
         JScrollBar sb = jspComments.getVerticalScrollBar();
         sb.setValue( sb.getMaximum() );
+    }
+
+    public void eliminateView(){
+        dispose();
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
