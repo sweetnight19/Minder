@@ -33,24 +33,28 @@ public class HomeController implements ActionListener {
             this.sizeArray = 0;
             User user = homeManager.getNextUser(sizeArray);
             System.out.println("name user " + user.getFirstName());
-            BufferedImage image = homeManager.getNextImage(user);
-            if (image == null) {
-                try {
-                    image = ImageIO.read(new File("Client/Media/avatar.png"));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            }
-            if(this.sizeArray < this.homeManager.getCountPremium()){
-                this.homeView.showIsPremium();
-                System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
-            }else{
-                this.homeView.showIsNotPremium();
-            }
-            homeView.showNextUser(user, image);
+            loadNextUsers(user);
         } else {
             System.out.println("Es size es 0!!!!!!");
         }
+    }
+
+    private void loadNextUsers(User user) {
+        BufferedImage image = homeManager.getNextImage(user);
+        if (image == null) {
+            try {
+                image = ImageIO.read(new File("Client/Media/avatar.png"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        if(this.sizeArray < this.homeManager.getCountPremium()){
+            this.homeView.showIsPremium();
+            System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
+        }else{
+            this.homeView.showIsNotPremium();
+        }
+        homeView.showNextUser(user, image);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -62,21 +66,7 @@ public class HomeController implements ActionListener {
                 if(sizeArray < this.homeManager.getSize()) {
                     User nextUser = homeManager.getNextUser(sizeArray);
 
-                    BufferedImage nextImage = homeManager.getNextImage(nextUser);
-                    if (nextImage == null) {
-                        try {
-                            nextImage = ImageIO.read(new File("Client/Media/avatar.png"));
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
-                        }
-                    }
-                    if(this.sizeArray < this.homeManager.getCountPremium()){
-                        this.homeView.showIsPremium();
-                        System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
-                    }else{
-                        this.homeView.showIsNotPremium();
-                    }
-                    homeView.showNextUser(nextUser, nextImage);
+                    loadNextUsers(nextUser);
                 }else{
                     this.homeView.disableButtons();
                     this.homeView.dislplayNotMoreUsers();
@@ -88,21 +78,7 @@ public class HomeController implements ActionListener {
                 if(sizeArray < this.homeManager.getSize()) {
                     User nextUserDeny = homeManager.getNextUser(sizeArray);
 
-                    BufferedImage nextImageDeny = homeManager.getNextImage(nextUserDeny);
-                    if (nextImageDeny == null) {
-                        try {
-                            nextImageDeny = ImageIO.read(new File("Client/Media/avatar.png"));
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
-                        }
-                    }
-                    if(this.sizeArray < this.homeManager.getCountPremium()){
-                        this.homeView.showIsPremium();
-                        System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
-                    }else{
-                        this.homeView.showIsNotPremium();
-                    }
-                    homeView.showNextUser(nextUserDeny, nextImageDeny);
+                    loadNextUsers(nextUserDeny);
                 }else{
                     this.homeView.disableButtons();
                     this.homeView.dislplayNotMoreUsers();

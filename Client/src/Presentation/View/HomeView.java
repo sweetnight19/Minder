@@ -146,36 +146,4 @@ public class HomeView extends JPanel {
     public void nextUser() {
 
     }
-
-    /*
-    private void configureCenter() {
-        JPanel pUser = new JPanel();
-        pUser.setLayout(new BorderLayout());
-        // User Photo
-        PhotoPanel photoPanel = new PhotoPanel("C:\\Users\\Xavi\\Desktop\\ImageTest\\image1763433(4)");
-        pUser.add(photoPanel, BorderLayout.CENTER);
-        // Info User
-        JPanel pInfoUser = new JPanel();
-        pInfoUser.setLayout(new BorderLayout());
-        Border infoBorder = BorderFactory.createEmptyBorder(5, 10, 5, 10);
-        pInfoUser.setBorder(infoBorder);
-        pInfoUser.setBackground(Color.decode(MinderColor.PINK));
-        // Age
-        JLabel lAge = new JLabel("20");
-        lAge.setForeground(Color.decode(MinderColor.WHITE));
-        pInfoUser.add(lAge, BorderLayout.WEST);
-        // Name
-        JLabel lName = new JLabel("asdfasdfas", SwingConstants.CENTER);
-        lName.setForeground(Color.decode(MinderColor.WHITE));
-        pInfoUser.add(lName, BorderLayout.CENTER);
-        // More Info
-        IconButton bMoreInfo = new IconButton("Client/Media/moreInfoIcon2.png");
-        pInfoUser.add(bMoreInfo, BorderLayout.EAST);
-
-        pInfoUser.add(lName);
-        pUser.add(pInfoUser, BorderLayout.SOUTH);
-
-        add(pUser);
-    }
-     */
 }
