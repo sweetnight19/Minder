@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 
+/**
+ * The type Global view.
+ */
 public class GlobalView extends JFrame {
     private static final String USER_IMG_ERR = "Error al carregar la imatge d'usuari!!";
     private static final int TEXTFIELD_COLUMNS = 20;
@@ -24,12 +27,34 @@ public class GlobalView extends JFrame {
     private NavigationButton bUser;
     private NavigationButton bLogout;
     private NavigationButton bChat;
+    /**
+     * The constant MINDER_HOME.
+     */
     public static final String MINDER_HOME = "MINDER HOME";
+    /**
+     * The constant HOME.
+     */
     public static final String HOME = "HOME";
+    /**
+     * The constant CHAT.
+     */
     public static final String CHAT = "CHAT";
+    /**
+     * The constant USER.
+     */
     public static final String USER = "USER";
+    /**
+     * The constant LOGOUT.
+     */
     public static final String LOGOUT = "LOGOUT";
 
+    /**
+     * Instantiates a new Global view.
+     *
+     * @param homeView     the home view
+     * @param chatListView the chat list view
+     * @param editView     the edit view
+     */
     public GlobalView(HomeView homeView, ChatListView chatListView, EditView editView) {
         setTitle(MINDER_HOME);
         setPreferredSize(new Dimension(500, 700));
@@ -80,6 +105,11 @@ public class GlobalView extends JFrame {
         jPanel.add(jpCard, BorderLayout.CENTER);
     }
 
+    /**
+     * Register controller.
+     *
+     * @param controller the controller
+     */
     public void registerController(NavigationController controller) {
         bHome.setActionCommand(HOME);
         bHome.addActionListener(controller);
@@ -92,6 +122,11 @@ public class GlobalView extends JFrame {
         this.addWindowListener(controller);
     }
 
+    /**
+     * Dislplay logout window int.
+     *
+     * @return the int
+     */
     public int dislplayLogoutWindow() {
         bHome.changeToDisable();
         bChat.changeToDisable();
@@ -103,6 +138,9 @@ public class GlobalView extends JFrame {
         return answer;
     }
 
+    /**
+     * Show home.
+     */
     public void showHome() {
         cardLayout.show(jpCard, HOME);
         bHome.changeToEnable();
@@ -111,6 +149,9 @@ public class GlobalView extends JFrame {
         bLogout.changeToDisable();
     }
 
+    /**
+     * Show chat.
+     */
     public void showChat() {
         cardLayout.show(jpCard, CHAT);
         bHome.setIcon(new ImageIcon("Client/Media/homeIcon.png"));
@@ -120,6 +161,9 @@ public class GlobalView extends JFrame {
         bLogout.changeToDisable();
     }
 
+    /**
+     * Show user.
+     */
     public void showUser() {
         cardLayout.show(jpCard, USER);
         bHome.changeToDisable();
@@ -128,10 +172,16 @@ public class GlobalView extends JFrame {
         bLogout.changeToDisable();
     }
 
+    /**
+     * Display.
+     */
     public void display() {
         setVisible(true);
     }
 
+    /**
+     * Delete.
+     */
     public void delete() {
         setVisible(false);
     }

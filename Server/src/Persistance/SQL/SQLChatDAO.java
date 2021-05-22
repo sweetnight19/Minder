@@ -10,9 +10,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * The type Sql chat dao.
+ */
 public class SQLChatDAO implements ChatDAO {
     private final ConfigurationDAO confDAO;
 
+    /**
+     * Instantiates a new Sql chat dao.
+     *
+     * @param configurationDAO the configuration dao
+     */
     public SQLChatDAO(ConfigurationDAO configurationDAO) {
         confDAO = configurationDAO;
     }

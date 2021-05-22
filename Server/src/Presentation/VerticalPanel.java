@@ -3,8 +3,14 @@ package Presentation;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Vertical panel.
+ */
 public class VerticalPanel extends JPanel {
 
+    /**
+     * Instantiates a new Vertical panel.
+     */
     public VerticalPanel() {
         setPreferredSize(new Dimension(25, 0));
     }
@@ -30,6 +36,15 @@ public class VerticalPanel extends JPanel {
         drawRotate(gg, getWidth(), (getHeight() + width) / 2, 270, string);
     }
 
+    /**
+     * Draw rotate.
+     *
+     * @param gg    the gg
+     * @param x     the x
+     * @param y     the y
+     * @param angle the angle
+     * @param text  the text
+     */
     public void drawRotate(Graphics2D gg, double x, double y, int angle, String text) {
         gg.translate((float) x, (float) y);
         gg.rotate(Math.toRadians(angle));

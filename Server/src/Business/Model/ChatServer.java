@@ -9,10 +9,16 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * The type Chat server.
+ */
 public class ChatServer extends Thread {
     private Socket client;
     private ServerSocket sSocketChat;
 
+    /**
+     * Instantiates a new Chat server.
+     */
     public ChatServer() {
         try {
             this.sSocketChat = new ServerSocket(54333);

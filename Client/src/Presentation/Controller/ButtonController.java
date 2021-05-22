@@ -21,6 +21,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Button controller.
+ */
 public class ButtonController implements ActionListener, WindowListener {
     private final LoginView loginView;
     private final RegisterView registerView;
@@ -33,6 +36,18 @@ public class ButtonController implements ActionListener, WindowListener {
     private BufferedImage image;
     private User cliente;
 
+    /**
+     * Instantiates a new Button controller.
+     *
+     * @param loginView      the login view
+     * @param registerView   the register view
+     * @param globalView     the global view
+     * @param sessionManager the session manager
+     * @param homeManager    the home manager
+     * @param homeController the home controller
+     * @param checkLoginGUI  the check login gui
+     * @param connectionDAO  the connection dao
+     */
     public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, HomeManager homeManager, HomeController homeController,CheckLoginGUI checkLoginGUI, ConnectionDAO connectionDAO) {
         this.loginView = loginView;
         this.registerView = registerView;

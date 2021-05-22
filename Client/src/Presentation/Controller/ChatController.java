@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import static Presentation.View.ChatDirectView.BTN_DISLIKE;
 import static Presentation.View.ChatDirectView.BTN_SEND;
 
+/**
+ * The type Chat controller.
+ */
 public class ChatController implements ActionListener, NewMessageListener, MouseListener, WindowListener {
     private ChatDirectView chatDirectView;
     private ChatListView chatListView;
@@ -23,6 +26,12 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
     private User destiny;
     private ArrayList<User> users;
 
+    /**
+     * Instantiates a new Chat controller.
+     *
+     * @param chatListView the chat list view
+     * @param chatManager  the chat manager
+     */
     public ChatController(ChatListView chatListView, ChatManager chatManager){
         this.chatListView = chatListView;
         this.chatManager = chatManager;
@@ -60,6 +69,9 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
     }
 
 
+    /**
+     * Load list chat.
+     */
     public void loadListChat(){
         this.chatListView.removeChats();
         this.users = this.chatManager.getChatList();

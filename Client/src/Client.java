@@ -12,7 +12,20 @@ import Presentation.View.*;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The type Client.
+ */
 public class Client {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws IOException                     the io exception
+     * @throws UnsupportedLookAndFeelException the unsupported look and feel exception
+     * @throws ClassNotFoundException          the class not found exception
+     * @throws InstantiationException          the instantiation exception
+     * @throws IllegalAccessException          the illegal access exception
+     */
     public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         System.out.println("Hello, Client!");
         UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());

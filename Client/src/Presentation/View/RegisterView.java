@@ -15,6 +15,9 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Register view.
+ */
 public class RegisterView extends JFrame {
     private static final String WINDOW_TITLE = "MINDER REGISTER";
     private static final String LOGO_TITLE = "MINDER";
@@ -23,7 +26,13 @@ public class RegisterView extends JFrame {
     private static final int LOGO_WIDTH = 100;
     private static final int LOGO_HIGHT = 80;
     private static final int TEXTFIELD_COLUMNS = 20;
+    /**
+     * The constant MOVE_TO_LOGIN.
+     */
     public static final String MOVE_TO_LOGIN = "MOVE_TO_LOGIN";
+    /**
+     * The constant REGISTER.
+     */
     public static final String REGISTER = "REGISTER";
 
     // Components
@@ -43,10 +52,16 @@ public class RegisterView extends JFrame {
     private TitledBorder emailTitledBorderSelected, emailTitledBorderUnselected;
     private TitledBorder passwdTitledBorderSelected, passwdTitledBorderUnselected;
     private TitledBorder confirmPasswdTitledBorderSelected, confirmPasswdTitledBorderUnselected;
+    /**
+     * The Jrb premium.
+     */
     JRadioButton jrbPremium;
     private JButton bRegister;
     private JButton bLogin;
 
+    /**
+     * Instantiates a new Register view.
+     */
     public RegisterView() {
         configureWindow();
         configureNorth();
@@ -147,6 +162,9 @@ public class RegisterView extends JFrame {
         jpBox.add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Configure radio buttons.
+     */
     void configureRadioButtons() {
         JRadioButton jrbNormal = new JRadioButton("Normal");
         jrbNormal.setBackground(Color.decode(MinderColor.WHITE));
@@ -223,6 +241,11 @@ public class RegisterView extends JFrame {
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Register controller.
+     *
+     * @param controller the controller
+     */
     public void registerController(ButtonController controller) {
         firstNameField.addFocusListener(new FocusListener() {
             @Override
@@ -333,18 +356,38 @@ public class RegisterView extends JFrame {
         this.addWindowListener(controller);
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstNameField.getText();
     }
 
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
     public String getNickname() {
         return nicknameField.getText();
     }
 
+    /**
+     * Gets age.
+     *
+     * @return the age
+     */
     public String getAge() {
         return ageField.getText();
     }
 
+    /**
+     * Gets is premium.
+     *
+     * @return the is premium
+     */
     public String getIsPremium() {
         if (jrbPremium.isSelected()) {
             return "Premium";
@@ -353,22 +396,43 @@ public class RegisterView extends JFrame {
         }
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return emailField.getText();
     }
 
+    /**
+     * Gets passwd.
+     *
+     * @return the passwd
+     */
     public String getPasswd() {
         return new String(passwdField.getPassword());
     }
 
+    /**
+     * Gets confirm passwd.
+     *
+     * @return the confirm passwd
+     */
     public String getConfirmPasswd() {
         return new String(confirmPasswdField.getPassword());
     }
 
+    /**
+     * Delete.
+     */
     public void delete() {
         setVisible(false);
     }
 
+    /**
+     * Display.
+     */
     public void display() {
         setVisible(true);
     }

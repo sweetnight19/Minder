@@ -17,12 +17,23 @@ import java.io.IOException;
 
 import static Presentation.View.EditView.*;
 
+/**
+ * The type Profile controller.
+ */
 public class ProfileController implements ActionListener {
     private final LoginView loginView;
     private final EditView editView;
     private final ProfileManager profileManager;
     private final GlobalView globalView;
 
+    /**
+     * Instantiates a new Profile controller.
+     *
+     * @param editView   the edit view
+     * @param manager    the manager
+     * @param loginView  the login view
+     * @param globalView the global view
+     */
     public ProfileController(EditView editView, ProfileManager manager, LoginView loginView, GlobalView globalView) {
         this.editView = editView;
         this.profileManager = manager;
@@ -77,6 +88,9 @@ public class ProfileController implements ActionListener {
         }
     }
 
+    /**
+     * Load profile information.
+     */
     public void loadProfileInformation() {
         SwingUtilities.invokeLater(() -> this.editView.updateData(profileManager.getUserProfileInformation(), profileManager.getProfileImage()));
     }

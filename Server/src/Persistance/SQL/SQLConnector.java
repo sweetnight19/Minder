@@ -4,6 +4,9 @@ import java.sql.*;
 
 import Persistance.ConfigurationDAO;
 
+/**
+ * The type Sql connector.
+ */
 public class SQLConnector {
     private static SQLConnector instance = null;
     private final String username;
@@ -11,6 +14,12 @@ public class SQLConnector {
     private final String url;
     private Connection conn;
 
+    /**
+     * Gets instance.
+     *
+     * @param confDAO the conf dao
+     * @return the instance
+     */
     public static SQLConnector getInstance(ConfigurationDAO confDAO) {
         if (instance == null) {
             instance = new SQLConnector(confDAO.getUsername(), confDAO.getPassword(), confDAO.getIp(),
@@ -26,6 +35,9 @@ public class SQLConnector {
         this.url = "jdbc:mysql://" + ip + ":" + port + "/" + database;
     }
 
+    /**
+     * Connect.
+     */
     public void connect() {
         try {
             conn = DriverManager.getConnection(url, username, password);
@@ -34,6 +46,12 @@ public class SQLConnector {
         }
     }
 
+    /**
+     * Insert query boolean.
+     *
+     * @param query the query
+     * @return the boolean
+     */
     public boolean insertQuery(String query) {
         try {
             Statement s = conn.createStatement();
@@ -46,6 +64,12 @@ public class SQLConnector {
         }
     }
 
+    /**
+     * Update query boolean.
+     *
+     * @param query the query
+     * @return the boolean
+     */
     public boolean updateQuery(String query) {
         try {
             Statement s = conn.createStatement();
@@ -58,6 +82,12 @@ public class SQLConnector {
         }
     }
 
+    /**
+     * Delete query boolean.
+     *
+     * @param query the query
+     * @return the boolean
+     */
     public boolean deleteQuery(String query) {
         try {
             Statement s = conn.createStatement();
@@ -71,6 +101,12 @@ public class SQLConnector {
 
     }
 
+    /**
+     * Select query result set.
+     *
+     * @param query the query
+     * @return the result set
+     */
     public ResultSet selectQuery(String query) {
         ResultSet rs = null;
         try {
@@ -83,6 +119,9 @@ public class SQLConnector {
         return rs;
     }
 
+    /**
+     * Disconnect.
+     */
     public void disconnect() {
         try {
             conn.close();

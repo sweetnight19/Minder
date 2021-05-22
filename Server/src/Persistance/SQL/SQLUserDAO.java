@@ -8,9 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The type Sql user dao.
+ */
 public class SQLUserDAO implements UserDAO {
     private final ConfigurationDAO confDAO;
 
+    /**
+     * Instantiates a new Sql user dao.
+     *
+     * @param configurationDAO the configuration dao
+     */
     public SQLUserDAO(ConfigurationDAO configurationDAO) {
         confDAO = configurationDAO;
     }

@@ -3,8 +3,14 @@ package Presentation;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Horizontal panel.
+ */
 public class HorizontalPanel extends JPanel {
 
+    /**
+     * Instantiates a new Horizontal panel.
+     */
     public HorizontalPanel() {
         setPreferredSize(new Dimension(0, 25));
     }

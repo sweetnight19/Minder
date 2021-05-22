@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * The type Navigation controller.
+ */
 public class NavigationController implements ActionListener, WindowListener {
     private final GlobalView globalView;
     private final ProfileController profileController;
@@ -19,6 +22,16 @@ public class NavigationController implements ActionListener, WindowListener {
     private final ConnectionDAO connectionDAO;
     private final LoginView loginView;
 
+    /**
+     * Instantiates a new Navigation controller.
+     *
+     * @param globalView        the global view
+     * @param profileController the profile controller
+     * @param chatController    the chat controller
+     * @param homeController    the home controller
+     * @param connectionDAO     the connection dao
+     * @param loginView         the login view
+     */
     public NavigationController(GlobalView globalView, ProfileController profileController, ChatController chatController, ConnectionDAO connectionDAO, LoginView loginView) {
         this.globalView = globalView;
         this.profileController = profileController;

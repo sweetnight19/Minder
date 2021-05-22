@@ -8,6 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * The type Chat server dedicated.
+ */
 public class ChatServerDedicated extends Thread{
     private Socket client;
     private ObjectOutputStream os;
@@ -18,6 +21,11 @@ public class ChatServerDedicated extends Thread{
     private static ChatMessage newMessage;
     private static boolean messageToSend = false;
 
+    /**
+     * Instantiates a new Chat server dedicated.
+     *
+     * @param client the client
+     */
     public ChatServerDedicated(Socket client){
         this.sizeArr = 0;
         this.client = client;
@@ -53,6 +61,11 @@ public class ChatServerDedicated extends Thread{
 
     }
 
+    /**
+     * New message.
+     *
+     * @param message the message
+     */
     public static void newMessage(ChatMessage message){
         newMessage = message;
         System.out.println(message.getMessage());

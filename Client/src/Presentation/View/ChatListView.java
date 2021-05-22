@@ -11,6 +11,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Chat list view.
+ */
 public class ChatListView extends JPanel {
     private BufferedImage logoImage;
     private final JScrollPane schatsScroll;
@@ -18,6 +21,9 @@ public class ChatListView extends JPanel {
     private final JPanel globalChats;
     private MouseListener listener;
 
+    /**
+     * Instantiates a new Chat list view.
+     */
     public ChatListView(){
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
@@ -37,6 +43,12 @@ public class ChatListView extends JPanel {
         add(schatsScroll, BorderLayout.CENTER);
     }
 
+    /**
+     * Add user chat.
+     *
+     * @param user  the user
+     * @param image the image
+     */
     public void addUserChat(User user, BufferedImage image){
         JPanel userChat = new JPanel();
         userChat.addMouseListener(this.listener);
@@ -68,6 +80,9 @@ public class ChatListView extends JPanel {
         chatsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
     }
 
+    /**
+     * Remove chats.
+     */
     public void removeChats(){ chatsPanel.removeAll(); }
 
     public void removeUser(String nickname) {
@@ -83,10 +98,23 @@ public class ChatListView extends JPanel {
         }
     }
 
+    /**
+     * Register controller.
+     *
+     * @param listener the listener
+     */
     public void registerController(MouseListener listener){
         this.listener = listener;
     }
 
+    /**
+     * Resize buffered image.
+     *
+     * @param img  the img
+     * @param newW the new w
+     * @param newH the new h
+     * @return the buffered image
+     */
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
         BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);

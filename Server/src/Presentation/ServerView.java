@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The type Server view.
+ */
 public class ServerView extends JFrame {
     private static final String LOGO_SRC = "Server/Media/TrophyCup.png";
     private static final int LOGO_WIDTH = 24;
@@ -18,6 +21,9 @@ public class ServerView extends JFrame {
     private Image logoImage;
     private JPanel top5;
 
+    /**
+     * Instantiates a new Server view.
+     */
     public ServerView(){
         add(configureCenter());
         configureWindow();
@@ -97,6 +103,12 @@ public class ServerView extends JFrame {
         return top5;
     }
 
+    /**
+     * Update table.
+     *
+     * @param data    the data
+     * @param headers the headers
+     */
     public void updateTable(String[][] data, String[] headers){
         JTable j = new JTable(data, headers){
             @Override
@@ -148,6 +160,9 @@ public class ServerView extends JFrame {
         repaint();
     }
 
+    /**
+     * Start.
+     */
     public void start(){
         setVisible(true);
     }

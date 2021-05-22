@@ -11,6 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * The type Chat connection dao.
+ */
 public class ChatConnectionDAO extends Thread {
     private ObjectOutputStream os;
     private ObjectInputStream is;
@@ -20,6 +23,14 @@ public class ChatConnectionDAO extends Thread {
     private boolean closed = false;
     private Socket socket;
 
+    /**
+     * Instantiates a new Chat connection dao.
+     *
+     * @param configurationDAO the configuration dao
+     * @param source           the source
+     * @param destiny          the destiny
+     * @param controller       the controller
+     */
     public ChatConnectionDAO(ConfigurationDAO configurationDAO, User source, User destiny, ChatController controller) {
         try {
             // Inicialitzem tant el socket com els streams per on rebrem o enviarem la
@@ -56,6 +67,9 @@ public class ChatConnectionDAO extends Thread {
         }
     }
 
+    /**
+     * Set closed.
+     */
     public void setClosed(){
         try {
             closed = true;

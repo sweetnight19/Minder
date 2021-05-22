@@ -10,7 +10,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Chat direct view.
+ */
 public class ChatDirectView extends JFrame {
+    /**
+     * The constant BTN_SEND.
+     */
     public static final String BTN_SEND = "BUT_SEND";
     public static final String BTN_DISLIKE = "DISLIKE";
 
@@ -22,7 +28,10 @@ public class ChatDirectView extends JFrame {
     private JLabel logoLabel;
     private JButton dislike;
 
-    /*
+    /**
+     * Instantiates a new Chat direct view.
+     */
+/*
     Constructor que afegeix els elements i configuracion necessàries a la vista
      */
     public ChatDirectView(){
@@ -35,6 +44,9 @@ public class ChatDirectView extends JFrame {
         add(configureSouth(), BorderLayout.SOUTH);
     }
 
+    /**
+     * Configure window.
+     */
     public void configureWindow(){
         setTitle("ChatDirect");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -174,7 +186,12 @@ public class ChatDirectView extends JFrame {
         return jbox;
     }
 
-    /*
+    /**
+     * Register button controller.
+     *
+     * @param listener the listener
+     */
+/*
     Registrem el controlador ButtonController que s'encarregarà d'escoltar quan prenem el botó
      */
     public void registerButtonController(ActionListener listener){
@@ -185,24 +202,48 @@ public class ChatDirectView extends JFrame {
         dislike.addActionListener(listener);
     }
 
+    /**
+     * Register window controller.
+     *
+     * @param listener the listener
+     */
     public void registerWindowController(WindowListener listener){
         this.addWindowListener(listener);
     }
 
+    /**
+     * Update north.
+     *
+     * @param icon        the icon
+     * @param nameDestiny the name destiny
+     */
     public void updateNorth(ImageIcon icon ,String nameDestiny){
         logoLabel.setIcon(icon);
         name.setText(nameDestiny);
     }
 
+    /**
+     * Get text field message string.
+     *
+     * @return the string
+     */
     public String getTextFieldMessage(){
         return textMessage.getText();
     }
 
+    /**
+     * Set text field hint.
+     */
     public void setTextFieldHint(){
         textMessage.setText("");
     }
 
-    /*
+    /**
+     * Add own message.
+     *
+     * @param message the message
+     */
+/*
     Funció que afegeix a la vista quan enviem nosaltres mateixos un missatge
      */
     public void addOwnMessage(String message){
@@ -213,7 +254,12 @@ public class ChatDirectView extends JFrame {
         barScrollSetUp();
     }
 
-    /*
+    /**
+     * Add friend message.
+     *
+     * @param message the message
+     */
+/*
     Funció que afegeix a la vista quan ens envien missatges altres usuaris
      */
     public void addFriendMessage(String message){
@@ -224,7 +270,10 @@ public class ChatDirectView extends JFrame {
         barScrollSetUp();
     }
 
-    /*
+    /**
+     * Bar scroll set up.
+     */
+/*
     Funció que aconsegueix que la barra de scroll sempre es mantingui a baix de tot per fer visible
     els últims missatges rebuts o enviats
      */
@@ -233,10 +282,19 @@ public class ChatDirectView extends JFrame {
         sb.setValue( sb.getMaximum() );
     }
 
+
     public void eliminateView(){
         dispose();
     }
 
+    /**
+     * Resize buffered image.
+     *
+     * @param img  the img
+     * @param newW the new w
+     * @param newH the new h
+     * @return the buffered image
+     */
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
         BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);

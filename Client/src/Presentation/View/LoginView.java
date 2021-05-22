@@ -15,6 +15,9 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Login view.
+ */
 public class LoginView extends JFrame {
     private static final String WINDOW_TITLE = "MINDER LOGIN";
     private static final String LOGO_TITLE = "MINDER";
@@ -23,7 +26,13 @@ public class LoginView extends JFrame {
     private static final int LOGO_WIDTH = 100;
     private static final int LOGO_HIGHT = 80;
     private static final int TEXTFIELD_COLUMNS = 20;
+    /**
+     * The constant MOVE_TO_REGISTER.
+     */
     public static final String MOVE_TO_REGISTER = "MOVE_TO_REGISTER";
+    /**
+     * The constant LOGIN.
+     */
     public static final String LOGIN = "LOGIN";
 
     // Components
@@ -38,6 +47,9 @@ public class LoginView extends JFrame {
     private JButton bLogin;
     private JButton bRegister;
 
+    /**
+     * Instantiates a new Login view.
+     */
     public LoginView() {
         configureWindow();
         configureNorth();
@@ -144,6 +156,11 @@ public class LoginView extends JFrame {
         jPanel.add(jpButtons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Register controller.
+     *
+     * @param controller the controller
+     */
     public void registerController(ButtonController controller) {
         nicknameField.addFocusListener(new FocusListener() {
             @Override
@@ -186,28 +203,50 @@ public class LoginView extends JFrame {
         this.addWindowListener(controller);
     }
 
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
     public String getNickname() {
         return nicknameField.getText();
     }
 
+    /**
+     * Gets passwd.
+     *
+     * @return the passwd
+     */
     public String getPasswd() {
         return new String(passwdField.getPassword());
     }
 
+    /**
+     * Display login error.
+     */
     public void displayLoginError() {
         JOptionPane.showMessageDialog(null,
                 "An error occurred on the server", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
     }
 
-    // Error si es el primer cop que fa el login
+    /**
+     * Display credentials login error.
+     */
+// Error si es el primer cop que fa el login
     public void displayCredentialsLoginError() {
         JOptionPane.showMessageDialog(null, "incorrect nickname/password", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Delete.
+     */
     public void delete() {
         setVisible(false);
     }
 
+    /**
+     * Display.
+     */
     public void display() {
         setVisible(true);
     }

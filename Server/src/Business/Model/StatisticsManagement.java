@@ -6,19 +6,38 @@ import Persistance.UserDAO;
 
 import java.util.ArrayList;
 
+/**
+ * The type Statistics management.
+ */
 public class StatisticsManagement {
     private final UserDAO userDAO;
     private final PeerDAO peerDAO;
 
+    /**
+     * Instantiates a new Statistics management.
+     *
+     * @param userDAO the user dao
+     * @param peerDAO the peer dao
+     */
     public StatisticsManagement(UserDAO userDAO, PeerDAO peerDAO){
         this.userDAO = userDAO;
         this.peerDAO = peerDAO;
     }
 
+    /**
+     * Get headers string [ ].
+     *
+     * @return the string [ ]
+     */
     public String[] getHeaders(){
         return new String[]{"Position", "Name", "Matches"};
     }
 
+    /**
+     * Get data string [ ] [ ].
+     *
+     * @return the string [ ] [ ]
+     */
     public String[][] getData(){
         ArrayList<User> users = this.userDAO.top5();
 

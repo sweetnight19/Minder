@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
+/**
+ * The type Draw graph.
+ */
 public class DrawGraph extends JPanel {
     private static final int MAX_SCORE = 20;
     private static final int PREF_W = 800;
@@ -17,6 +20,11 @@ public class DrawGraph extends JPanel {
     private static final int Y_HATCH_CNT = 10;
     private List<Integer> scores;
 
+    /**
+     * Instantiates a new Draw graph.
+     *
+     * @param scores the scores
+     */
     public DrawGraph(List<Integer> scores) {
         this.scores = scores;
     }

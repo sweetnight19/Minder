@@ -13,10 +13,18 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+/**
+ * The type Connection dao.
+ */
 public class ConnectionDAOImpl implements ConnectionDAO {
     private ObjectOutputStream os;
     private ObjectInputStream is;
 
+    /**
+     * Instantiates a new Connection dao.
+     *
+     * @param configurationDAO the configuration dao
+     */
     public ConnectionDAOImpl(ConfigurationDAO configurationDAO) {
         try {
             // Inicialitzem tant el socket com els streams per on rebrem o enviarem la
@@ -32,6 +40,9 @@ public class ConnectionDAOImpl implements ConnectionDAO {
         }
     }
 
+    /**
+     * Start connection.
+     */
     public void startConnection() {
         try {
             os.writeObject(new Trama(ProtocolCommunication.CONNECTION));
