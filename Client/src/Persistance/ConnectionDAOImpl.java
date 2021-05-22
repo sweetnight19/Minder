@@ -285,9 +285,6 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 is.readFully(imageAr);
 
                 BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-
-                System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
-                //ImageIO.write(image, "jpg", new File("Server/images/" + user.getNickname() + ".jpg"));
                 return image;
             }
             return null;
