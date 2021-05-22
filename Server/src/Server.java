@@ -18,7 +18,16 @@ import Presentation.ServerView;
 
 import javax.swing.*;
 
+/**
+ * The type Server.
+ */
 public class Server {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, Server!");
         UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());

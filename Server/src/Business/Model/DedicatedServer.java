@@ -15,6 +15,9 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+/**
+ * The type Dedicated server.
+ */
 public class DedicatedServer extends Thread {
     private final Socket client;
     private ObjectOutputStream os;
@@ -22,8 +25,19 @@ public class DedicatedServer extends Thread {
     private final UserDAO userDAO;
     private final ChatDAO chatDAO;
     private final PeerDAO peerDAO;
+    /**
+     * The constant clientDisconnect.
+     */
     public static boolean clientDisconnect;
 
+    /**
+     * Instantiates a new Dedicated server.
+     *
+     * @param client  the client
+     * @param userDAO the user dao
+     * @param chatDAO the chat dao
+     * @param peerDAO the peer dao
+     */
     public DedicatedServer(Socket client, UserDAO userDAO, ChatDAO chatDAO, PeerDAO peerDAO) {
         this.client = client;
         this.userDAO = userDAO;

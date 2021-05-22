@@ -10,9 +10,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * The type Sql peer dao.
+ */
 public class SQLPeerDAO implements PeerDAO {
     private final ConfigurationDAO confDAO;
 
+    /**
+     * Instantiates a new Sql peer dao.
+     *
+     * @param configurationDAO the configuration dao
+     */
     public SQLPeerDAO(ConfigurationDAO configurationDAO) {
         confDAO = configurationDAO;
     }
