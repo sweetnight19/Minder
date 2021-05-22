@@ -22,9 +22,6 @@ public class HomeManager {
     // Funcio retorni un array de users amb el mateix llenguatge
     public void getNextUsers(){
         arrayNextUsers = null;
-        System.out.println("nickname = " + GlobalUser.getInstance().getMyUser().getNickname());
-        System.out.println("language = " + GlobalUser.getInstance().getMyUser().getProgrammingLanguage());
-        System.out.println("premium = " + GlobalUser.getInstance().getMyUser().getType());
         User myUser = GlobalUser.getInstance().getMyUser();
         arrayNextUsers = connectionDAO.getRandomUsers(myUser);
         for (int i = 0; i < arrayNextUsers.size(); i++) {
@@ -34,11 +31,7 @@ public class HomeManager {
         }
         if(GlobalUser.getInstance().getMyUser().getType().equals("Premium")){
             this.countPremium = this.connectionDAO.countPremium(GlobalUser.getInstance().getMyUser());
-            System.out.println(this.countPremium + "usuaris que mhan donat like");
         }
-        System.out.println("despues");
-        System.out.println("is empty = " + arrayNextUsers.isEmpty());
-        System.out.println("size = " + arrayNextUsers.size());
     }
     public User getNextUser(int posicion) {
         return arrayNextUsers.get(posicion);

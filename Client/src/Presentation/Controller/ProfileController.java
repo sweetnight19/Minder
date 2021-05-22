@@ -50,9 +50,10 @@ public class ProfileController implements ActionListener {
                 System.out.println("Delete button selected");
                 this.profileManager.deleteUser();
 
-                //redirigir al login
-                globalView.delete();
-                loginView.display();
+                SwingUtilities.invokeLater(() -> {
+                    globalView.delete();
+                    loginView.display();
+                });
 
                 break;
             case CHANGE_BTN:

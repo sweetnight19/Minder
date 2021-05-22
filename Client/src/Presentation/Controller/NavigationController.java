@@ -31,24 +31,26 @@ public class NavigationController implements ActionListener, WindowListener {
         switch (e.getActionCommand()) {
             case GlobalView.HOME:
                 globalView.setTitle("MINDER HOME");
-                globalView.showHome();
+                SwingUtilities.invokeLater(() -> { globalView.showHome(); });
                 break;
             case GlobalView.CHAT:
                 globalView.setTitle("MINDER CHAT");
                 chatController.loadListChat();
-                globalView.showChat();
+                SwingUtilities.invokeLater(() -> { globalView.showChat(); });
                 break;
             case GlobalView.USER:
                 globalView.setTitle("MINDER USER");
                 profileController.loadProfileInformation();
-                globalView.showUser();
+                SwingUtilities.invokeLater(() -> { globalView.showUser(); });
                 break;
             case GlobalView.LOGOUT:
-                int answer = globalView.dislplayLogoutWindow();
-                if (answer == JOptionPane.YES_OPTION) {
-                    globalView.delete();
-                    loginView.display();
-                }
+                SwingUtilities.invokeLater(() -> {
+                    int answer = globalView.dislplayLogoutWindow();
+                    if (answer == JOptionPane.YES_OPTION) {
+                        globalView.delete();
+                        loginView.display();
+                    }
+                });
                 break;
         }
     }

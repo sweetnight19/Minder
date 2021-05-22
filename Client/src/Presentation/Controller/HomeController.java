@@ -7,6 +7,7 @@ import Presentation.View.GlobalView;
 import Presentation.View.HomeView;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -25,17 +26,14 @@ public class HomeController implements ActionListener {
     }
 
     public void enableButtons(){
-        this.homeView.enableButtons();
+        SwingUtilities.invokeLater(() -> { this.homeView.enableButtons(); });
     }
 
     public void loadFirstUser() {
         if (homeManager.getSize() != 0) {
             this.sizeArray = 0;
             User user = homeManager.getNextUser(sizeArray);
-            System.out.println("name user " + user.getFirstName());
             loadNextUsers(user);
-        } else {
-            System.out.println("Es size es 0!!!!!!");
         }
     }
 
@@ -49,10 +47,9 @@ public class HomeController implements ActionListener {
             }
         }
         if(this.sizeArray < this.homeManager.getCountPremium()){
-            this.homeView.showIsPremium();
-            System.out.println("aquest usuari mha donat abans like i ho se pq soc premium");
+            SwingUtilities.invokeLater(() -> { this.homeView.showIsPremium(); });
         }else{
-            this.homeView.showIsNotPremium();
+            SwingUtilities.invokeLater(() -> { this.homeView.showIsNotPremium(); });
         }
         homeView.showNextUser(user, image);
     }
@@ -68,8 +65,10 @@ public class HomeController implements ActionListener {
 
                     loadNextUsers(nextUser);
                 }else{
-                    this.homeView.disableButtons();
-                    this.homeView.dislplayNotMoreUsers();
+                    SwingUtilities.invokeLater(() -> {
+                        this.homeView.disableButtons();
+                        this.homeView.dislplayNotMoreUsers();
+                    });
                 }
                 break;
             case HomeView.DENY:
@@ -80,8 +79,10 @@ public class HomeController implements ActionListener {
 
                     loadNextUsers(nextUserDeny);
                 }else{
-                    this.homeView.disableButtons();
-                    this.homeView.dislplayNotMoreUsers();
+                    SwingUtilities.invokeLater(() -> {
+                        this.homeView.disableButtons();
+                        this.homeView.dislplayNotMoreUsers();
+                    });
                 }
                 break;
         }

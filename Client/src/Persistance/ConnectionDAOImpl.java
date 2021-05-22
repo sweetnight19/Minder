@@ -153,7 +153,6 @@ public class ConnectionDAOImpl implements ConnectionDAO {
             os.writeObject(new Trama(ProtocolCommunication.COUNT));
             os.writeObject(user);
             Trama trama = (Trama) is.readObject();
-            System.out.println("auqi arriba la trama");
             return Integer.parseInt(trama.getContext());
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

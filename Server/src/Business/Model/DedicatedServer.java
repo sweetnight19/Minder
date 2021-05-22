@@ -145,9 +145,6 @@ public class DedicatedServer extends Thread {
         is.readFully(imageAr);
 
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-
-        // System.out.println("Received " + image.getHeight() + "x" + image.getWidth() +
-        // ": " + System.currentTimeMillis());
         String pathBd = user.getNickname() + ".jpg";
         ImageIO.write(image, "jpg", new File("Server/images/" + pathBd));
 
@@ -206,7 +203,6 @@ public class DedicatedServer extends Thread {
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
         if (this.chatDAO.addMessage(message)) {
-            //ChatMessagesManager.addMessage(message);
             ChatServerDedicated.newMessage(message);
             os.writeObject(new Trama(ProtocolCommunication.OK));
         } else {

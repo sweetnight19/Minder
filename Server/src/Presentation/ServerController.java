@@ -2,6 +2,7 @@ package Presentation;
 
 import Business.Model.StatisticsManagement;
 
+import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,11 +20,12 @@ public class ServerController extends Thread{
     public void run() {
         Timer t = new Timer( );
         t.scheduleAtFixedRate(new TimerTask() {
-
             @Override
             public void run() {
-                serverView.updateTable(statisticsManagement.getData(),
-                        statisticsManagement.getHeaders());
+                SwingUtilities.invokeLater(() -> {
+                    serverView.updateTable(statisticsManagement.getData(),
+                            statisticsManagement.getHeaders());
+                });
             }
         }, 200,30000);
     }

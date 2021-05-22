@@ -25,8 +25,6 @@ public class ChatManager {
         chatMessages = new ArrayList<>();
     }
 
-    //public ChatManager(){}
-
     public ArrayList<User> getChatList(){
         chatListUsers = null;
         chatListUsers = this.connectionDAO.getChatList(GlobalUser.getInstance().getMyUser());

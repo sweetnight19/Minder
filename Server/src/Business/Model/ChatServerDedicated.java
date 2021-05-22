@@ -38,7 +38,6 @@ public class ChatServerDedicated extends Thread{
                 if(messageToSend){
                     if(newMessage.getIdDestiny() == myUser.getId()
                             && newMessage.getIdSource() == otherUser.getId()){
-                        System.out.println("el missatge es per mi li envio al client");
                         os.writeObject(newMessage);
                         messageToSend = false;
                     }

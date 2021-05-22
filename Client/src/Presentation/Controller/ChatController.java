@@ -35,8 +35,10 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
                 String message = this.chatDirectView.getTextFieldMessage();
                 if (!message.isEmpty()) {
                     if (this.chatManager.insertNewMessage(message, destiny)) {
-                        this.chatDirectView.addOwnMessage(message);
-                        this.chatDirectView.setTextFieldHint();
+                        SwingUtilities.invokeLater(() -> {
+                            this.chatDirectView.addOwnMessage(message);
+                            this.chatDirectView.setTextFieldHint();
+                        });
                     }
                 }
                 break;
@@ -48,8 +50,10 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
                             users.remove(i);
                         }
                     }
-                    this.chatDirectView.eliminateView();
-                    this.chatListView.removeUser(this.destiny.getNickname());
+                    SwingUtilities.invokeLater(() -> {
+                        this.chatDirectView.eliminateView();
+                        this.chatListView.removeUser(this.destiny.getNickname());
+                    });
                 }
                 break;
         }
@@ -70,7 +74,9 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
 
     @Override
     public void newMessage(ChatMessage message) {
-        this.chatDirectView.addFriendMessage(message.getMessage());
+        SwingUtilities.invokeLater(() -> {
+            this.chatDirectView.addFriendMessage(message.getMessage());
+        });
     }
 
     @Override
@@ -91,16 +97,18 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
         this.chatDirectView = chatDirect;
         this.chatDirectView.registerButtonController(this);
         this.chatDirectView.registerWindowController(this);
-        this.chatDirectView.updateNorth((ImageIcon) jimage.getIcon(), jtext.getText());
-        for (ChatMessage message: messages) {
-            if(message.getIdSource() == GlobalUser.getInstance().getMyUser().getId()){
-                this.chatDirectView.addOwnMessage(message.getMessage());
-            }else{
-                this.chatDirectView.addFriendMessage(message.getMessage());
+        SwingUtilities.invokeLater(() -> {
+            this.chatDirectView.updateNorth((ImageIcon) jimage.getIcon(), jtext.getText());
+            for (ChatMessage message: messages) {
+                if(message.getIdSource() == GlobalUser.getInstance().getMyUser().getId()){
+                    this.chatDirectView.addOwnMessage(message.getMessage());
+                }else{
+                    this.chatDirectView.addFriendMessage(message.getMessage());
+                }
             }
-        }
+        });
         this.chatManager.launchChatThread(this.destiny, this);
-        this.chatDirectView.setVisible(true);
+        SwingUtilities.invokeLater(() -> { this.chatDirectView.setVisible(true); });
     }
 
     @Override

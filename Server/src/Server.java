@@ -27,11 +27,13 @@ public class Server {
         PeerDAO peerDAO = new SQLPeerDAO(configurationDAO);
         ChatDAO chatDAO = new SQLChatDAO(configurationDAO);
 
-        StatisticsManagement statisticsManagement = new StatisticsManagement(userDAO, peerDAO);
-        ServerView view = new ServerView();
-        ServerController serverController = new ServerController(view, statisticsManagement);
-        serverController.start();
-        view.start();
+        SwingUtilities.invokeLater(() -> {
+            StatisticsManagement statisticsManagement = new StatisticsManagement(userDAO, peerDAO);
+            ServerView view = new ServerView();
+            ServerController serverController = new ServerController(view, statisticsManagement);
+            serverController.start();
+            view.start();
+        });
 
         ChatServer chatServer = new ChatServer();
         chatServer.start();
@@ -47,5 +49,6 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
