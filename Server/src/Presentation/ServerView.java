@@ -30,6 +30,9 @@ public class ServerView extends JFrame {
         setBackground(Color.WHITE);
     }
 
+    /**
+     * Function that configures the basics of the view as size, title, location, etc
+     */
     private void configureWindow() {
         setTitle("Minder Server");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -37,6 +40,10 @@ public class ServerView extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Function that defines the view as a JSplitpane divide in two, one for the graphic and the other for the top5.
+     * @return
+     */
     private JSplitPane configureCenter(){
         JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, configureGraphic(), configureTop5());
         sp.setResizeWeight(0.75);
@@ -45,6 +52,10 @@ public class ServerView extends JFrame {
         return sp;
     }
 
+    /**
+     * Function returns a JPanel that incorporates the random graphic at the left of the JSplitpane
+     * @return
+     */
     private JPanel configureGraphic() {
         JPanel graphicPanel = new JPanel(new BorderLayout());
         JLabel jtitle = new JLabel("Matching Statistics Graphic", SwingConstants.CENTER);
@@ -75,6 +86,10 @@ public class ServerView extends JFrame {
         return graphicPanel;
     }
 
+    /**
+     * Function that returns the Panel that has inside the top5 table, with his title and icon.
+     * @return
+     */
     private JPanel configureTop5() {
         top5 = new JPanel(new BorderLayout());
         top5.setBackground(Color.WHITE);
@@ -104,7 +119,8 @@ public class ServerView extends JFrame {
     }
 
     /**
-     * Update table.
+     * Update table function that renders all the colors, alignments and settings, as well as the
+     * information that the table must show.
      *
      * @param data    the data
      * @param headers the headers
@@ -161,7 +177,7 @@ public class ServerView extends JFrame {
     }
 
     /**
-     * Start.
+     * Function to start the view making it visible.
      */
     public void start(){
         setVisible(true);

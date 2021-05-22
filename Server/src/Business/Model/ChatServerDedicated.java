@@ -15,7 +15,6 @@ public class ChatServerDedicated extends Thread{
     private Socket client;
     private ObjectOutputStream os;
     private ObjectInputStream is;
-    private int sizeArr;
     private User myUser;
     private User otherUser;
     private static ChatMessage newMessage;
@@ -27,7 +26,6 @@ public class ChatServerDedicated extends Thread{
      * @param client the client
      */
     public ChatServerDedicated(Socket client){
-        this.sizeArr = 0;
         this.client = client;
     }
 
@@ -39,8 +37,6 @@ public class ChatServerDedicated extends Thread{
 
             myUser = (User) is.readObject();
             otherUser = (User) is.readObject();
-            sizeArr = ChatMessagesManager.getSize();
-            System.out.println(ChatMessagesManager.getSize());
 
             while (!DedicatedServer.clientDisconnect) {
                 if(messageToSend){
@@ -62,7 +58,8 @@ public class ChatServerDedicated extends Thread{
     }
 
     /**
-     * New message.
+     * Function that recieves a message when a client of the platform send one, to be treated later if
+     * the server has to send the message to our client.
      *
      * @param message the message
      */

@@ -23,7 +23,7 @@ import javax.swing.*;
  */
 public class Server {
     /**
-     * The entry point of application.
+     * Main of server to initialize all classes needed, start the view of statistics and top 5
      *
      * @param args the input arguments
      * @throws Exception the exception

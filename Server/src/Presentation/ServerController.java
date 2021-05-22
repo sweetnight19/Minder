@@ -25,6 +25,10 @@ public class ServerController extends Thread{
         this.statisticsManagement = statisticsManagement;
     }
 
+    /**
+     * Thread that runs every 30 seconds to update the top5 table, in case there are changes into the
+     * database.
+     */
     @Override
     public void run() {
         Timer t = new Timer( );

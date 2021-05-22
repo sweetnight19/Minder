@@ -25,7 +25,7 @@ public class StatisticsManagement {
     }
 
     /**
-     * Get headers string [ ].
+     * Get headers string [ ] for the titles of the Jtable for the top5 users with more matches.
      *
      * @return the string [ ]
      */
@@ -34,7 +34,8 @@ public class StatisticsManagement {
     }
 
     /**
-     * Get data string [ ] [ ].
+     * Get data string [ ] [ ] of the 5 users that are on the top, data consists on his position,
+     * name and number of matches.
      *
      * @return the string [ ] [ ]
      */
