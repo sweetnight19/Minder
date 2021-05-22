@@ -11,8 +11,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Home view.
+ */
 public class HomeView extends JPanel {
+    /**
+     * The constant LIKE.
+     */
     public static final String LIKE = "LIKE";
+    /**
+     * The constant DENY.
+     */
     public static final String DENY = "DENY";
 
     private JPanel pUser;
@@ -24,6 +33,9 @@ public class HomeView extends JPanel {
     private IconButton bMoreInfo;
     private JLabel logoLabel;
 
+    /**
+     * Instantiates a new Home view.
+     */
     public HomeView() {
         configureWindow();
         configureCenter();
@@ -37,6 +49,12 @@ public class HomeView extends JPanel {
         setBorder(generalBorder);
     }
 
+    /**
+     * Show next user.
+     *
+     * @param user  the user
+     * @param image the image
+     */
     public void showNextUser(User user, BufferedImage image) {
         System.out.println("image = " + user.getPathImage());
         photoPanel.setPhoto(image);
@@ -99,6 +117,11 @@ public class HomeView extends JPanel {
         add(jpButtons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Register controller.
+     *
+     * @param actionListener the action listener
+     */
     public void registerController(ActionListener actionListener) {
         bLike.setActionCommand(LIKE);
         bLike.addActionListener(actionListener);
@@ -106,21 +129,33 @@ public class HomeView extends JPanel {
         bDeny.addActionListener(actionListener);
     }
 
+    /**
+     * Dislplay not more users.
+     */
     public void dislplayNotMoreUsers() {
         JOptionPane.showMessageDialog(null,
                 "You don't have more pretendents for today", "Enough for Today", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Disable buttons.
+     */
     public void disableButtons(){
         bLike.setEnabled(false);
         bDeny.setEnabled(false);
     }
 
+    /**
+     * Enable buttons.
+     */
     public void enableButtons(){
         bLike.setEnabled(true);
         bDeny.setEnabled(true);
     }
 
+    /**
+     * Show is premium.
+     */
     public void showIsPremium(){
         BufferedImage logoImage = null;
         try {
@@ -132,6 +167,9 @@ public class HomeView extends JPanel {
         }
     }
 
+    /**
+     * Show is not premium.
+     */
     public void showIsNotPremium(){
         BufferedImage logoImage = null;
         try {
@@ -143,6 +181,9 @@ public class HomeView extends JPanel {
         }
     }
 
+    /**
+     * Next user.
+     */
     public void nextUser() {
 
     }

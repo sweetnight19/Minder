@@ -3,11 +3,22 @@ package Presentation.View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Panel custom wrap.
+ */
 public class PanelCustomWrap extends JPanel implements Scrollable {
+    /**
+     * Instantiates a new Panel custom wrap.
+     *
+     * @param layoutManager the layout manager
+     */
     public PanelCustomWrap(LayoutManager layoutManager) {
         super(layoutManager);
     }
 
+    /**
+     * Instantiates a new Panel custom wrap.
+     */
     public PanelCustomWrap(){}
 
     @Override

@@ -14,20 +14,38 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The type Home controller.
+ */
 public class HomeController implements ActionListener {
     private HomeView homeView;
     private HomeManager homeManager;
+    /**
+     * The Size array.
+     */
     public int sizeArray;
 
+    /**
+     * Instantiates a new Home controller.
+     *
+     * @param homeView    the home view
+     * @param homeManager the home manager
+     */
     public HomeController(HomeView homeView, HomeManager homeManager) {
         this.homeView = homeView;
         this.homeManager = homeManager;
     }
 
+    /**
+     * Enable buttons.
+     */
     public void enableButtons(){
         this.homeView.enableButtons();
     }
 
+    /**
+     * Load first user.
+     */
     public void loadFirstUser() {
         if (homeManager.getSize() != 0) {
             this.sizeArray = 0;

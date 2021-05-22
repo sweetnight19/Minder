@@ -10,9 +10,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Check login gui.
+ */
 public class CheckLoginGUI extends JFrame {
     private final String[] data = {"Java", "Javascript", "html", "C++"};
+    /**
+     * The constant SAVE_BUTTON.
+     */
     public static final String SAVE_BUTTON = "SAVE_BUTTON";
+    /**
+     * The constant CHOOSE_IMAGE_BUTTON.
+     */
     public static final String CHOOSE_IMAGE_BUTTON = "CHOOSE_IMAGE_BUTTON";
     private JButton jSaveBtn;
     private JButton jchooseImage;
@@ -22,6 +31,9 @@ public class CheckLoginGUI extends JFrame {
     private BufferedImage logoImage;
 
 
+    /**
+     * Instantiates a new Check login gui.
+     */
     public CheckLoginGUI() {
         setTitle("Fill profile information");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -98,6 +110,11 @@ public class CheckLoginGUI extends JFrame {
         return south;
     }
 
+    /**
+     * Register controller.
+     *
+     * @param actionListener the action listener
+     */
     public void registerController(ActionListener actionListener) {
         jSaveBtn.setActionCommand(SAVE_BUTTON);
         jSaveBtn.addActionListener(actionListener);
@@ -106,22 +123,46 @@ public class CheckLoginGUI extends JFrame {
         jchooseImage.addActionListener(actionListener);
     }
 
+    /**
+     * Display.
+     */
     public void display() {
         setVisible(true);
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return jdesc.getText();
     }
 
+    /**
+     * Gets language.
+     *
+     * @return the language
+     */
     public String getLanguage() {
         return jlanguage.getSelectedItem().toString();
     }
 
+    /**
+     * Delete.
+     */
     public void delete() {
         setVisible(false);
     }
 
+    /**
+     * Resize buffered image.
+     *
+     * @param img  the img
+     * @param newW the new w
+     * @param newH the new h
+     * @return the buffered image
+     */
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
         BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
@@ -133,6 +174,11 @@ public class CheckLoginGUI extends JFrame {
         return dimg;
     }
 
+    /**
+     * Sets new image.
+     *
+     * @param image the image
+     */
     public void setNewImage(BufferedImage image) {
         logoImage = null;
         logoImage = resize(image, 100, 100);

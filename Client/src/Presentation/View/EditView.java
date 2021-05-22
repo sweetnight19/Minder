@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Edit view.
+ */
 public class EditView extends JPanel {
     private JLabel jname;
     private JLabel jage;
@@ -28,11 +31,26 @@ public class EditView extends JPanel {
     private JButton changebtn;
 
     private final String[] data = {"Java", "Javascript", "html", "C++"};
+    /**
+     * The constant EDIT_BTN.
+     */
     public static final String EDIT_BTN = "EDIT_BTN";
+    /**
+     * The constant SAVE_BTN.
+     */
     public static final String SAVE_BTN = "SAVE_BTN";
+    /**
+     * The constant DELETE_BTN.
+     */
     public static final String DELETE_BTN = "DELETE_BTN";
+    /**
+     * The constant CHANGE_BTN.
+     */
     public static final String CHANGE_BTN = "CHANGE_BTN";
 
+    /**
+     * Instantiates a new Edit view.
+     */
     public EditView() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -167,6 +185,12 @@ public class EditView extends JPanel {
         return butconatiner;
     }
 
+    /**
+     * Update data.
+     *
+     * @param user  the user
+     * @param image the image
+     */
     public void updateData(User user, BufferedImage image) {
         if (image != null) {
             logoImage = null;
@@ -182,6 +206,9 @@ public class EditView extends JPanel {
         jdesc.setText(user.getDescription());
     }
 
+    /**
+     * Update data.
+     */
     public void updateData() {
         jname.setText("Test Test");
         jage.setText("21 years");
@@ -192,6 +219,9 @@ public class EditView extends JPanel {
         jdesc.setText("Sóc la persona per fer testos.");
     }
 
+    /**
+     * Transform to editable.
+     */
     public void transformToEditable() {
         jdesc.setEditable(true);
         changebtn.setVisible(true);
@@ -202,6 +232,9 @@ public class EditView extends JPanel {
         jlanguage.setVisible(true);
     }
 
+    /**
+     * Transfrom to not editable.
+     */
     public void transfromToNotEditable() {
         jdesc.setEditable(false);
         changebtn.setVisible(false);
@@ -212,20 +245,40 @@ public class EditView extends JPanel {
         jlanguage.setVisible(false);
     }
 
+    /**
+     * Gets language.
+     *
+     * @return the language
+     */
     public String getLanguage() {
         return jlanguage.getSelectedItem().toString();
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return jdesc.getText();
     }
 
+    /**
+     * Sets new image.
+     *
+     * @param image the image
+     */
     public void setNewImage(BufferedImage image) {
         logoImage = null;
         logoImage = resize(image, 100, 100);
         logoLabel.setIcon(new ImageIcon(logoImage));
     }
 
+    /**
+     * Register controller.
+     *
+     * @param listener the listener
+     */
     public void registerController(ActionListener listener) {
         southEdit.setActionCommand(EDIT_BTN);
         southEdit.addActionListener(listener);
@@ -240,6 +293,14 @@ public class EditView extends JPanel {
         changebtn.addActionListener(listener);
     }
 
+    /**
+     * Resize buffered image.
+     *
+     * @param img  the img
+     * @param newW the new w
+     * @param newH the new h
+     * @return the buffered image
+     */
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
         BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);

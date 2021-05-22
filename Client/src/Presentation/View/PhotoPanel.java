@@ -7,8 +7,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Photo panel.
+ */
 public class PhotoPanel extends JPanel {
     private BufferedImage photo;
+
+    /**
+     * Instantiates a new Photo panel.
+     *
+     * @param image the image
+     */
 /*
     public PhotoPanel(String path) {
         try {
@@ -30,6 +39,11 @@ public class PhotoPanel extends JPanel {
         }
     }
 
+    /**
+     * Sets photo.
+     *
+     * @param photo the photo
+     */
     public void setPhoto(BufferedImage photo) {
         this.photo = photo;
         this.repaint();
