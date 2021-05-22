@@ -1,11 +1,7 @@
 package Business.Model;
 
-import Business.Entity.User;
-
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -17,7 +13,7 @@ public class ChatServer extends Thread {
     private ServerSocket sSocketChat;
 
     /**
-     * Instantiates a new Chat server.
+     * Instantiates a new Chat server with his ServerSocket.
      */
     public ChatServer() {
         try {
@@ -27,6 +23,9 @@ public class ChatServer extends Thread {
         }
     }
 
+    /**
+     * Thread with a bucle that for each connection of a client, will launch a dedicated chat server
+     */
     @Override
     public void run() {
         try{

@@ -423,6 +423,10 @@ public class RegisterView extends JFrame {
         return new String(confirmPasswdField.getPassword());
     }
 
+    public void displayPasswordCheckError() {
+        JOptionPane.showMessageDialog(null, "Passwords must match", "PASSWORD ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+
     /**
      * Delete.
      */

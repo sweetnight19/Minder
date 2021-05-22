@@ -16,7 +16,7 @@ public interface UserDAO {
     ArrayList<User> getAllUsers();
 
     /**
-     * Method to read all users.
+     * Method to read only one user.
      *
      * @param nickname the nickname
      * @return user. user
@@ -24,7 +24,7 @@ public interface UserDAO {
     User getUser(String nickname);
 
     /**
-     * Method that creates a new User with a given text.
+     * Method that creates a new User with a user object given.
      *
      * @param user The user to create the User with.
      * @return A UUID of the created user's identifier.
@@ -32,7 +32,7 @@ public interface UserDAO {
     int addUser(User user);
 
     /**
-     * Method to remove a User form the model by its nickname.
+     * Method to remove a User form the databse by its user object.
      *
      * @param user The user corresponding to the User item to delete.
      * @return the boolean
@@ -40,7 +40,7 @@ public interface UserDAO {
     boolean deleteUser(User user);
 
     /**
-     * Method to update User form the model.
+     * Method to update User form the database.
      *
      * @param user The user corresponding to the User item to update.
      * @return the boolean
@@ -48,7 +48,7 @@ public interface UserDAO {
     boolean updateUser(User user);
 
     /**
-     * Method to check the validation of User form the model by its uuid.
+     * Method to check if the login user exists and has texted the correct password.
      *
      * @param user The user corresponding to the User item to validate login.
      * @return true or false
@@ -56,14 +56,14 @@ public interface UserDAO {
     boolean validationLogin(User user);
 
     /**
-     * Method to get the top 5 of User form the model.
+     * Method to get the top 5 of User with more matches from the database.
      *
      * @return the top5 users with most received matches
      */
     ArrayList<User> top5();
 
     /**
-     * Method to get the intent login of User form the model.
+     * Method to get if the log in user is the first time that enters the platform or not.
      *
      * @param user the user
      * @return the intent login of users.
@@ -71,7 +71,8 @@ public interface UserDAO {
     int checkLoginIntent(User user);
 
     /**
-     * Gets pretendents premium.
+     * Gets pretendents premium that matches the programming language of the client and also they may
+     * give a like to our client before.
      *
      * @param user the user
      * @return the pretendents premium
@@ -79,7 +80,7 @@ public interface UserDAO {
     ArrayList<User> getPretendentsPremium(User user);
 
     /**
-     * Gets pretendents.
+     * Gets pretendents that matches the programming language of the client.
      *
      * @param user the user
      * @return the pretendents
@@ -87,7 +88,7 @@ public interface UserDAO {
     ArrayList<User> getPretendents(User user);
 
     /**
-     * Count pretendents premium int.
+     * Count how many pretendents premium does our client have.
      *
      * @param user the user
      * @return the int

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface ChatDAO {
 
     /**
-     * Gets all xats.
+     * Gets all xats messages that have been texted between the two users recieved on parameters.
      *
      * @param user1 the user 1
      * @param user2 the user 2
@@ -19,10 +19,16 @@ public interface ChatDAO {
      */
     ArrayList<ChatMessage> getAllXats(User user1, User user2);
 
+    /**
+     * Function that adds a new message into the database, the message is the object recieved by parameters
+     * that has all the information related to the message
+     * @param chatMessage
+     * @return
+     */
     boolean addMessage(ChatMessage chatMessage);
 
     /**
-     * Delete chat boolean.
+     * Delete all the chat messages between two users.
      *
      * @param user1 the user 1
      * @param user2 the user 2

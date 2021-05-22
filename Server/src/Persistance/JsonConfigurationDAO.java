@@ -21,7 +21,7 @@ public class JsonConfigurationDAO implements ConfigurationDAO {
     private final int portTCP;
 
     /**
-     * Instantiates a new Json configuration dao.
+     * Instantiates a new Json configuration dao that recieves the configuration file.
      *
      * @param path the path
      * @throws IOException the io exception
