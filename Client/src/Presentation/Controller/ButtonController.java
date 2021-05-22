@@ -93,7 +93,10 @@ public class ButtonController implements ActionListener, WindowListener {
                         homeManager.getNextUsers();
                         homeController.loadFirstUser();
                         homeController.enableButtons();
-                        SwingUtilities.invokeLater(() -> { globalView.display(); });
+                        SwingUtilities.invokeLater(() -> {
+                            globalView.display();
+                            globalView.showHome();
+                        });
                         break;
                     case -1:
                         //error en el servidor
@@ -107,14 +110,20 @@ public class ButtonController implements ActionListener, WindowListener {
                 break;
 
             case RegisterView.REGISTER:
-                cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
-                if (sessionManager.register(cliente)) {
-                    SwingUtilities.invokeLater(() -> {
-                        registerView.delete();
-                        loginView.display();
-                    });
-                } else {
-                    SwingUtilities.invokeLater(() -> { loginView.displayLoginError(); });
+                if(registerView.getPasswd().equals(registerView.getConfirmPasswd())) {
+                    cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
+                    if (sessionManager.register(cliente)) {
+                        SwingUtilities.invokeLater(() -> {
+                            registerView.delete();
+                            loginView.display();
+                        });
+                    } else {
+                        SwingUtilities.invokeLater(() -> {
+                            loginView.displayLoginError();
+                        });
+                    }
+                }else{
+                    SwingUtilities.invokeLater(() -> { registerView.displayPasswordCheckError(); });
                 }
                 break;
             case CheckLoginGUI.SAVE_BUTTON:
@@ -126,7 +135,10 @@ public class ButtonController implements ActionListener, WindowListener {
                     homeManager.getNextUsers();
                     homeController.loadFirstUser();
                     homeController.enableButtons();
-                    SwingUtilities.invokeLater(() -> { globalView.display(); });
+                    SwingUtilities.invokeLater(() -> {
+                        globalView.display();
+                        globalView.showHome();
+                    });
                 } else {
                     SwingUtilities.invokeLater(() -> {
                         loginView.displayCredentialsLoginError();

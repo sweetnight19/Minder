@@ -17,7 +17,7 @@ public interface PeerDAO {
     ArrayList<Peer> getAllPeers();
 
     /**
-     * Method to read all peers from user.
+     * Method to read all peers from our client.
      *
      * @param user The user who want their peers.
      * @return A list of peers.
@@ -25,7 +25,7 @@ public interface PeerDAO {
     ArrayList<User> getUserPeers(User user);
 
     /**
-     * Method to add a like on Peer form the model by Peer.
+     * Method to add a like into the database from our client to some destiny user.
      *
      * @param peer The object Peer to add like.
      * @return the boolean
@@ -33,7 +33,7 @@ public interface PeerDAO {
     boolean addLike(Peer peer);
 
     /**
-     * Method to remove a Peer form the model by id1 & id2.
+     * Method to remove a Peer (DISLIKE) from our client to another user.
      *
      * @param peer The object Peer to delete like.
      * @return the boolean

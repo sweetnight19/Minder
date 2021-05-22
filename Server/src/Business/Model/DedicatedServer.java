@@ -127,6 +127,12 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function called when client requests his image or an image of another user, so we loaded from the
+     * images folder in the server and send the image throught the socket
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void readImage() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         user = this.userDAO.getUser(user.getNickname());
@@ -148,6 +154,12 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that recieves an image from the client that must be treated to save the path into the
+     * database, and the image inside the images folder inside the server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void saveImage() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
 
@@ -170,6 +182,11 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that tells the client if the user that wants to log in is the first time doing it or not.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void checkLogin() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         int status = this.userDAO.checkLoginIntent(user);
@@ -184,6 +201,11 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that sends to the client an array of pretendents to show them on the feed
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void feedUsers() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         ArrayList<User> pretendientes;
@@ -195,18 +217,34 @@ public class DedicatedServer extends Thread {
         os.writeObject(pretendientes);
     }
 
+    /**
+     * Function only available for premium users, that tells the client how many users on the feed
+     * have said they like me before.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void countPremiumUsers() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         int countPremium = this.userDAO.countPretendentsPremium(user);
         os.writeObject(new Trama(String.valueOf(countPremium)));
     }
 
+    /**
+     * Function that sends to the client all the users that have match with the client.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void listchat() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         ArrayList<User> usersArray = this.peerDAO.getUserPeers(user);
         os.writeObject(usersArray);
     }
 
+    /**
+     * Function that sends to client all the messages that have been texted between user source and destiny.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void readChat() throws IOException, ClassNotFoundException {
         User source = (User) is.readObject();
         User destiny = (User) is.readObject();
@@ -214,6 +252,12 @@ public class DedicatedServer extends Thread {
         os.writeObject(messages);
     }
 
+    /**
+     * Function that recieves a message and adds to persistance, also it announces to the chat server
+     * dedicated there is a new message to treat.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void createMessage() throws IOException, ClassNotFoundException {
         ChatMessage message = (ChatMessage) is.readObject();
         if (this.chatDAO.addMessage(message)) {
@@ -224,6 +268,11 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that requests the persistance to delete a Peer (DISMATCH)
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void deletePeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
         if (this.peerDAO.deletePeer(peer)) {
@@ -233,6 +282,11 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that requests the persistance to insert a new Peer (LIKE)
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void createPeer() throws IOException, ClassNotFoundException {
         Peer peer = (Peer) is.readObject();
         if (this.peerDAO.addLike(peer)) {
@@ -242,6 +296,11 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that requests persistance to delete the user from the database
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void deleteUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         if (this.userDAO.deleteUser(user)) {
@@ -251,12 +310,23 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that returns to the client all the information that persistance have about the user
+     * recieved.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void readUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         User response = this.userDAO.getUser(user.getNickname());
         os.writeObject(response);
     }
 
+    /**
+     * Function to say the persistance we want to update the user we have recieved.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void updateUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         if (this.userDAO.updateUser(user)) {
@@ -266,6 +336,11 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that request the persistance to validate a user that wants to log in.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void validateLogin() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         if (this.userDAO.validationLogin(user)) {
@@ -275,6 +350,12 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function that recieves a user that wants to register on the platform, it requests the database
+     * if the register is good and tells the client the answer.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void createUser() throws IOException, ClassNotFoundException {
         User user = (User) is.readObject();
         if (this.userDAO.addUser(user) != -1) {
@@ -284,12 +365,20 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    /**
+     * Function where server accepts the request of the client to get disconnected
+     * @throws IOException
+     */
     private void disconnection() throws IOException {
         this.clientDisconnect = true;
         System.out.println("Client wants to disconnect");
         os.writeObject(new Trama(ProtocolCommunication.OK));
     }
 
+    /**
+     * Function communicates the client the connection with the client is OK
+     * @throws IOException
+     */
     private void connection() throws IOException {
         os.writeObject(new Trama(ProtocolCommunication.OK));
         System.out.println("Connected to the client");
