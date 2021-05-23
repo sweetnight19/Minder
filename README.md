@@ -15,7 +15,7 @@ Tot seguit es clica al `+` dins de l'apartat `java` del menú que apareix i sele
 
 ---
 
-##Procés de funcionament del projecte
+## Procés de funcionament del projecte
 
 1. Posar en marxa el `phpmyadmin` per inicialitzar la base de dades
 2. Inicialitzar `IntelliJ IDEA` per indexar tot el projecte
