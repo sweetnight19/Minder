@@ -3,4 +3,5 @@ Business.Entity
 Business.Model
 Persistance
 Persistance.SQL
-Presentation
+Presentation.Controller
+Presentation.View

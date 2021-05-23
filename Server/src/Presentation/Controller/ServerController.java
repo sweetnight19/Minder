@@ -1,6 +1,7 @@
-package Presentation;
+package Presentation.Controller;
 
 import Business.Model.StatisticsManagement;
+import Presentation.View.ServerView;
 
 import javax.swing.*;
 import java.util.Timer;

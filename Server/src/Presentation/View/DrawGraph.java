@@ -1,4 +1,4 @@
-package Presentation;
+package Presentation.View;
 
 import java.awt.*;
 import java.util.ArrayList;

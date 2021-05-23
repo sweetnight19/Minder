@@ -13,8 +13,8 @@ import Persistance.UserDAO;
 import Persistance.SQL.SQLChatDAO;
 import Persistance.SQL.SQLPeerDAO;
 import Persistance.SQL.SQLUserDAO;
-import Presentation.ServerController;
-import Presentation.ServerView;
+import Presentation.Controller.ServerController;
+import Presentation.View.ServerView;
 
 import javax.swing.*;
 
