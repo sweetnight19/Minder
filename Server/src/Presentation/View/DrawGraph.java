@@ -38,7 +38,6 @@ public class DrawGraph extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (scores.size() - 1);
-        System.out.println(xScale);
         double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (MAX_SCORE - 1);
 
         List<Point> graphPoints = new ArrayList<Point>();
