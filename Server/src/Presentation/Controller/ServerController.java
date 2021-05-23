@@ -53,15 +53,15 @@ public class ServerController extends Thread implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case ServerView.BUTTON_MONTH:
-                this.serverView.monthGraphic(panelGraph);
+                if(panelGraph!=2) this.serverView.monthGraphic(panelGraph);
                 panelGraph = 2;
                 break;
             case ServerView.BUTTON_WEEK:
-                this.serverView.weekGraphic(panelGraph);
+                if(panelGraph!=1) this.serverView.weekGraphic(panelGraph);
                 panelGraph = 1;
                 break;
             case ServerView.BUTTON_DAY:
-                this.serverView.dayGraphic(panelGraph);
+                if(panelGraph!=0) this.serverView.dayGraphic(panelGraph);
                 panelGraph = 0;
                 break;
         }

@@ -59,7 +59,8 @@ public class ChatConnectionDAO extends Thread {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Chat Server closed");
+            //e.printStackTrace();
         }
     }
 
