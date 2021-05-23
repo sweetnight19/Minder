@@ -1,11 +1,29 @@
-package Presentation;
+package Presentation.View;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Horizontal panel.
+ */
 public class HorizontalPanel extends JPanel {
+    private String string;
 
-    public HorizontalPanel() {
+    /**
+     * Instantiates a new Horizontal panel.
+     */
+    public HorizontalPanel(int type) {
+        switch (type){
+            case 0:
+                string = "Time (hours)";
+                break;
+            case 1:
+                string = "Time (Week Days)";
+                break;
+            case 2:
+                string = "Time (Month Days)";
+                break;
+        }
         setPreferredSize(new Dimension(0, 25));
     }
 
@@ -19,8 +37,6 @@ public class HorizontalPanel extends JPanel {
 
         Font font = new Font("Arial", Font.PLAIN, 15);
 
-        String string = "Time (hours)";
-
         FontMetrics metrics = g.getFontMetrics(font);
         int width = metrics.stringWidth(string);
         int height = metrics.getHeight();
@@ -29,5 +45,4 @@ public class HorizontalPanel extends JPanel {
 
         gg.drawString(string, (getWidth() - width) / 2, 11);
     }
-
 }

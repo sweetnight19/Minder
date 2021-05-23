@@ -7,6 +7,14 @@ Welcome to the VS Code Java world. Here is a guideline to help you get started t
 The workspace contains two folders by default, where:
 
 - `src`: the folder to maintain sources
+  - `Business`: Esta carpeta contiene 
+    - `Entity`:
+    - `Model`:
+  - `Persistance`: Conté les interfaces necessàries per definir les funcions que es faran servir en el projecte
+  - `Presentation`: Conté totes les classes responsables de mostrar el contingut de la UI a l'usuari o d'enviar les 
+    respostes de tornada al client.
+    - `Controller`: S'encarrega de contenir totes les classes encarregades de gestionar el funcionament 
+    - `View`: Conté totes les classes encarregades de mostrar la UI a l'usuari
 - `lib`: the folder to maintain dependencies
 
 ## Dependency Management

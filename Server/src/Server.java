@@ -1,8 +1,9 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Random;
 
-import Business.Model.ChatServer;
 import Business.Model.DedicatedServer;
 import Business.Model.StatisticsManagement;
 import Persistance.ChatDAO;
@@ -13,8 +14,10 @@ import Persistance.UserDAO;
 import Persistance.SQL.SQLChatDAO;
 import Persistance.SQL.SQLPeerDAO;
 import Persistance.SQL.SQLUserDAO;
-import Presentation.ServerController;
-import Presentation.ServerView;
+import Presentation.Controller.ServerController;
+import Presentation.View.DrawGraph;
+import Presentation.View.HorizontalPanel;
+import Presentation.View.ServerView;
 
 public class Server {
     public static void main(String[] args) throws Exception {
@@ -28,6 +31,8 @@ public class Server {
         ServerView view = new ServerView();
         ServerController serverController = new ServerController(view, statisticsManagement);
         serverController.start();
+
+        view.registerController(serverController);
         view.start();
 
         try {
