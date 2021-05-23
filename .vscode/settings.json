@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Server/libs/gson-2.8.6.jar",
+        "Server/libs/mysql-connector-java-8.0.23.jar"
+    ],
+    "java.project.sourcePaths": [
+        "Server/src",
+        "Client/src"
+    ]
+}
