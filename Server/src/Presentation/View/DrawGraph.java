@@ -1,9 +1,9 @@
 package Presentation.View;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.*;
+        import java.awt.*;
+        import java.util.ArrayList;
+        import java.util.List;
+        import javax.swing.*;
 
 /**
  * The type Draw graph.
@@ -19,13 +19,15 @@ public class DrawGraph extends JPanel {
     private static final int GRAPH_POINT_WIDTH = 6;
     private static final int Y_HATCH_CNT = 10;
     private List<Integer> scores;
+    private int axis_x;
 
     /**
      * Instantiates a new Draw graph.
      *
      * @param scores the scores
      */
-    public DrawGraph(List<Integer> scores) {
+    public DrawGraph(List<Integer> scores, int axis_x) {
+        this.axis_x = axis_x;
         this.scores = scores;
     }
 
@@ -57,18 +59,45 @@ public class DrawGraph extends JPanel {
             int y0 = getHeight() - (((i + 1) * (getHeight() - BORDER_GAP * 2)) / Y_HATCH_CNT + BORDER_GAP);
             int y1 = y0;
             g2.drawLine(x0, y0, x1, y1);
-            String value = Integer.toString(i);
+            String value = Integer.toString((i+1)*5);
             g2.drawString(value, x0 - fm.stringWidth(value), y0 + (fm.getAscent() / 2));
         }
 
         // and for x axis
-        for (int i = 0; i < scores.size() - 1; i++) {
-            int x0 = (i + 1) * (getWidth() - BORDER_GAP * 2) / (scores.size() - 1) + BORDER_GAP;
+        for (int i = 0; i < scores.size() ; i++) {
+            int x0 = (i) * (getWidth() - BORDER_GAP * 2) / (scores.size() - 1) + BORDER_GAP;
             int x1 = x0;
             int y0 = getHeight() - BORDER_GAP;
             int y1 = y0 - GRAPH_POINT_WIDTH;
             g2.drawLine(x0, y0, x1, y1);
-            String value = Integer.toString(i);
+            String value = null;
+            if(axis_x == 1){
+                switch (i){
+                    case 0:
+                        value = "Dilluns";
+                        break;
+                    case 1:
+                        value = "Dimarts";
+                        break;
+                    case 2:
+                        value = "Dimecres";
+                        break;
+                    case 3:
+                        value = "Dijous";
+                        break;
+                    case 4:
+                        value = "Divendres";
+                        break;
+                    case 5:
+                        value = "Dissabte";
+                        break;
+                    case 6:
+                        value = "Diumnege";
+                        break;
+                }
+            }else {
+                value = Integer.toString(i);
+            }
             g2.drawString(value, x0 - (fm.stringWidth(value) / 2), y0 + fm.getAscent());
         }
 
