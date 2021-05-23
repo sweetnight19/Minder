@@ -1,10 +1,13 @@
 package Presentation.View;
 
+import Presentation.HorizontalPanel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -113,7 +116,7 @@ public class ServerView extends JFrame {
         return graphicPanel;
     }
 
-    public void registerController(ServerController serverController) {
+    public void registerController(ActionListener serverController) {
         bmes.setActionCommand(BUTTON_MONTH);
         bmes.addActionListener(serverController);
         bsetmana.setActionCommand(BUTTON_WEEK);
