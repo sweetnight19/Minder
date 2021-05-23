@@ -22,8 +22,9 @@ public interface ChatDAO {
     /**
      * Function that adds a new message into the database, the message is the object recieved by parameters
      * that has all the information related to the message
-     * @param chatMessage
-     * @return
+     *
+     * @param chatMessage the chat message
+     * @return boolean
      */
     boolean addMessage(ChatMessage chatMessage);
 

@@ -15,8 +15,8 @@ import java.util.ArrayList;
  * The type Chat manager.
  */
 public class ChatManager {
-    private ConnectionDAO connectionDAO;
-    private ConfigurationDAO configurationDAO;
+    private final ConnectionDAO connectionDAO;
+    private final ConfigurationDAO configurationDAO;
     private ArrayList<User> chatListUsers;
     private ArrayList<ChatMessage> chatMessages;
     private ChatConnectionDAO chatDAO;
@@ -34,40 +34,37 @@ public class ChatManager {
         chatMessages = new ArrayList<>();
     }
 
-    //public ChatManager(){}
-
     /**
-     * Get chat list array list.
+     * Get chat list.
      *
      * @return the array list
      */
-    public ArrayList<User> getChatList(){
+    public ArrayList<User> getChatList() {
         chatListUsers = null;
         chatListUsers = this.connectionDAO.getChatList(GlobalUser.getInstance().getMyUser());
         return this.chatListUsers;
     }
 
     /**
-     * Get image from friend buffered image.
+     * Get image from friend.
      *
      * @param friend the friend
      * @return the buffered image
      */
-    public BufferedImage getImageFromFriend(User friend){
-        BufferedImage image = this.connectionDAO.readImage(friend);
-        return image;
+    public BufferedImage getImageFromFriend(User friend) {
+        return this.connectionDAO.readImage(friend);
     }
 
     /**
-     * Insert new message boolean.
+     * Insert new message.
      *
      * @param message the message
      * @param destiny the destiny
      * @return the boolean
      */
-    public boolean insertNewMessage(String message, User destiny){
+    public boolean insertNewMessage(String message, User destiny) {
         ChatMessage chatMessage = new ChatMessage(GlobalUser.getInstance().getMyUser().getId(), destiny.getId(), message);
-        if(this.connectionDAO.insertNewMessage(chatMessage)){
+        if (this.connectionDAO.insertNewMessage(chatMessage)) {
             chatMessages.add(chatMessage);
             return true;
         }
@@ -75,23 +72,20 @@ public class ChatManager {
     }
 
     /**
-     * Get chat messages array list.
+     * Get chat messages.
      *
      * @param destiny the destiny
      * @return the array list
      */
-    public ArrayList<ChatMessage> getChatMessages(User destiny){
+    public ArrayList<ChatMessage> getChatMessages(User destiny) {
         chatMessages = null;
         chatMessages = this.connectionDAO.getChatMessages(GlobalUser.getInstance().getMyUser(), destiny);
-        return  chatMessages;
+        return chatMessages;
     }
 
-    public boolean deletePeer(int idSource, int idDestiny){
+    public boolean deletePeer(int idSource, int idDestiny) {
         Peer peer = new Peer(idSource, idDestiny, true);
-        if(this.connectionDAO.deletePeer(peer)){
-            return true;
-        }
-        return false;
+        return this.connectionDAO.deletePeer(peer);
     }
 
     /**
@@ -100,7 +94,7 @@ public class ChatManager {
      * @param destiny    the destiny
      * @param controller the controller
      */
-    public void launchChatThread(User destiny, ChatController controller){
+    public void launchChatThread(User destiny, ChatController controller) {
         chatDAO = new ChatConnectionDAO(configurationDAO, GlobalUser.getInstance().getMyUser(), destiny, controller);
         chatDAO.start();
     }
@@ -108,7 +102,7 @@ public class ChatManager {
     /**
      * Close socket and thread.
      */
-    public void closeSocketAndThread(){
+    public void closeSocketAndThread() {
         chatDAO.setClosed();
     }
 }

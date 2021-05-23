@@ -15,20 +15,17 @@ import java.io.IOException;
  * The type Chat list view.
  */
 public class ChatListView extends JPanel {
-    private BufferedImage logoImage;
-    private final JScrollPane schatsScroll;
     private final JPanel chatsPanel;
-    private final JPanel globalChats;
     private MouseListener listener;
 
     /**
      * Instantiates a new Chat list view.
      */
-    public ChatListView(){
+    public ChatListView() {
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
 
-        globalChats = new JPanel(new BorderLayout());
+        JPanel globalChats = new JPanel(new BorderLayout());
         globalChats.setBackground(Color.white);
         globalChats.setBorder(new EmptyBorder(10, 10, 0, 0));
 
@@ -37,7 +34,7 @@ public class ChatListView extends JPanel {
         chatsPanel.setBackground(Color.white);
         globalChats.add(chatsPanel, BorderLayout.WEST);
 
-        schatsScroll = new JScrollPane(globalChats);
+        JScrollPane schatsScroll = new JScrollPane(globalChats);
         schatsScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         schatsScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         add(schatsScroll, BorderLayout.CENTER);
@@ -49,23 +46,24 @@ public class ChatListView extends JPanel {
      * @param user  the user
      * @param image the image
      */
-    public void addUserChat(User user, BufferedImage image){
+    public void addUserChat(User user, BufferedImage image) {
         JPanel userChat = new JPanel();
         userChat.addMouseListener(this.listener);
         userChat.setBackground(Color.WHITE);
         userChat.setLayout(new BoxLayout(userChat, BoxLayout.X_AXIS));
 
-        logoImage = null;
+        BufferedImage logoImage = null;
         try {
-            if(image == null) {
+            if (image == null) {
                 logoImage = ImageIO.read(new File("Client/Media/avatar.png"));
-            }else{
+            } else {
                 logoImage = image;
             }
             logoImage = resize(logoImage, 40, 40);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert logoImage != null;
         JLabel logoLabel = new JLabel(new ImageIcon(logoImage));
 
         JLabel name = new JLabel(user.getFirstName() + " -> Alias: " + user.getNickname());
@@ -83,14 +81,16 @@ public class ChatListView extends JPanel {
     /**
      * Remove chats.
      */
-    public void removeChats(){ chatsPanel.removeAll(); }
+    public void removeChats() {
+        chatsPanel.removeAll();
+    }
 
     public void removeUser(String nickname) {
         for (Component c : chatsPanel.getComponents()) {
-            if(c instanceof JPanel) {
+            if (c instanceof JPanel) {
                 JPanel jPanel = (JPanel) c;
                 JLabel jLabel = (JLabel) jPanel.getComponent(2);
-                if(jLabel.getText().split(" -> Alias: ")[1].equals(nickname)){
+                if (jLabel.getText().split(" -> Alias: ")[1].equals(nickname)) {
                     chatsPanel.remove(c);
                     repaint();
                 }
@@ -103,7 +103,7 @@ public class ChatListView extends JPanel {
      *
      * @param listener the listener
      */
-    public void registerController(MouseListener listener){
+    public void registerController(MouseListener listener) {
         this.listener = listener;
     }
 

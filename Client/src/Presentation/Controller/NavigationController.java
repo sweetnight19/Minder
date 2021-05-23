@@ -1,9 +1,7 @@
 package Presentation.Controller;
 
 import Persistance.ConnectionDAO;
-import Persistance.ConnectionDAOImpl;
 import Presentation.View.GlobalView;
-import Presentation.View.HomeView;
 import Presentation.View.LoginView;
 
 import javax.swing.*;
@@ -28,7 +26,6 @@ public class NavigationController implements ActionListener, WindowListener {
      * @param globalView        the global view
      * @param profileController the profile controller
      * @param chatController    the chat controller
-     * @param homeController    the home controller
      * @param connectionDAO     the connection dao
      * @param loginView         the login view
      */
@@ -40,21 +37,28 @@ public class NavigationController implements ActionListener, WindowListener {
         this.loginView = loginView;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case GlobalView.HOME:
                 globalView.setTitle("MINDER HOME");
-                SwingUtilities.invokeLater(() -> { globalView.showHome(); });
+                SwingUtilities.invokeLater(() -> {
+                    globalView.showHome();
+                });
                 break;
             case GlobalView.CHAT:
                 globalView.setTitle("MINDER CHAT");
                 chatController.loadListChat();
-                SwingUtilities.invokeLater(() -> { globalView.showChat(); });
+                SwingUtilities.invokeLater(() -> {
+                    globalView.showChat();
+                });
                 break;
             case GlobalView.USER:
                 globalView.setTitle("MINDER USER");
                 profileController.loadProfileInformation();
-                SwingUtilities.invokeLater(() -> { globalView.showUser(); });
+                SwingUtilities.invokeLater(() -> {
+                    globalView.showUser();
+                });
                 break;
             case GlobalView.LOGOUT:
                 SwingUtilities.invokeLater(() -> {

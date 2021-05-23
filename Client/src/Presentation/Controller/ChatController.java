@@ -21,8 +21,8 @@ import static Presentation.View.ChatDirectView.BTN_SEND;
  */
 public class ChatController implements ActionListener, NewMessageListener, MouseListener, WindowListener {
     private ChatDirectView chatDirectView;
-    private ChatListView chatListView;
-    private ChatManager chatManager;
+    private final ChatListView chatListView;
+    private final ChatManager chatManager;
     private User destiny;
     private ArrayList<User> users;
 
@@ -32,7 +32,7 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
      * @param chatListView the chat list view
      * @param chatManager  the chat manager
      */
-    public ChatController(ChatListView chatListView, ChatManager chatManager){
+    public ChatController(ChatListView chatListView, ChatManager chatManager) {
         this.chatListView = chatListView;
         this.chatManager = chatManager;
     }
@@ -52,10 +52,10 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
                 }
                 break;
             case BTN_DISLIKE:
-                if(this.chatManager.deletePeer(GlobalUser.getInstance().getMyUser().getId(), this.destiny.getId())){
+                if (this.chatManager.deletePeer(GlobalUser.getInstance().getMyUser().getId(), this.destiny.getId())) {
                     //dismatch
                     for (int i = 0; i < users.size(); i++) {
-                        if(users.get(i).getId() == this.destiny.getId()){
+                        if (users.get(i).getId() == this.destiny.getId()) {
                             users.remove(i);
                         }
                     }
@@ -72,14 +72,14 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
     /**
      * Load list chat.
      */
-    public void loadListChat(){
+    public void loadListChat() {
         this.chatListView.removeChats();
         this.users = this.chatManager.getChatList();
         for (int i = 0; i < users.size(); i++) {
             ArrayList<User> finalUsers = users;
             int finalI = i;
             SwingUtilities.invokeLater(() -> {
-                this.chatListView.addUserChat(finalUsers.get(finalI), this.chatManager.getImageFromFriend(finalUsers.get(finalI)) );
+                this.chatListView.addUserChat(finalUsers.get(finalI), this.chatManager.getImageFromFriend(finalUsers.get(finalI)));
             });
         }
     }
@@ -98,45 +98,51 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
         components = jPanel.getComponents();
         JLabel jimage = (JLabel) components[0];
         JLabel jtext = (JLabel) components[2];
-        for (User user: users) {
-            if(user.getNickname().equals(jtext.getText().split(" -> Alias: ")[1])){
+        for (User user : users) {
+            if (user.getNickname().equals(jtext.getText().split(" -> Alias: ")[1])) {
                 this.destiny = user;
             }
         }
         ArrayList<ChatMessage> messages = this.chatManager.getChatMessages(this.destiny);
 
-        ChatDirectView chatDirect = new ChatDirectView();
-        this.chatDirectView = chatDirect;
+        this.chatDirectView = new ChatDirectView();
         this.chatDirectView.registerButtonController(this);
         this.chatDirectView.registerWindowController(this);
         SwingUtilities.invokeLater(() -> {
             this.chatDirectView.updateNorth((ImageIcon) jimage.getIcon(), jtext.getText());
-            for (ChatMessage message: messages) {
-                if(message.getIdSource() == GlobalUser.getInstance().getMyUser().getId()){
+            for (ChatMessage message : messages) {
+                if (message.getIdSource() == GlobalUser.getInstance().getMyUser().getId()) {
                     this.chatDirectView.addOwnMessage(message.getMessage());
-                }else{
+                } else {
                     this.chatDirectView.addFriendMessage(message.getMessage());
                 }
             }
         });
         this.chatManager.launchChatThread(this.destiny, this);
-        SwingUtilities.invokeLater(() -> { this.chatDirectView.setVisible(true); });
+        SwingUtilities.invokeLater(() -> {
+            this.chatDirectView.setVisible(true);
+        });
     }
 
     @Override
-    public void mousePressed(MouseEvent e) { }
+    public void mousePressed(MouseEvent e) {
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) { }
+    public void mouseReleased(MouseEvent e) {
+    }
 
     @Override
-    public void mouseEntered(MouseEvent e) { }
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) { }
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
-    public void windowOpened(WindowEvent e) { }
+    public void windowOpened(WindowEvent e) {
+    }
 
     @Override
     public void windowClosing(WindowEvent e) {
@@ -149,14 +155,18 @@ public class ChatController implements ActionListener, NewMessageListener, Mouse
     }
 
     @Override
-    public void windowIconified(WindowEvent e) { }
+    public void windowIconified(WindowEvent e) {
+    }
 
     @Override
-    public void windowDeiconified(WindowEvent e) { }
+    public void windowDeiconified(WindowEvent e) {
+    }
 
     @Override
-    public void windowActivated(WindowEvent e) { }
+    public void windowActivated(WindowEvent e) {
+    }
 
     @Override
-    public void windowDeactivated(WindowEvent e) { }
+    public void windowDeactivated(WindowEvent e) {
+    }
 }

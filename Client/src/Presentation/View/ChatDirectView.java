@@ -18,6 +18,9 @@ public class ChatDirectView extends JFrame {
      * The constant BTN_SEND.
      */
     public static final String BTN_SEND = "BUT_SEND";
+    /**
+     * The constant BTN_DISLIKE.
+     */
     public static final String BTN_DISLIKE = "DISLIKE";
 
     private PanelCustomWrap jPanel;
@@ -31,10 +34,7 @@ public class ChatDirectView extends JFrame {
     /**
      * Instantiates a new Chat direct view.
      */
-/*
-    Constructor que afegeix els elements i configuracion necessàries a la vista
-     */
-    public ChatDirectView(){
+    public ChatDirectView() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         configureWindow();
@@ -47,16 +47,14 @@ public class ChatDirectView extends JFrame {
     /**
      * Configure window.
      */
-    public void configureWindow(){
+    public void configureWindow() {
         setTitle("ChatDirect");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(350, 500);
         setLocationRelativeTo(null);
     }
 
-    /*
-    Configuració de la part que ocupa el xat en el centre de la pantalla
-     */
+
     private JScrollPane configureCenter() {
         JPanel jglobal = new JPanel(new BorderLayout());
         jglobal.setBackground(Color.white);
@@ -68,13 +66,11 @@ public class ChatDirectView extends JFrame {
         jglobal.add(jPanel, BorderLayout.SOUTH);
         jspComments = new JScrollPane(jglobal, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jspComments.setPreferredSize(new Dimension(250,300));
+        jspComments.setPreferredSize(new Dimension(250, 300));
         return jspComments;
     }
 
-    /*
-    Configuració del sud de la pantalla on està el botó per fer HONK
-     */
+
     private JPanel configureSouth() {
         JPanel jsouth = new JPanel(new BorderLayout());
         jsouth.setBackground(Color.WHITE);
@@ -83,7 +79,7 @@ public class ChatDirectView extends JFrame {
         textMessage = new JTextField();
         textMessage.setColumns(20);
         textMessage.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.decode("#DF4B74"), 1, true),
-                BorderFactory.createEmptyBorder(5,10,5,10)));
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
         jinput.setBackground(Color.WHITE);
         jinput.add(textMessage);
 
@@ -96,7 +92,7 @@ public class ChatDirectView extends JFrame {
         }
         jbutIcon = new JButton(new ImageIcon(logoImage));
         jbutIcon.setBackground(Color.WHITE);
-        jbutIcon.setBorder(new EmptyBorder(0,0,0,10));
+        jbutIcon.setBorder(new EmptyBorder(0, 0, 0, 10));
 
         jsouth.add(jinput, BorderLayout.CENTER);
         jsouth.add(jbutIcon, BorderLayout.EAST);
@@ -137,19 +133,16 @@ public class ChatDirectView extends JFrame {
         north.add(logoLabel);
         north.add(Box.createRigidArea(new Dimension(20, 0)));
         north.add(name);
-        north.add(Box.createRigidArea(new Dimension(50,0)));
+        north.add(Box.createRigidArea(new Dimension(50, 0)));
         north.add(dislike);
         return north;
     }
 
-    /*
-    Funció per crear el panell del nostre propi missatge HONK
-     */
-    private JPanel configureSelfMessage(String message){
+    private JPanel configureSelfMessage(String message) {
         PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
 
-        JTextArea jtext = new JTextArea(0,20);
+        JTextArea jtext = new JTextArea(0, 20);
         jtext.setText(message);
         jtext.setEditable(false);
         jtext.setLineWrap(true);
@@ -157,21 +150,18 @@ public class ChatDirectView extends JFrame {
 
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
         jtext.setForeground(Color.white);
-        jtext.setBorder(new EmptyBorder(5,10,5,10));
+        jtext.setBorder(new EmptyBorder(5, 10, 5, 10));
         jtext.setBackground(Color.decode("#E27B97"));
 
         jbox.add(jtext, BorderLayout.EAST);
         return jbox;
     }
 
-    /*
-    Funció per crear el panell dels missatges HONK que ens envien els altres usuaris
-     */
-    private JPanel configureMessage(String message){
+    private JPanel configureMessage(String message) {
         PanelCustomWrap jbox = new PanelCustomWrap(new BorderLayout());
         jbox.setBackground(Color.WHITE);
 
-        JTextArea jtext = new JTextArea(0,20);
+        JTextArea jtext = new JTextArea(0, 20);
         jtext.setText(message);
         jtext.setEditable(false);
         jtext.setLineWrap(true);
@@ -180,7 +170,7 @@ public class ChatDirectView extends JFrame {
         jtext.setFont(jtext.getFont().deriveFont(Font.PLAIN));
         jtext.setForeground(Color.WHITE);
         jtext.setBackground(Color.decode("#DF4B74"));
-        jtext.setBorder(new EmptyBorder(5,10,5,10));
+        jtext.setBorder(new EmptyBorder(5, 10, 5, 10));
 
         jbox.add(jtext, BorderLayout.WEST);
         return jbox;
@@ -191,10 +181,7 @@ public class ChatDirectView extends JFrame {
      *
      * @param listener the listener
      */
-/*
-    Registrem el controlador ButtonController que s'encarregarà d'escoltar quan prenem el botó
-     */
-    public void registerButtonController(ActionListener listener){
+    public void registerButtonController(ActionListener listener) {
         jbutIcon.setActionCommand(BTN_SEND);
         jbutIcon.addActionListener(listener);
 
@@ -207,7 +194,7 @@ public class ChatDirectView extends JFrame {
      *
      * @param listener the listener
      */
-    public void registerWindowController(WindowListener listener){
+    public void registerWindowController(WindowListener listener) {
         this.addWindowListener(listener);
     }
 
@@ -217,7 +204,7 @@ public class ChatDirectView extends JFrame {
      * @param icon        the icon
      * @param nameDestiny the name destiny
      */
-    public void updateNorth(ImageIcon icon ,String nameDestiny){
+    public void updateNorth(ImageIcon icon, String nameDestiny) {
         logoLabel.setIcon(icon);
         name.setText(nameDestiny);
     }
@@ -227,14 +214,14 @@ public class ChatDirectView extends JFrame {
      *
      * @return the string
      */
-    public String getTextFieldMessage(){
+    public String getTextFieldMessage() {
         return textMessage.getText();
     }
 
     /**
      * Set text field hint.
      */
-    public void setTextFieldHint(){
+    public void setTextFieldHint() {
         textMessage.setText("");
     }
 
@@ -243,10 +230,7 @@ public class ChatDirectView extends JFrame {
      *
      * @param message the message
      */
-/*
-    Funció que afegeix a la vista quan enviem nosaltres mateixos un missatge
-     */
-    public void addOwnMessage(String message){
+    public void addOwnMessage(String message) {
         jPanel.add(configureSelfMessage(message), BorderLayout.SOUTH);
         jPanel.add(Box.createVerticalStrut(10));
         revalidate();
@@ -259,10 +243,7 @@ public class ChatDirectView extends JFrame {
      *
      * @param message the message
      */
-/*
-    Funció que afegeix a la vista quan ens envien missatges altres usuaris
-     */
-    public void addFriendMessage(String message){
+    public void addFriendMessage(String message) {
         jPanel.add(configureMessage(message), BorderLayout.SOUTH);
         jPanel.add(Box.createVerticalStrut(10));
         revalidate();
@@ -273,17 +254,16 @@ public class ChatDirectView extends JFrame {
     /**
      * Bar scroll set up.
      */
-/*
-    Funció que aconsegueix que la barra de scroll sempre es mantingui a baix de tot per fer visible
-    els últims missatges rebuts o enviats
-     */
-    public void barScrollSetUp(){
+    public void barScrollSetUp() {
         JScrollBar sb = jspComments.getVerticalScrollBar();
-        sb.setValue( sb.getMaximum() );
+        sb.setValue(sb.getMaximum());
     }
 
 
-    public void eliminateView(){
+    /**
+     * Eliminate view.
+     */
+    public void eliminateView() {
         dispose();
     }
 
@@ -305,5 +285,4 @@ public class ChatDirectView extends JFrame {
 
         return dimg;
     }
-
 }

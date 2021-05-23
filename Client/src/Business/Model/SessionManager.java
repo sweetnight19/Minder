@@ -10,6 +10,9 @@ import java.awt.image.BufferedImage;
  */
 public class SessionManager {
     private final ConnectionDAO connectionDAO;
+    private static final int ERROR = -1;
+    private static final int CORRECT_FIRST_TIME = 0;
+    private static final int CORRECT_NOT_FIRST_TIME = 1;
 
     /**
      * Instantiates a new Session manager.
@@ -29,15 +32,12 @@ public class SessionManager {
     public int login(User cliente) {
         if (connectionDAO.validateLogin(cliente)) {
             switch (connectionDAO.checklogin(cliente)) {
-                case 0:
-                    //Login correcte, primer cop
-                    return 0;
-                case 1:
-                    //login correcte, usuari reincident
-                    return 1;
-                case -1:
-                    //error en el servidor
-                    return -1;
+                case CORRECT_FIRST_TIME:
+                    return CORRECT_FIRST_TIME;
+                case CORRECT_NOT_FIRST_TIME:
+                    return CORRECT_NOT_FIRST_TIME;
+                case ERROR:
+                    return ERROR;
             }
         } else {
             System.out.println("login incorrecte");

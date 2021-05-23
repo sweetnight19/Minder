@@ -9,15 +9,16 @@ public class GlobalUser {
     private User myUser;
     private static GlobalUser instance = null;
 
-    private GlobalUser(){ }
+    private GlobalUser() {
+    }
 
     /**
      * Get instance global user.
      *
      * @return the global user
      */
-    public static GlobalUser getInstance(){
-        if (instance == null){
+    public static GlobalUser getInstance() {
+        if (instance == null) {
             instance = new GlobalUser();
         }
         return instance;
@@ -28,7 +29,7 @@ public class GlobalUser {
      *
      * @param user the user
      */
-    public void setMyUser(User user){
+    public void setMyUser(User user) {
         this.myUser = user;
     }
 
@@ -37,7 +38,7 @@ public class GlobalUser {
      *
      * @return the user
      */
-    public User getMyUser(){
+    public User getMyUser() {
         return this.myUser;
     }
 

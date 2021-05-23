@@ -8,10 +8,8 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -232,7 +230,6 @@ public class LoginView extends JFrame {
     /**
      * Display credentials login error.
      */
-// Error si es el primer cop que fa el login
     public void displayCredentialsLoginError() {
         JOptionPane.showMessageDialog(null, "incorrect nickname/password", "LOGIN ERROR", JOptionPane.ERROR_MESSAGE);
     }

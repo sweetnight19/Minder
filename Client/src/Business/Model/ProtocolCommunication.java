@@ -7,7 +7,6 @@ public class ProtocolCommunication {
     /**
      * The constant CONNECTION.
      */
-// Protocols for requesting connection or disconnection with the server
     public static final String CONNECTION = "CONNECTION";
     /**
      * The constant DISCONNECTION.
@@ -16,10 +15,6 @@ public class ProtocolCommunication {
 
     /**
      * The constant OK.
-     */
-    /*
-     * Protocols for the server to communicate to the client if the process has been
-     * approved or there has been some error
      */
     public static final String OK = "OK";
     /**
@@ -30,7 +25,6 @@ public class ProtocolCommunication {
     /**
      * The constant LOGIN_USER.
      */
-//Protocols for requesting or updating information about the users
     public static final String LOGIN_USER = "LOGIN_USER";
     /**
      * The constant CHECK_LOGIN.
@@ -56,7 +50,6 @@ public class ProtocolCommunication {
     /**
      * The constant CREATE_PEER.
      */
-//Protocols for requesting or updating information about the likes between users
     public static final String CREATE_PEER = "CREATE_PEER";
     /**
      * The constant READ_PEERS.
@@ -70,7 +63,6 @@ public class ProtocolCommunication {
     /**
      * The constant LIST_CHAT.
      */
-//Protocols for requesting or updating the conversations between users
     public static final String LIST_CHAT = "LIST_CHAT";
     /**
      * The constant CREATE_CHAT_MESSAGE.
@@ -88,7 +80,6 @@ public class ProtocolCommunication {
     /**
      * The constant READ_IMAGE.
      */
-// Here to add more protocols in the future
     public static final String READ_IMAGE = "READ_IMAGE";
     /**
      * The constant SEND_IMAGE.

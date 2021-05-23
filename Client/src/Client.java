@@ -13,6 +13,10 @@ import javax.swing.*;
 import java.io.IOException;
 
 /**
+ * @author Edmon Bosch
+ * @author Joan Casals
+ * @author Xavier Garrigós
+ * @author David Marquet
  * The type Client.
  */
 public class Client {
@@ -51,8 +55,9 @@ public class Client {
             ButtonController buttonController = new ButtonController(loginView, registerView, globalView, sessionManager, homeManager, homeController, checkLoginGUI, connectionDAO);
             ProfileController profileController = new ProfileController(editView, profileManager, loginView, globalView);
             ChatController chatController = new ChatController(chatListView, chatManager);
-            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO,loginView);
+            NavigationController navigationController = new NavigationController(globalView, profileController, chatController, connectionDAO, loginView);
 
+            // Register controller for views
             loginView.registerController(buttonController);
             registerView.registerController(buttonController);
             globalView.registerController(navigationController);
@@ -62,7 +67,6 @@ public class Client {
             checkLoginGUI.registerController(buttonController);
 
             loginView.display();
-            //globalView.display();
         });
     }
 }

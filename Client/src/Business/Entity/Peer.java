@@ -59,7 +59,7 @@ public class Peer implements Serializable {
     }
 
     /**
-     * Is match duo boolean.
+     * Is match duo.
      *
      * @return the boolean
      */

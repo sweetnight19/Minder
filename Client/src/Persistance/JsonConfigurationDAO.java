@@ -24,11 +24,10 @@ public class JsonConfigurationDAO implements ConfigurationDAO {
      */
     public JsonConfigurationDAO(String path) throws IOException {
         Gson gson = new Gson();
-        Path path1 = Paths.get(path); // Ens guardem la path on es troba el fitxer de configuració
+        Path path1 = Paths.get(path);
 
-        // Parsejem el fitxer json
         JsonObject json = JsonParser.parseString(Files.readString(path1)).getAsJsonObject();
-        this.port = gson.fromJson(json.get("portTCP"), int.class); // obtenció de dades segon la key i les guardem
+        this.port = gson.fromJson(json.get("portTCP"), int.class);
         this.ipServer = gson.fromJson(json.get("ipServer"), String.class);
     }
 

@@ -11,8 +11,7 @@ import java.util.ArrayList;
  * The type Home manager.
  */
 public class HomeManager {
-    private ConnectionDAO connectionDAO;
-    private BufferedImage homeImage;
+    private final ConnectionDAO connectionDAO;
     private ArrayList<User> arrayNextUsers;
     private int countPremium;
 
@@ -23,24 +22,22 @@ public class HomeManager {
      */
     public HomeManager(ConnectionDAO connectionDAO) {
         this.connectionDAO = connectionDAO;
-        homeImage = null;
         arrayNextUsers = new ArrayList<>();
     }
 
     /**
      * Get next users.
      */
-// Funcio retorni un array de users amb el mateix llenguatge
-    public void getNextUsers(){
+    public void getNextUsers() {
         arrayNextUsers = null;
         User myUser = GlobalUser.getInstance().getMyUser();
         arrayNextUsers = connectionDAO.getRandomUsers(myUser);
         for (int i = 0; i < arrayNextUsers.size(); i++) {
-            if(arrayNextUsers.get(i).getId() == GlobalUser.getInstance().getMyUser().getId()){
+            if (arrayNextUsers.get(i).getId() == GlobalUser.getInstance().getMyUser().getId()) {
                 arrayNextUsers.remove(i);
             }
         }
-        if(GlobalUser.getInstance().getMyUser().getType().equals("Premium")){
+        if (GlobalUser.getInstance().getMyUser().getType().equals("Premium")) {
             this.countPremium = this.connectionDAO.countPremium(GlobalUser.getInstance().getMyUser());
         }
     }
@@ -65,23 +62,22 @@ public class HomeManager {
     }
 
     /**
-     * Get count premium int.
+     * Get count premium.
      *
      * @return the int
      */
-    public int getCountPremium(){
+    public int getCountPremium() {
         return this.countPremium;
     }
 
     /**
-     * Get next image buffered image.
+     * Get next image.
      *
      * @param nextUser the next user
      * @return the buffered image
      */
-    public BufferedImage getNextImage(User nextUser){
-        BufferedImage image = this.connectionDAO.readImage(nextUser);
-        return image;
+    public BufferedImage getNextImage(User nextUser) {
+        return this.connectionDAO.readImage(nextUser);
     }
 
     /**

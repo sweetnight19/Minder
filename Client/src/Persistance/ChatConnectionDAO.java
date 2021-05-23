@@ -2,7 +2,6 @@ package Persistance;
 
 import Business.Entity.ChatMessage;
 import Business.Entity.User;
-import Business.Model.ChatManager;
 import Business.Model.NewMessageListener;
 import Presentation.Controller.ChatController;
 
@@ -33,8 +32,6 @@ public class ChatConnectionDAO extends Thread {
      */
     public ChatConnectionDAO(ConfigurationDAO configurationDAO, User source, User destiny, ChatController controller) {
         try {
-            // Inicialitzem tant el socket com els streams per on rebrem o enviarem la
-            // informació
             socket = new Socket(configurationDAO.getIp(), 54333);
             os = new ObjectOutputStream(socket.getOutputStream());
             is = new ObjectInputStream(socket.getInputStream());
@@ -53,24 +50,23 @@ public class ChatConnectionDAO extends Thread {
             os.writeObject(source);
             os.writeObject(destiny);
 
-            while(!closed){
+            while (!closed) {
                 ChatMessage message = (ChatMessage) is.readObject();
-                if(message!=null) {
+                if (message != null) {
                     System.out.println(message.getMessage());
                     messageListener.newMessage(message);
                 }
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            //e.printStackTrace();
-            System.out.println("Socket s'ha tancat");
+            e.printStackTrace();
         }
     }
 
     /**
      * Set closed.
      */
-    public void setClosed(){
+    public void setClosed() {
         try {
             closed = true;
             socket.close();

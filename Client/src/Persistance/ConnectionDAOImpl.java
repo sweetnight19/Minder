@@ -27,8 +27,6 @@ public class ConnectionDAOImpl implements ConnectionDAO {
      */
     public ConnectionDAOImpl(ConfigurationDAO configurationDAO) {
         try {
-            // Inicialitzem tant el socket com els streams per on rebrem o enviarem la
-            // informació
             Socket socket = new Socket(configurationDAO.getIp(), configurationDAO.getPort());
             os = new ObjectOutputStream(socket.getOutputStream());
             is = new ObjectInputStream(socket.getInputStream());
@@ -284,8 +282,7 @@ public class ConnectionDAOImpl implements ConnectionDAO {
                 byte[] imageAr = new byte[size];
                 is.readFully(imageAr);
 
-                BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-                return image;
+                return ImageIO.read(new ByteArrayInputStream(imageAr));
             }
             return null;
 

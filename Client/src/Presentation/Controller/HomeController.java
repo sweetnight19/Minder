@@ -1,9 +1,7 @@
 package Presentation.Controller;
 
 import Business.Entity.User;
-import Business.Model.GlobalUser;
 import Business.Model.HomeManager;
-import Presentation.View.GlobalView;
 import Presentation.View.HomeView;
 
 import javax.imageio.ImageIO;
@@ -13,17 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * The type Home controller.
  */
 public class HomeController implements ActionListener {
-    private HomeView homeView;
-    private HomeManager homeManager;
-    /**
-     * The Size array.
-     */
+    private final HomeView homeView;
+    private final HomeManager homeManager;
     public int sizeArray;
 
     /**
@@ -40,8 +34,10 @@ public class HomeController implements ActionListener {
     /**
      * Enable buttons.
      */
-    public void enableButtons(){
-        SwingUtilities.invokeLater(() -> { this.homeView.enableButtons(); });
+    public void enableButtons() {
+        SwingUtilities.invokeLater(() -> {
+            this.homeView.enableButtons();
+        });
     }
 
     /**
@@ -64,10 +60,14 @@ public class HomeController implements ActionListener {
                 ioException.printStackTrace();
             }
         }
-        if(this.sizeArray < this.homeManager.getCountPremium()){
-            SwingUtilities.invokeLater(() -> { this.homeView.showIsPremium(); });
-        }else{
-            SwingUtilities.invokeLater(() -> { this.homeView.showIsNotPremium(); });
+        if (this.sizeArray < this.homeManager.getCountPremium()) {
+            SwingUtilities.invokeLater(() -> {
+                this.homeView.showIsPremium();
+            });
+        } else {
+            SwingUtilities.invokeLater(() -> {
+                this.homeView.showIsNotPremium();
+            });
         }
         homeView.showNextUser(user, image);
     }
@@ -78,11 +78,11 @@ public class HomeController implements ActionListener {
                 System.out.println("LIKE");
                 homeManager.insertLike(sizeArray);
                 sizeArray++;
-                if(sizeArray < this.homeManager.getSize()) {
+                if (sizeArray < this.homeManager.getSize()) {
                     User nextUser = homeManager.getNextUser(sizeArray);
 
                     loadNextUsers(nextUser);
-                }else{
+                } else {
                     SwingUtilities.invokeLater(() -> {
                         this.homeView.disableButtons();
                         this.homeView.dislplayNotMoreUsers();
@@ -92,11 +92,11 @@ public class HomeController implements ActionListener {
             case HomeView.DENY:
                 System.out.println("DENY");
                 sizeArray++;
-                if(sizeArray < this.homeManager.getSize()) {
+                if (sizeArray < this.homeManager.getSize()) {
                     User nextUserDeny = homeManager.getNextUser(sizeArray);
 
                     loadNextUsers(nextUserDeny);
-                }else{
+                } else {
                     SwingUtilities.invokeLater(() -> {
                         this.homeView.disableButtons();
                         this.homeView.dislplayNotMoreUsers();

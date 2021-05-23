@@ -18,15 +18,6 @@ public class PhotoPanel extends JPanel {
      *
      * @param image the image
      */
-/*
-    public PhotoPanel(String path) {
-        try {
-            photo = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            System.out.println("Error al carregar la foto de l'usuari");
-        }
-    }
-*/
     public PhotoPanel(BufferedImage image) {
         try {
             if (image == null) {
@@ -68,23 +59,6 @@ public class PhotoPanel extends JPanel {
         }
         g.drawImage(photo, x, y, w, h, this);
     }
-
-//    @Override
-//    public Dimension getPreferredSize() {
-//        // Mida actual imatge
-//        Dimension preferredSize = super.getPreferredSize();
-//
-//        // Ratio
-//        //preferredSize.height = this.getWidth() * photo.getHeight() / photo.getWidth();
-//        if (photo.getHeight() < photo.getWidth()) {
-//            // mes ample -> vols fer el resize de altura
-//            preferredSize.height = this.getWidth() * photo.getHeight() / photo.getWidth();
-//        } else {
-//            // mes alta -> vols fer el resize de amplada
-//            preferredSize.width = this.getHeight() * photo.getWidth() / photo.getHeight();
-//        }
-//        return preferredSize;
-//    }
 }
 
 

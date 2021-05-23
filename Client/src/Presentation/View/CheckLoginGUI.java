@@ -14,7 +14,7 @@ import java.io.IOException;
  * The type Check login gui.
  */
 public class CheckLoginGUI extends JFrame {
-    private final String[] data = {"Java", "JS", "html", "C++", "Flutter" , "C#", "Python", "C", "Android", "Rust"};
+    private final String[] data = {"Java", "JS", "html", "C++", "Flutter", "C#", "Python", "C", "Android", "Rust"};
     /**
      * The constant SAVE_BUTTON.
      */

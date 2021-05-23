@@ -24,13 +24,11 @@ public class HomeView extends JPanel {
      */
     public static final String DENY = "DENY";
 
-    private JPanel pUser;
     private PhotoPanel photoPanel;
     private JLabel lAge;
     private JLabel lName;
     private JButton bLike;
     private JButton bDeny;
-    private IconButton bMoreInfo;
     private JLabel logoLabel;
 
     /**
@@ -58,18 +56,12 @@ public class HomeView extends JPanel {
     public void showNextUser(User user, BufferedImage image) {
         System.out.println("image = " + user.getPathImage());
         photoPanel.setPhoto(image);
-        //PhotoPanel photoPanel = new PhotoPanel("Client/Media/image1763433(4).png");
-        // Set Age
         lAge.setText(Integer.toString(user.getAge()));
-        // Name
         lName.setText(user.getNickname());
-
-        //pUser.revalidate();
-        //pUser.repaint();
     }
 
     private void configureCenter() {
-        pUser = new JPanel();
+        JPanel pUser = new JPanel();
         pUser.setLayout(new BorderLayout());
         // Info User
         JPanel pInfoUser = new JPanel();
@@ -87,7 +79,7 @@ public class HomeView extends JPanel {
         lName.setForeground(Color.decode(MinderColor.WHITE));
         pInfoUser.add(lName, BorderLayout.CENTER);
         // More Info
-        BufferedImage logoImage = null;
+        BufferedImage logoImage;
         try {
             logoImage = ImageIO.read(new File("Client/Media/moreInfoIcon2.png"));
             logoLabel = new JLabel(new ImageIcon(logoImage));
@@ -140,7 +132,7 @@ public class HomeView extends JPanel {
     /**
      * Disable buttons.
      */
-    public void disableButtons(){
+    public void disableButtons() {
         bLike.setEnabled(false);
         bDeny.setEnabled(false);
     }
@@ -148,7 +140,7 @@ public class HomeView extends JPanel {
     /**
      * Enable buttons.
      */
-    public void enableButtons(){
+    public void enableButtons() {
         bLike.setEnabled(true);
         bDeny.setEnabled(true);
     }
@@ -156,8 +148,8 @@ public class HomeView extends JPanel {
     /**
      * Show is premium.
      */
-    public void showIsPremium(){
-        BufferedImage logoImage = null;
+    public void showIsPremium() {
+        BufferedImage logoImage;
         try {
             logoImage = ImageIO.read(new File("Client/Media/Star.png"));
             logoLabel.setIcon(new ImageIcon(logoImage));
@@ -170,8 +162,8 @@ public class HomeView extends JPanel {
     /**
      * Show is not premium.
      */
-    public void showIsNotPremium(){
-        BufferedImage logoImage = null;
+    public void showIsNotPremium() {
+        BufferedImage logoImage;
         try {
             logoImage = ImageIO.read(new File("Client/Media/moreInfoIcon2.png"));
             logoLabel.setIcon(new ImageIcon(logoImage));
@@ -181,10 +173,4 @@ public class HomeView extends JPanel {
         }
     }
 
-    /**
-     * Next user.
-     */
-    public void nextUser() {
-
-    }
 }

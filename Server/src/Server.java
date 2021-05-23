@@ -19,6 +19,10 @@ import Presentation.ServerView;
 import javax.swing.*;
 
 /**
+ * @author Edmon Bosch
+ * @author Joan Casals
+ * @author Xavier Garrigós
+ * @author David Marquet
  * The type Server.
  */
 public class Server {

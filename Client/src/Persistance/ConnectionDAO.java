@@ -13,16 +13,15 @@ import java.util.ArrayList;
 public interface ConnectionDAO {
 
     /**
-     * Register user boolean.
+     * Register user.
      *
      * @param user the user
      * @return the boolean
      */
-//UserDAO
     boolean registerUser(User user);
 
     /**
-     * Validate login boolean.
+     * Validate login.
      *
      * @param user the user
      * @return the boolean
@@ -30,7 +29,7 @@ public interface ConnectionDAO {
     boolean validateLogin(User user);
 
     /**
-     * Checklogin int.
+     * Checklogin.
      *
      * @param user the user
      * @return the int
@@ -38,7 +37,7 @@ public interface ConnectionDAO {
     int checklogin(User user);
 
     /**
-     * Update user boolean.
+     * Update user.
      *
      * @param user the user
      * @return the boolean
@@ -54,7 +53,7 @@ public interface ConnectionDAO {
     User readUser(User user);
 
     /**
-     * Delete user boolean.
+     * Delete user.
      *
      * @param user the user
      * @return the boolean
@@ -62,7 +61,7 @@ public interface ConnectionDAO {
     boolean deleteUser(User user);
 
     /**
-     * Count premium int.
+     * Count premium.
      *
      * @param user the user
      * @return the int
@@ -70,16 +69,15 @@ public interface ConnectionDAO {
     int countPremium(User user);
 
     /**
-     * Insert like boolean.
+     * Insert like.
      *
      * @param peer the peer
      * @return the boolean
      */
-//PeerDAO
     boolean insertLike(Peer peer);
 
     /**
-     * Delete peer boolean.
+     * Delete peer.
      *
      * @param peer the peer
      * @return the boolean
@@ -100,7 +98,6 @@ public interface ConnectionDAO {
      * @param user the user
      * @return the chat list
      */
-//ChatDAO
     ArrayList<User> getChatList(User user);
 
     /**
@@ -113,7 +110,7 @@ public interface ConnectionDAO {
     ArrayList<ChatMessage> getChatMessages(User source, User destiny);
 
     /**
-     * Insert new message boolean.
+     * Insert new message.
      *
      * @param message the message
      * @return the boolean
@@ -121,16 +118,15 @@ public interface ConnectionDAO {
     boolean insertNewMessage(ChatMessage message);
 
     /**
-     * Read image buffered image.
+     * Read image.
      *
      * @param user the user
      * @return the buffered image
      */
-//Images
     BufferedImage readImage(User user);
 
     /**
-     * Send image boolean.
+     * Send image.
      *
      * @param user   the user
      * @param image2 the image 2
@@ -141,6 +137,5 @@ public interface ConnectionDAO {
     /**
      * Disconnect from server.
      */
-//Actions
     void disconnectFromServer();
 }

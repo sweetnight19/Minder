@@ -48,7 +48,7 @@ public class ButtonController implements ActionListener, WindowListener {
      * @param checkLoginGUI  the check login gui
      * @param connectionDAO  the connection dao
      */
-    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, HomeManager homeManager, HomeController homeController,CheckLoginGUI checkLoginGUI, ConnectionDAO connectionDAO) {
+    public ButtonController(LoginView loginView, RegisterView registerView, GlobalView globalView, SessionManager sessionManager, HomeManager homeManager, HomeController homeController, CheckLoginGUI checkLoginGUI, ConnectionDAO connectionDAO) {
         this.loginView = loginView;
         this.registerView = registerView;
         this.globalView = globalView;
@@ -82,13 +82,19 @@ public class ButtonController implements ActionListener, WindowListener {
                 switch (sessionManager.login(cliente)) {
                     case 0:
                         //Login correcte, primer cop
-                        SwingUtilities.invokeLater(() -> { loginView.delete(); });
+                        SwingUtilities.invokeLater(() -> {
+                            loginView.delete();
+                        });
                         sessionManager.saveGlobalUser(cliente);
-                        SwingUtilities.invokeLater(() -> { checkLoginGUI.display(); });
+                        SwingUtilities.invokeLater(() -> {
+                            checkLoginGUI.display();
+                        });
                         break;
                     case 1:
                         //login correcte, usuari reincident
-                        SwingUtilities.invokeLater(() -> { loginView.delete(); });
+                        SwingUtilities.invokeLater(() -> {
+                            loginView.delete();
+                        });
                         sessionManager.saveGlobalUser(cliente);
                         homeManager.getNextUsers();
                         homeController.loadFirstUser();
@@ -100,17 +106,21 @@ public class ButtonController implements ActionListener, WindowListener {
                         break;
                     case -1:
                         //error en el servidor
-                        SwingUtilities.invokeLater(() -> { loginView.displayLoginError(); });
+                        SwingUtilities.invokeLater(() -> {
+                            loginView.displayLoginError();
+                        });
                         break;
                     case -2:
                         //error en les credencials
-                        SwingUtilities.invokeLater(() -> { loginView.displayCredentialsLoginError(); });
+                        SwingUtilities.invokeLater(() -> {
+                            loginView.displayCredentialsLoginError();
+                        });
                         break;
                 }
                 break;
 
             case RegisterView.REGISTER:
-                if(registerView.getPasswd().equals(registerView.getConfirmPasswd())) {
+                if (registerView.getPasswd().equals(registerView.getConfirmPasswd())) {
                     cliente = new User(0, registerView.getFirstName(), registerView.getNickname(), Integer.parseInt(registerView.getAge()), registerView.getIsPremium(), registerView.getEmail(), registerView.getPasswd(), null, null, null);
                     if (sessionManager.register(cliente)) {
                         SwingUtilities.invokeLater(() -> {
@@ -122,8 +132,10 @@ public class ButtonController implements ActionListener, WindowListener {
                             loginView.displayLoginError();
                         });
                     }
-                }else{
-                    SwingUtilities.invokeLater(() -> { registerView.displayPasswordCheckError(); });
+                } else {
+                    SwingUtilities.invokeLater(() -> {
+                        registerView.displayPasswordCheckError();
+                    });
                 }
                 break;
             case CheckLoginGUI.SAVE_BUTTON:
@@ -155,9 +167,7 @@ public class ButtonController implements ActionListener, WindowListener {
                     File selectedFile = jfc.getSelectedFile();
                     try {
                         image = ImageIO.read(new File(selectedFile.getAbsolutePath()));
-                        SwingUtilities.invokeLater(() -> {
-                            checkLoginGUI.setNewImage(image);
-                        });
+                        SwingUtilities.invokeLater(() -> checkLoginGUI.setNewImage(image));
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }

@@ -4,8 +4,6 @@ import Presentation.Controller.NavigationController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
 
 /**
  * The type Global view.
@@ -15,12 +13,10 @@ public class GlobalView extends JFrame {
     private static final int TEXTFIELD_COLUMNS = 20;
 
     // Components
-    private HomeView jpHome;
-    private ChatListView jpChat;
-    private EditView jpUser;
+    private final HomeView jpHome;
+    private final ChatListView jpChat;
+    private final EditView jpUser;
     private JPanel jPanel;
-    private JScrollPane jScrollPane;
-    private JPanel jpNavigationBar;
     private CardLayout cardLayout;
     private JPanel jpCard;
     private NavigationButton bHome;
@@ -73,18 +69,17 @@ public class GlobalView extends JFrame {
         jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
         jPanel.setBackground(Color.GREEN);
-        jScrollPane = new JScrollPane(jPanel);
+        JScrollPane jScrollPane = new JScrollPane(jPanel);
         add(jScrollPane);
     }
 
     private void configureNorth() {
-        //bHome = new IconButton();
-        bHome = new NavigationButton("Client/Media/homeIcon.png","Client/Media/homeIconEnabled.png");
+        bHome = new NavigationButton("Client/Media/homeIcon.png", "Client/Media/homeIconEnabled.png");
         bChat = new NavigationButton("Client/Media/chatIcon.png", "Client/Media/chatIconEnabled.png");
         bUser = new NavigationButton("Client/Media/profileVector.png", "Client/Media/profileVectorEnabled.png");
         bLogout = new NavigationButton("Client/Media/logoutIcon.png", "Client/Media/logoutIconEnabled.png");
         bHome.changeToEnable();
-        jpNavigationBar = new JPanel();
+        JPanel jpNavigationBar = new JPanel();
         jpNavigationBar.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 10));
         jpNavigationBar.add(bHome);
         jpNavigationBar.add(bChat);

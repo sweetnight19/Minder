@@ -27,14 +27,13 @@ public class ProfileManager {
      *
      * @return the user
      */
-    public User getUserProfileInformation(){
-        //GlobalUser.getInstance().setMyUser(this.connectionDAO.readUser(GlobalUser.getInstance().getMyUser()));
+    public User getUserProfileInformation() {
         profileImage = this.connectionDAO.readImage(GlobalUser.getInstance().getMyUser());
         return GlobalUser.getInstance().getMyUser();
     }
 
     /**
-     * Delete user boolean.
+     * Delete user.
      *
      * @return the boolean
      */
@@ -47,7 +46,7 @@ public class ProfileManager {
     }
 
     /**
-     * Save user changes boolean.
+     * Save user changes.
      *
      * @param programmingLanguage the programming language
      * @param description         the description
@@ -60,13 +59,13 @@ public class ProfileManager {
     }
 
     /**
-     * Save new image boolean.
+     * Save new image.
      *
      * @param image the image
      * @return the boolean
      */
-    public boolean saveNewImage(BufferedImage image){
-        if(this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)){
+    public boolean saveNewImage(BufferedImage image) {
+        if (this.connectionDAO.sendImage(GlobalUser.getInstance().getMyUser(), image)) {
             profileImage = image;
             GlobalUser.getInstance().getMyUser().setPathImage(GlobalUser.getInstance().getMyUser().getNickname() + ".jpg");
             return true;
