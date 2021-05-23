@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,9 +18,23 @@ public class ServerView extends JFrame {
     private static final String LOGO_SRC = "Server/Media/TrophyCup.png";
     private static final int LOGO_WIDTH = 24;
     private static final int LOGO_HIGHT = 24;
+    public static final String BUTTON_MONTH = "BUTTON_MONTH";
+    public static final String BUTTON_WEEK = "BUTTON_WEEK";
+    public static final String BUTTON_DAY = "BUTTON_DAY";
 
     private Image logoImage;
     private JPanel top5;
+    private DrawGraph mainPanelDay;
+    private DrawGraph mainPanelWeek;
+    private DrawGraph mainPanelMonth;
+    private HorizontalPanel horiPanelDay;
+    private HorizontalPanel horiPanelWeek;
+    private HorizontalPanel horiPanelMonth;
+    private JPanel graphicPanel;
+    private JButton bdia;
+    private JButton bsetmana;
+    private JButton bmes;
+
 
     /**
      * Instantiates a new Server view.
@@ -57,33 +72,123 @@ public class ServerView extends JFrame {
      * @return
      */
     private JPanel configureGraphic() {
-        JPanel graphicPanel = new JPanel(new BorderLayout());
+        graphicPanel = new JPanel(new BorderLayout());
         JLabel jtitle = new JLabel("Matching Statistics Graphic", SwingConstants.CENTER);
         jtitle.setBorder(new EmptyBorder(10,0,10,0));
 
-        ArrayList<Integer> scores = new ArrayList<Integer>();
-        Random random = new Random();
-        int maxDataPoints = 16;
-        int maxScore = 20;
-        for (int i = 0; i < maxDataPoints ; i++) {
-            scores.add(random.nextInt(maxScore));
-        }
-        DrawGraph mainPanel = new DrawGraph(scores);
-        mainPanel.setBackground(Color.WHITE);
-        mainPanel.setOpaque(true);
+        mainPanelDay = new DrawGraph(getRandomScores(26), 0);
+        mainPanelDay.setBackground(Color.WHITE);
+        mainPanelDay.setOpaque(true);
 
         VerticalPanel vertPanel = new VerticalPanel();
         vertPanel.setBackground(Color.WHITE);
-        HorizontalPanel horiPanel = new HorizontalPanel();
-        horiPanel.setBackground(Color.WHITE);
+        horiPanelDay = new HorizontalPanel(0);
+        horiPanelDay.setBackground(Color.WHITE);
 
-        graphicPanel.add(jtitle, BorderLayout.NORTH);
-        graphicPanel.add(mainPanel, BorderLayout.CENTER);
+        bdia = new JButton("Dia");
+        bsetmana = new JButton("Setmana");
+        bmes = new JButton("Mes");
+
+        JPanel panelSuperior = new JPanel();
+        JPanel panelbuttons = new JPanel();
+
+        panelSuperior.setLayout(new BorderLayout());
+        panelbuttons.setLayout(new FlowLayout());
+
+        panelbuttons.add(bdia);
+        panelbuttons.add(bsetmana);
+        panelbuttons.add(bmes);
+
+        panelSuperior.add(jtitle, BorderLayout.NORTH);
+        panelSuperior.add(panelbuttons, BorderLayout.SOUTH);
+        panelSuperior.setBackground(Color.WHITE);
+        panelbuttons.setBackground(Color.WHITE);
+
+        graphicPanel.add(panelSuperior, BorderLayout.NORTH);
+        graphicPanel.add(mainPanelDay, BorderLayout.CENTER);
         graphicPanel.add(vertPanel, BorderLayout.WEST);
-        graphicPanel.add(horiPanel, BorderLayout.SOUTH);
+        graphicPanel.add(horiPanelDay, BorderLayout.SOUTH);
         graphicPanel.setBackground(Color.WHITE);
         graphicPanel.setOpaque(true);
         return graphicPanel;
+    }
+
+    public void registerController(ServerController serverController) {
+        bmes.setActionCommand(BUTTON_MONTH);
+        bmes.addActionListener(serverController);
+        bsetmana.setActionCommand(BUTTON_WEEK);
+        bsetmana.addActionListener(serverController);
+        bdia.setActionCommand(BUTTON_DAY);
+        bdia.addActionListener(serverController);
+    }
+
+    public void monthGraphic(int compRemove){
+        mainPanelMonth = new DrawGraph(getRandomScores(32), 2);
+        horiPanelMonth = new HorizontalPanel(2);
+        mainPanelMonth.setBackground(Color.WHITE);
+        horiPanelMonth.setBackground(Color.WHITE);
+        mainPanelMonth.setOpaque(true);
+
+        switch (compRemove){
+            case 0:
+                graphicPanel.remove(mainPanelDay);
+                graphicPanel.remove(horiPanelDay);
+                break;
+            case 1:
+                graphicPanel.remove(mainPanelWeek);
+                graphicPanel.remove(horiPanelWeek);
+                break;
+        }
+        graphicPanel.add(mainPanelMonth, BorderLayout.CENTER);
+        graphicPanel.add(horiPanelMonth, BorderLayout.SOUTH);
+        repaint();
+        revalidate();
+    }
+
+    public void weekGraphic(int compRemove){
+        mainPanelWeek = new DrawGraph(getRandomScores(8), 1);
+        horiPanelWeek = new HorizontalPanel(1);
+        mainPanelWeek.setBackground(Color.WHITE);
+        horiPanelWeek.setBackground(Color.WHITE);
+        mainPanelWeek.setOpaque(true);
+
+        switch (compRemove){
+            case 0:
+                graphicPanel.remove(mainPanelDay);
+                graphicPanel.remove(horiPanelDay);
+                break;
+            case 2:
+                graphicPanel.remove(horiPanelMonth);
+                graphicPanel.remove(mainPanelMonth);
+                break;
+        }
+        graphicPanel.add(mainPanelWeek, BorderLayout.CENTER);
+        graphicPanel.add(horiPanelWeek, BorderLayout.SOUTH);
+        repaint();
+        revalidate();
+    }
+
+    public void dayGraphic(int compRemove){
+        mainPanelDay = new DrawGraph(getRandomScores(26), 0);
+        horiPanelDay = new HorizontalPanel(0);
+        mainPanelDay.setBackground(Color.WHITE);
+        horiPanelDay.setBackground(Color.WHITE);
+        mainPanelDay.setOpaque(true);
+
+        switch (compRemove){
+            case 1:
+                graphicPanel.remove(mainPanelWeek);
+                graphicPanel.remove(horiPanelWeek);
+                break;
+            case 2:
+                graphicPanel.remove(horiPanelMonth);
+                graphicPanel.remove(mainPanelMonth);
+                break;
+        }
+        graphicPanel.add(mainPanelDay, BorderLayout.CENTER);
+        graphicPanel.add(horiPanelDay, BorderLayout.SOUTH);
+        repaint();
+        revalidate();
     }
 
     /**
@@ -174,6 +279,16 @@ public class ServerView extends JFrame {
         top5.add(scrollPane, BorderLayout.CENTER);
         revalidate();
         repaint();
+    }
+
+    public ArrayList<Integer> getRandomScores(int maxDataPoints){
+        ArrayList<Integer> scores = new ArrayList<Integer>();
+        Random random = new Random();
+        int maxScore = 20;
+        for (int i = 0; i < maxDataPoints-1 ; i++) {
+            scores.add(random.nextInt(maxScore));
+        }
+        return scores;
     }
 
     /**

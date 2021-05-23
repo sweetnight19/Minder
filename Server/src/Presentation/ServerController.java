@@ -3,15 +3,20 @@ package Presentation;
 import Business.Model.StatisticsManagement;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * The type Server controller.
  */
-public class ServerController extends Thread{
+public class ServerController extends Thread implements ActionListener {
     private final ServerView serverView;
     private final StatisticsManagement statisticsManagement;
+    private int panelGraph = 0;
 
 
     /**
@@ -42,4 +47,27 @@ public class ServerController extends Thread{
             }
         }, 200,30000);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case ServerView.BUTTON_MONTH:
+                System.out.println("Hola Mes");
+                this.serverView.monthGraphic(panelGraph);
+                panelGraph = 2;
+                break;
+            case ServerView.BUTTON_WEEK:
+                System.out.println("Hola Setmana");
+                this.serverView.weekGraphic(panelGraph);
+                panelGraph = 1;
+                break;
+            case ServerView.BUTTON_DAY:
+                System.out.println("Hola Dia");
+                this.serverView.dayGraphic(panelGraph);
+                panelGraph = 0;
+                break;
+        }
+    }
+
 }
+

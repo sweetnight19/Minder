@@ -41,6 +41,7 @@ public class Server {
             ServerView view = new ServerView();
             ServerController serverController = new ServerController(view, statisticsManagement);
             serverController.start();
+            view.registerController(serverController);
             view.start();
         });
 
