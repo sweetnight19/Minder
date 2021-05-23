@@ -1,7 +1,7 @@
 ## Eines necessàries per el funcionament del programa
 
 - Client MySQL (en el nostre cas `phpmyadmin` )
-- IDE (en el nostre cas `IntelIJ` )
+- IDE (en el nostre cas `IntelliJ IDEA` )
 
 ---
 
@@ -18,7 +18,7 @@ Tot seguit es clica al `+` dins de l'apartat `java` del menú que apareix i sele
 ##Procés de funcionament del projecte
 
 1. Posar en marxa el `phpmyadmin` per inicialitzar la base de dades
-2. Inicialitzar `Intel IJ` per indexar tot el projecte
+2. Inicialitzar `IntelliJ IDEA` per indexar tot el projecte
 3. Inicialitzar el servidor mitjançant el botó `run` i connectar-lo automàticament a la base de dades 
 4. Inicialitzar el client (o clients si es volen inicialitzar múltiples clients) mitjançant el botó `run`
         del `main` del mòdul del client.
